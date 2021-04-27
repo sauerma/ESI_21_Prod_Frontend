@@ -8,7 +8,7 @@ This is the frontend git repository of team production.
 
 
 
-# Authors
+## Authors
 
 Julia Jillich
 David Krieg
