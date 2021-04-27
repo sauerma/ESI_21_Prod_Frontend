@@ -1,3 +1,4 @@
-# Enterprise Software Implementation 2021 - Production - Frontend
+# ESI 2021 - Production - Frontend
 
-This is the git repository of the production frontend.
+This is the frontend git repository of team production.
+
