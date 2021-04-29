@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
+import ProductionDrawer from './components/ProductionDrawer'
 
 function App() {
   return (
     <div className="App">
-      <h1>This is the production webapp for ESI 2021.</h1>
+      <ProductionDrawer/>
     </div>
   );
 }
