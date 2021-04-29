@@ -15,13 +15,13 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import HomeIcon from '@material-ui/icons/Home';
 import Event from '@material-ui/icons/Event';
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-
+import SettingsIcon from '@material-ui/icons/Settings';
+import HelpIcon from '@material-ui/icons/Help';
+import './ProductionDrawer';
 
 const drawerWidth = 240;
 
@@ -57,6 +57,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     width: drawerWidth,
+    color: 'white',
+    backgroundColor: 'gray',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -66,7 +68,10 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
+     
     }),
+    color: 'white',
+    backgroundColor: 'gray',
     overflowX: 'hidden',
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
@@ -81,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
+
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -101,9 +107,9 @@ export default function MiniDrawer() {
   };
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
+    <div className={classes.root} >
+     <CssBaseline /> 
+      <AppBar style={{ background: '#66c3f2' }}
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
@@ -111,7 +117,7 @@ export default function MiniDrawer() {
       >
         <Toolbar>
           <IconButton
-            color="inherit"
+            color="#00000"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -121,12 +127,13 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Production
-          </Typography>
+          <h2 style={{ color: 'black'}}>Produktion</h2>
+  
         </Toolbar>
       </AppBar>
-      <Drawer
+    
+     
+      <Drawer 
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -144,60 +151,73 @@ export default function MiniDrawer() {
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
-        <Divider />
-        <List>
+        <Divider style={{ backgroundColor: 'white' }}/>
+        <List >
         <ListItem button key="Home">
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
+            <ListItemIcon >
+              <HomeIcon style={{fill: "white"}} />
+            </ListItemIcon >
             <ListItemText primary="Home" />   
          </ListItem>
          <ListItem button key="Planung">
             <ListItemIcon>
-              <Event />
+              <Event style={{fill: "white"}}/>
             </ListItemIcon>
             <ListItemText primary="Planung" />   
          </ListItem>
          <ListItem button key="Produktion">
             <ListItemIcon>
-              <SettingsApplicationsIcon />
+              <SettingsApplicationsIcon style={{fill: "white"}}/>
             </ListItemIcon>
             <ListItemText primary="Produktion" />   
          </ListItem>
          <ListItem button key="Material">
             <ListItemIcon>
-              <ShoppingCartIcon />
+              <ShoppingCartIcon style={{fill: "white"}} />
             </ListItemIcon>
             <ListItemText primary="Material" />   
          </ListItem>
         </List>
-        <Divider />
 
+        <List>
+        <ListItem button key="Hilfebereich">
+            <ListItemIcon>
+              <HelpIcon style={{fill: "white"}} />
+            </ListItemIcon>
+            <ListItemText primary="Hilfebereich" />   
+         </ListItem>
+        <ListItem button key="Einstellungen">
+            <ListItemIcon>
+              <SettingsIcon style={{fill: "white"}} />
+            </ListItemIcon>
+            <ListItemText primary="Einstellungen" />   
+         </ListItem>     
+        </List>
+
+        <Divider />
+      
       </Drawer>
+   
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-          facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-          gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-          donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-          Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-          imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-          arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-          donec massa sapien faucibus et molestie ac.
+        <Typography>
+
+        -- Startseite --
+
         </Typography>
+
+        <Typography paragraph>     
+       
+                          
+          - Auf der Startseite werden relevante Kennzahlen angezeigt. -- Auf Basis des Mockups implementieren. 
+          - Idee: Liniendigramm -- Y-Achse: Anzahl der produzierten Artikel. -- X-Achse: Zeit  
+          Weitere relevante Kennzahlen evenutell in KPI-Diagrammen: Produktionsauslastungsgrad, Produzierte Artikel letzter Tag/WocheMontag/Jahr,
+          Produktionsvolumen, Produktionsausfälle, Produktionsmängel 
+
+        </Typography>
+          <img src="https://www.datapine.com/de/images/production-volume.png" alt="Beispielbild"/>
         <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-          facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-          tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-          consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-          vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-          hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-          tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-          nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-          accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
+
         </Typography>
       </main>
     </div>
