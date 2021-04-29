@@ -2,8 +2,8 @@
 
 This is the frontend git repository of team production. 
 
-- URL TO Production Page: https://master.d3a3d0dkip3odg.amplifyapp.com/
-- URL TO WHOLE PROJECT: http://yourshirt.epizy.com/
+- URL to Production Page: https://master.d3a3d0dkip3odg.amplifyapp.com/
+- URL to whole project: http://yourshirt.epizy.com/
 
 ## Demo
 
