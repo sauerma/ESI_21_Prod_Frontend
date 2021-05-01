@@ -22,6 +22,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import HelpIcon from '@material-ui/icons/Help';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 // Import Pages
 import MainPage from './components/MainPage';
@@ -203,10 +204,40 @@ function App() {
             </ListItemIcon>
             <ListItemText primary="Einstellungen" />   
          </ListItem>     
-        </List>
-
+        </List>  
         <Divider />
-      
+   
+        <List>
+
+        <ListItem button onClick={(e) => {
+      e.preventDefault();
+      window.location.href='http://yourshirt.epizy.com/';
+      }}>
+            <ListItemIcon>
+              <ArrowForwardIosIcon style={{fill: "white"}} />
+            </ListItemIcon>
+            <ListItemText primary="YourShirt" />   
+         </ListItem>  
+        <ListItem button onClick={(e) => {
+      e.preventDefault();
+      window.location.href='https://main.d39311pnrl2sqh.amplifyapp.com/';
+      }}>
+            <ListItemIcon>
+              <ArrowForwardIosIcon style={{fill: "white"}} />
+            </ListItemIcon>
+            <ListItemText primary="Verkauf/Versand" />   
+         </ListItem>  
+         <ListItem button onClick={(e) => {
+      e.preventDefault();
+      window.location.href='https://main.dqwh3hemq1056.amplifyapp.com/';
+      }}>
+            <ListItemIcon>
+              <ArrowForwardIosIcon style={{fill: "white"}} />
+            </ListItemIcon>
+            <ListItemText primary="Materialwirtschaft" />   
+         </ListItem>       
+        </List>
+  
       </Drawer>
    
       <main className={classes.content} >
