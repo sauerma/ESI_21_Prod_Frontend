@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Style/Produktion.css';
 import Typography from '@material-ui/core/Typography';
 
 const Produktion = () => {

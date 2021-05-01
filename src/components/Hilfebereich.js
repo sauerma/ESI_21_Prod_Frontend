@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Style/Hilfebereich.css';
 import Typography from '@material-ui/core/Typography';
 
 const Hilfebereich = () => {

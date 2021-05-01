@@ -67,8 +67,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     width: drawerWidth,
-    color: 'white',
-    backgroundColor: 'gray',
+    color: '#fff6e5',
+    backgroundColor: '#424242',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -80,8 +80,8 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
      
     }),
-    color: 'white',
-    backgroundColor: 'gray',
+    color: '#fff6e5',
+    backgroundColor: '#424242',
     overflowX: 'hidden',
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
@@ -122,7 +122,7 @@ function App() {
     <div className={classes.root} >
       <Router>
      <CssBaseline /> 
-      <AppBar style={{ background: '#66c3f2' }}
+      <AppBar style={{ background: '#90caf9' }}
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
@@ -130,6 +130,7 @@ function App() {
       >
         <Toolbar>
           <IconButton
+            style={{ color: '#121212'}}
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -139,7 +140,7 @@ function App() {
           >
             <MenuIcon />
           </IconButton>
-          <h2 style={{ color: 'black'}}>Produktion</h2>
+          <h2 style={{ color: '#121212'}}>Produktion</h2>
   
         </Toolbar>
       </AppBar>
@@ -159,33 +160,33 @@ function App() {
         }}
       >
         <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} style={{ color: '#fff6e5'}}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
-        <Divider style={{ backgroundColor: 'white' }}/>
+        <Divider />
         <List >
         <ListItem button component={Link} to="/" key="MainPage" >
             <ListItemIcon >
-              <HomeIcon style={{fill: "white"}} />
+              <HomeIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon >
             <ListItemText primary="Home" />   
          </ListItem>
          <ListItem button component={Link} to="/Planung"key="Planung">
             <ListItemIcon>
-              <Event style={{fill: "white"}}/>
+              <Event style={{fill: "#fff6e5"}}/>
             </ListItemIcon>
             <ListItemText primary="Planung" />   
          </ListItem>
          <ListItem button component={Link} to="/Produktion" key="Produktion">
             <ListItemIcon>
-              <SettingsApplicationsIcon style={{fill: "white"}}/>
+              <SettingsApplicationsIcon style={{fill: "#fff6e5"}}/>
             </ListItemIcon>
             <ListItemText primary="Produktion" />   
          </ListItem>
          <ListItem button component={Link} to="/Material" key="Material">
             <ListItemIcon>
-              <ShoppingCartIcon style={{fill: "white"}} />
+              <ShoppingCartIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
             <ListItemText primary="Material" />   
          </ListItem>
@@ -194,13 +195,13 @@ function App() {
         <List>
         <ListItem button component={Link} to="/Hilfebereich" key="Hilfebereich">
             <ListItemIcon>
-              <HelpIcon style={{fill: "white"}} />
+              <HelpIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
             <ListItemText primary="Hilfebereich" />   
          </ListItem>
         <ListItem button component={Link} to="/Einstellungen"key="Einstellungen">
             <ListItemIcon>
-              <SettingsIcon style={{fill: "white"}} />
+              <SettingsIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
             <ListItemText primary="Einstellungen" />   
          </ListItem>     
@@ -208,13 +209,13 @@ function App() {
         <Divider />
    
         <List>
-
+       
         <ListItem button onClick={(e) => {
       e.preventDefault();
       window.location.href='http://yourshirt.epizy.com/';
       }}>
             <ListItemIcon>
-              <ArrowForwardIosIcon style={{fill: "white"}} />
+              <ArrowForwardIosIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
             <ListItemText primary="YourShirt" />   
          </ListItem>  
@@ -223,7 +224,7 @@ function App() {
       window.location.href='https://main.d39311pnrl2sqh.amplifyapp.com/';
       }}>
             <ListItemIcon>
-              <ArrowForwardIosIcon style={{fill: "white"}} />
+              <ArrowForwardIosIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
             <ListItemText primary="Verkauf/Versand" />   
          </ListItem>  
@@ -232,7 +233,7 @@ function App() {
       window.location.href='https://main.dqwh3hemq1056.amplifyapp.com/';
       }}>
             <ListItemIcon>
-              <ArrowForwardIosIcon style={{fill: "white"}} />
+              <ArrowForwardIosIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
             <ListItemText primary="Materialwirtschaft" />   
          </ListItem>       

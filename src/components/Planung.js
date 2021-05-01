@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Style/Planung.css';
 import Typography from '@material-ui/core/Typography';
 
 const Planung = () => {
