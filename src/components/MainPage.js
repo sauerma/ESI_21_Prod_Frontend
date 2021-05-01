@@ -4,7 +4,7 @@ import './Style/MainPage.css';
 
 const MainPage = () => {
     return (
-        <div class="maindiv">
+        <div className="maindiv">
                
       <Typography>
 
