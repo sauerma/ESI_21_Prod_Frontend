@@ -1,6 +1,7 @@
 import React from 'react';
 import './Style/Produktion.css';
 import Typography from '@material-ui/core/Typography';
+import  DataTable  from './Production/production_table.js'
 
 const Produktion = () => {
     return (
@@ -9,7 +10,7 @@ const Produktion = () => {
             Produktion
             </Typography>
             <Typography paragraph>
-            Produktion
+           <DataTable/>
             </Typography>
         </div>
     )
