@@ -265,6 +265,10 @@ function App() {
               <Einstellungen />
             </Route>
           </Switch>
+          <div style={{justifyContent: "center", alignItems: "center", alignSelf: "center",  textAlign: "center"}}>
+          Powered by @BlackForestConsulting <br/>
+          from Black Forest with ♥
+          </div>
       </main>
       </Router>
     </div>

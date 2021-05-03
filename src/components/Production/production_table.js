@@ -1,6 +1,7 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
 import Button from '@material-ui/core/Button';
+
 export default function DataTable() {
   const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Delta E", "Hex-Wert", "Farbe", "Priorität", "Bild"];
   const data = [
@@ -23,7 +24,7 @@ export default function DataTable() {
     <br></br>
     <Button  variant="contained">Produziert</Button>
     <text>   </text>
-    <Button  variant="contained">CSV erstellen</Button>
+    
 </dev>
     );
 }

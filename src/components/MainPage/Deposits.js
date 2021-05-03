@@ -3,9 +3,10 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
+/*
 function preventDefault(event) {
   event.preventDefault();
-}
+} */
 
 const useStyles = makeStyles({
   depositContext: {
@@ -25,7 +26,7 @@ export default function Deposits() {
         on 15 March, 2019
       </Typography>
       <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link color="primary" href="/Produktion" /*onClick={preventDefault}*/>
           Details anzeigen
         </Link>
       </div>

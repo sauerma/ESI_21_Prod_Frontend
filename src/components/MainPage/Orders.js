@@ -20,9 +20,10 @@ const rows = [
     createData(3, "2021-04-21 11:50:05", "B-20000000-1", "4", "3", "In Produktion", "1.324234", "#34923t", "Grün", "2", "/home/img/tshirt123123.png"),
 ];
 
+/*
 function preventDefault(event) {
   event.preventDefault();
-}
+} */
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -68,7 +69,7 @@ export default function Orders() {
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link color="primary" href="/Produktion" /*onClick={preventDefault}*/>
           Alle anzeigen
         </Link>
       </div>

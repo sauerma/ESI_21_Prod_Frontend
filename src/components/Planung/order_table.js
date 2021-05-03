@@ -1,5 +1,6 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
+import Button from '@material-ui/core/Button';
 
 export default function DataTable() {
   const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Delta E", "Hex-Wert", "Farbe", "Priorität", "Bild"];
@@ -13,12 +14,15 @@ export default function DataTable() {
   filterType: 'checkbox',
 };
 
-    return (
-        <MUIDataTable
-            title={"Planungsaufträge"}
-            data={data}
-            columns={columns}
-            options={options}
-        />
-    );
+  return (
+  <div>
+    <MUIDataTable
+        title={"Planungsaufträge"}
+        data={data}
+        columns={columns}
+        options={options} />
+    <br></br>
+    <Button  variant="contained">CSV erstellen</Button>
+    </div>
+  );
 }

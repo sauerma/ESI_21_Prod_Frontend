@@ -1,17 +1,12 @@
 import React from 'react';
-import './Style/Hilfebereich.css';
-import Typography from '@material-ui/core/Typography';
+import FaqBereich from './Hilfebereich/Faq.js';
 
 const Hilfebereich = () => {
     return (
         <div>
-  
-            <Typography paragraph>
-            Hilfebereich
-            </Typography>
-            <Typography paragraph>
-            Hilfebereich
-            </Typography>
+            <text>Hilfebereich<br></br> </text>   
+           <FaqBereich/>
+           <br></br>
         </div>
     )
 }
