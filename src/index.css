@@ -17,3 +17,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.footer{
+  text-align: right;
+  height: 2em;
+  padding: 0.25rem;
+  color:black;
+  background-color:#90caf9;
+  position:fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}

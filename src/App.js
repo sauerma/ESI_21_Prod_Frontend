@@ -31,6 +31,7 @@ import Produktion from './components/Produktion';
 import Material from './components/Material';
 import Hilfebereich from './components/Hilfebereich';
 import Einstellungen from './components/Einstellungen';
+import Footer from './footer'
 
 
 const drawerWidth = 240;
@@ -130,6 +131,8 @@ function App() {
           [classes.appBarShift]: open,
         })}
       >
+          <Footer>
+      </Footer>
         <Toolbar>
           <IconButton
             style={{ color: '#121212'}}
@@ -167,6 +170,7 @@ function App() {
           </IconButton>
         </div>
         <Divider />
+      
         <List >
         <ListItem button component={Link} to="/" key="MainPage" >
             <ListItemIcon >
@@ -265,10 +269,6 @@ function App() {
               <Einstellungen />
             </Route>
           </Switch>
-          <div style={{justifyContent: "center", alignItems: "center", alignSelf: "center",  textAlign: "center"}}>
-          Powered by @BlackForestConsulting <br/>
-          from Black Forest with ♥
-          </div>
       </main>
       </Router>
     </div>
