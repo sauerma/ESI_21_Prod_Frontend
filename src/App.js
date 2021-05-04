@@ -23,6 +23,8 @@ import HelpIcon from '@material-ui/icons/Help';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import logo from './img/yourshirt_full.png'
+import Footer from './footer'
 
 // Import Pages
 import MainPage from './components/MainPage';
@@ -31,7 +33,7 @@ import Produktion from './components/Produktion';
 import Material from './components/Material';
 import Hilfebereich from './components/Hilfebereich';
 import Einstellungen from './components/Einstellungen';
-import Footer from './footer'
+
 
 
 const drawerWidth = 240;
@@ -102,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     color:'#fff6e5',
-    backgroundColor:'#121213'
+    backgroundColor:'#282828'
   },
 }));
 
@@ -164,13 +166,15 @@ function App() {
           }),
         }}
       >
+              
         <div className={classes.toolbar}>
+        <img height="50"  src={logo} alt="Logo" />
           <IconButton onClick={handleDrawerClose} style={{ color: '#fff6e5'}}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
         <Divider />
-      
+
         <List >
         <ListItem button component={Link} to="/" key="MainPage" >
             <ListItemIcon >
@@ -225,24 +229,7 @@ function App() {
             </ListItemIcon>
             <ListItemText primary="YourShirt" />   
          </ListItem>  
-        <ListItem button onClick={(e) => {
-      e.preventDefault();
-      window.location.href='https://main.d39311pnrl2sqh.amplifyapp.com/';
-      }}>
-            <ListItemIcon>
-              <ArrowForwardIosIcon style={{fill: "#fff6e5"}} />
-            </ListItemIcon>
-            <ListItemText primary="Verkauf/Versand" />   
-         </ListItem>  
-         <ListItem button onClick={(e) => {
-      e.preventDefault();
-      window.location.href='https://main.dqwh3hemq1056.amplifyapp.com/';
-      }}>
-            <ListItemIcon>
-              <ArrowForwardIosIcon style={{fill: "#fff6e5"}} />
-            </ListItemIcon>
-            <ListItemText primary="Materialwirtschaft" />   
-         </ListItem>       
+      
         </List>
   
       </Drawer>

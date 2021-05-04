@@ -14,6 +14,11 @@ export default function DataTable() {
   filterType: 'checkbox',
 };
 
+function updateProdStatus(){
+console.log("test")
+
+}
+
     return (
 <dev>
   <MUIDataTable
@@ -22,7 +27,16 @@ export default function DataTable() {
     columns={columns}
     options={options} />
     <br></br>
-    <Button  variant="contained">Produziert</Button>
+    <Button
+    variant="contained" 
+    onClick={updateProdStatus}
+    title="Mit Klick auf diesen Button
+    werden alle markierten Produktionsaufträge
+    als produziert markiert."
+    >
+      Produziert
+
+    </Button>
     <text>   </text>
     
 </dev>
