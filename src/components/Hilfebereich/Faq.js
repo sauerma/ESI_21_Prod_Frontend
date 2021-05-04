@@ -26,7 +26,7 @@ export default function FaqBereich() {
       }
 
       const styles = {
-        bgColor: 'black',
+        bgColor: '282828',
         titleTextColor: "white",
         rowTitleColor: "white",
         rowContentColor: 'white',
