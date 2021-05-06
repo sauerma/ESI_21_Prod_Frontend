@@ -22,8 +22,11 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import HelpIcon from '@material-ui/icons/Help';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import logo from './img/yourshirt_full.png'
+//import logo from './img/yourshirt_full.png'
+import logo_transp from './img/logo_transparent.png';
+import Icon from '@material-ui/core/Icon';
+import yourshirt from './img/android-chrome-144x144.png';
+import yourshirt_transp from './img/farbkreis_transparent.png';
 import Footer from './footer'
 
 // Import Pages
@@ -106,6 +109,14 @@ const useStyles = makeStyles((theme) => ({
     color:'#fff6e5',
     backgroundColor:'#282828'
   },
+
+  imageIcon: {
+    height: '100%'
+  },
+  iconRoot: {
+    textAlign: 'center'
+  },
+
 }));
 
 
@@ -168,7 +179,7 @@ function App() {
       >
               
         <div className={classes.toolbar}>
-        <img height="50"  src={logo} alt="Logo" />
+        <img height="50"  src={logo_transp} alt="Logo" />
           <IconButton onClick={handleDrawerClose} style={{ color: '#fff6e5'}}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
@@ -225,7 +236,9 @@ function App() {
       window.location.href='http://yourshirt.epizy.com/';
       }}>
             <ListItemIcon>
-              <ArrowForwardIosIcon style={{fill: "#fff6e5"}} />
+              <Icon classes={{root: classes.iconRoot}}>
+                <img className={classes.imageIcon} src={yourshirt_transp}/>
+          </Icon>
             </ListItemIcon>
             <ListItemText primary="YourShirt" />   
          </ListItem>  

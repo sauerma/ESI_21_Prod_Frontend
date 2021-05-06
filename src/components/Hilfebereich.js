@@ -3,7 +3,7 @@ import FaqBereich from './Hilfebereich/Faq.js';
 
 const Hilfebereich = () => {
     return (
-        <div>
+        <div className="maindiv">
             <text>Hilfebereich<br></br> </text>   
            <FaqBereich/>
            <br></br>
