@@ -1,6 +1,7 @@
 import React from 'react';
 import MUIDataTable from "mui-datatables";
 import './dashboard_order_table.css';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 export default function Orders() {
   
@@ -15,12 +16,24 @@ const data = [
     filterType: 'checkbox',    
   };
 
-  return (
+  const getMuiTheme = () => createMuiTheme({
+    overrides: {
+      MuiTypography: {
+            h6: {
+              fontWeight: "600",
+              textAlign: "left",
+            }
+        }
+    }
+  });
 
+  return (
+  <MuiThemeProvider theme={getMuiTheme()}>
     <MUIDataTable 
     title={"Letzte Aufträge"}
     data={data}
     columns={columns}
     options={options} />
+    </MuiThemeProvider>
   );
 }
