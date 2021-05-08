@@ -1,6 +1,7 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
 import Button from '@material-ui/core/Button';
+import axios from 'axios'
 
 export default function DataTable() {
   const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Delta E", "Hex-Wert", "Farbe", "Priorität", "Bild"];
@@ -14,14 +15,31 @@ export default function DataTable() {
   filterType: 'checkbox',
 };
 
+const restApi = axios.create({
+  baseURL: 'https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getplanningorders'
+})
+  
+
+function getPlanningOrders()
+{ 
+  restApi.get('/').then(res => {
+    console.log(res.data)
+  }
+  )
+};
+
   return (
   <div>
+    <Button variant="contained" onClick={getPlanningOrders}> Aktualisieren </Button>
+    <br/>
+    <br/>
     <MUIDataTable 
         title={"Planungsaufträge"}
         data={data}
         columns={columns}
         options={options} />
-    <br></br>
+    <br/>
+    <br/>
     <Button  variant="contained">CSV erstellen</Button>
     </div>
   );
