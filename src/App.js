@@ -25,7 +25,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //import logo from './img/yourshirt_full.png'
 import logo_transp from './img/logo_transparent.png';
 import Icon from '@material-ui/core/Icon';
-import yourshirt from './img/android-chrome-144x144.png';
+//import yourshirt from './img/android-chrome-144x144.png';
 import yourshirt_transp from './img/farbkreis_transparent.png';
 import Footer from './footer'
 
@@ -179,10 +179,16 @@ function App() {
       >
               
         <div className={classes.toolbar}>
-        <img height="50"  src={logo_transp} alt="Logo" />
+
+        <img height="50"  src={logo_transp} alt="Logo" onClick={(e) => {
+            e.preventDefault();
+            window.location.href='http://yourshirt.epizy.com/';
+            }}/>
+
           <IconButton onClick={handleDrawerClose} style={{ color: '#fff6e5'}}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
+
         </div>
         <Divider />
 
@@ -237,7 +243,7 @@ function App() {
       }}>
             <ListItemIcon>
               <Icon classes={{root: classes.iconRoot}}>
-                <img className={classes.imageIcon} src={yourshirt_transp}/>
+                <img className={classes.imageIcon} src={yourshirt_transp} alt="Icon"/>
           </Icon>
             </ListItemIcon>
             <ListItemText primary="YourShirt" />   
