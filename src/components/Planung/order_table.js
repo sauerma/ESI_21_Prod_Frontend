@@ -107,7 +107,7 @@ export default function DataTable() {
         options={options} />
     <br/>
     <br/>
-    <Button  variant="contained">CSV erstellen</Button>
+    <Button variant="contained" onClick={download_csv_file}>CSV erstellen</Button>
     </div>
   );
 }
