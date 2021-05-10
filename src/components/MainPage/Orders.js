@@ -22,7 +22,7 @@ export default function Orders() {
 
   useEffect(() => {
     
-    axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getplanningorders')
+    axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getactiveprodorders')
         .then(res => {
         
         console.log("RESPONSE:", res); //Data from Gateway
