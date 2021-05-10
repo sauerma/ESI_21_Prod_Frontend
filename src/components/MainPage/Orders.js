@@ -117,7 +117,7 @@ export default function Orders() {
   return (
   <MuiThemeProvider theme={getMuiTheme()}>
     <MUIDataTable 
-    title={"Letzte Aufträge"}
+    title={"Aktive Aufträge"}
     data={data}
     columns={columns}
     options={options} />
