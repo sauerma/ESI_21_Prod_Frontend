@@ -75,7 +75,7 @@ export default function DataTable() {
       singleSortedList = [];
       var unsortedOrders = Object.values(list[key]);
       
-      singleSortedList.push(unsortedOrders[17]); //Bestelldatum
+      singleSortedList.push(unsortedOrders[4]); //Bestelldatum
       singleSortedList.push(unsortedOrders[1]); //Bestellnummer
       singleSortedList.push(unsortedOrders[18]); //Produktionsnummer
       singleSortedList.push(unsortedOrders[6]); //Menge
