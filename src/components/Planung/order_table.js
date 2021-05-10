@@ -100,8 +100,6 @@ export default function DataTable() {
 
   return (
   <div>
-    <br/>
-    <br/>
     <MUIDataTable 
         title={"Planungsaufträge"}
         data={data}
