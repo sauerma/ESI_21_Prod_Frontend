@@ -111,3 +111,40 @@ export default function DataTable() {
     </div>
   );
 }
+
+
+function download_csv_file(e) {
+
+  // let targets = document.querySelectorAll("")
+
+  let targets = Array.from(document.querySelectorAll("td input[type=checkbox]")).filter((elem) => { if(elem.checked) return elem })
+
+  let array = []
+  let array2 = []
+
+
+  targets.forEach((elem) => {
+      let row = elem.closest(".MuiTableRow-root")
+      let cols = Array.from(row.getElementsByTagName("td"))
+
+      let obj = {}
+      let array3 = []
+
+      cols.forEach((col) => {
+        let divs = Array.from(col.getElementsByTagName("div"))
+        if(divs.length >= 2){
+          let key = divs[0].innerHTML
+          obj[key] = divs[1].innerHTML
+          array3.push(divs[1].innerHTML)
+        }
+      }) 
+
+      array.push(obj)
+      array2.push(array3)
+  })
+
+  console.log(array)
+  console.log(array2)
+
+  //REST CALL
+}
