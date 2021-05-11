@@ -13,11 +13,11 @@ export default function DataTable() {
   const options = { filterType: 'checkbox' };
   const [data, setData] = useState([])
 
-  /* 
+  
   var testdata = [ ["2021-04-21 11:50:05", "B-20000000-1", "1", "200", "In Planung", "1.324234", "#34923", "Marine", "1", "/home/img/tshirt123123.png"],
       ["2021-04-21 11:50:05", "B-20000000-1", "2", "21", "In Planung", "1.324234", "#34923", "Rot", "1", "/home/img/tshirt123123.png"],
       ["2021-04-21 11:50:05", "B-20000000-1", "3", "2", "In Planung", "1.324234", "#34923", "Blau", "2", "/home/img/tshirt123123.png"],
-      ["2021-04-21 11:50:05", "B-20000000-1", "4", "3", "In Produktion", "1.324234", "#34923t", "Grün", "2", "/home/img/tshirt123123.png"] ]; */
+      ["2021-04-21 11:50:05", "B-20000000-1", "4", "3", "In Produktion", "1.324234", "#34923t", "Grün", "2", "/home/img/tshirt123123.png"] ]; 
 
   useEffect(() => {
         
@@ -146,5 +146,26 @@ function download_csv_file(e) {
   console.log(array)
   console.log(array2)
 
-  //REST CALL
+  //REST CALL Create CSV mit array Übergabe     
+  axios.post('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/createcsv')
+      .then(res => {
+      
+      console.log("RESPONSE:", res); //Data from Gateway
+
+      // if(IsDataBaseOffline(res)) return; //Check if db is available
+
+      // if(res.data.body.length === 0) { //Check if data is available
+      //   setData(undefined);
+      //   return;
+      // }
+
+      // var sortedOrders = sortOrders(res.data.body); //Sort data from api 
+      // if (DataAreEqual(data, sortedOrders)) return; //Check if data has changed       
+      // setData(sortedOrders); //Set new data
+
+      })
+      .catch(err => {
+          console.log(err.message); //Error-Handling
+      });
+
 }
