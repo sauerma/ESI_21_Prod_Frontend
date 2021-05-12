@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import axios from "axios";
 import {CSVLink} from "react-csv";
 import GetAppIcon from '@material-ui/icons/GetApp';
+import { keys } from "@material-ui/core/styles/createBreakpoints";
 
 export default function DataTable() {
 
@@ -16,7 +17,7 @@ export default function DataTable() {
   const [data, setData] = useState([])  
   const [csvdata, setCsvData] = useState([])  
   const [Quantity, setQuantity] = useState("");
-  const csvheaders = ["Bestelldatum", "BestellNr", "ProduktionsNr", "Menge", "Status", "Hex-Wert", "Farbe", "Priorität", "Bild"];
+  const csvheaders = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Hex-Wert", "Farbe", "Bild"];
 
   useEffect(() => {
         
@@ -102,84 +103,55 @@ export default function DataTable() {
     return;
   }
 
-
-  //Get all checked Data in an Obj.Array of Arrays
-  /*  function download_csv_file(selectedData) {
-
-
-   var sortedDaten = csvDaten;
-      sorted
-
-  
-let targets = Array.from(document.querySelectorAll("td input[type=checkbox]")).filter((elem) => {
-      if(elem.checked) return elem 
-      else return null})
-
-    let csv_data = []
-
-    targets.forEach((elem) => {
-        let row = elem.closest(".MuiTableRow-root")
-        let cols = Array.from(row.getElementsByTagName("td"))
-
-        let array = []
-        let obj = {}
-
-        cols.forEach((col) => {
-          let divs = Array.from(col.getElementsByTagName("div"))
-          if(divs.length >= 2){
-            let key = divs[0].innerHTML
-            obj[key] = divs[1].innerHTML
-            array.push(divs[1].innerHTML)
-          }
-        }) 
-        csv_data.push(obj)
-    }) 
-    console.log(csv_data);
-    setCsvData(csv_data);
- 
-    
-    //Function in one Button
-    // return(
-    //   <CSVDownload 
-    //     target="_self"
-    //     headers={headers}
-    //     data={csv_data}
-    //     filename={"Test.csv"}
-    //   />
-    // )
-  }  */
-
   //RowSelectEvent
   function rowSelectEvent(curRowSelected, allRowsSelected){ 
 
     var selectedData = [];
     
-    if(allRowsSelected.length === 0) {         //Wenn keine Rows ausgewählt
+    if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
       setQuantity(0); //Menge auf 0 setzen
       return;
     }
 
     allRowsSelected.forEach(element => {  //Convert all indexes to data array
-      selectedData.push(data[(element.dataIndex)]);
+      // selectedData.push(data[(element.dataIndex)]);
+
+      let obj = {}
+
+      columns.forEach((key, i) => {
+        obj[key] = data[element.dataIndex][i]
+      })
+
+      selectedData.push(obj)      
     });
 
-    updateQuantity(selectedData); //UpdateQuantity
-    
+    updateQuantity(selectedData); //UpdateQuantity    
     setCsvData(selectedData);
 
     return;
   }
 
   function updateQuantity(selecteDataFromTable){
-    var quantity = 0;
+    var quantity = 0
 
     selecteDataFromTable.forEach(element => {
-      quantity += element[3];
+      quantity += element["Menge"]
     });
 
-    setQuantity(quantity);
+    setQuantity(quantity)
     return;
   }
+
+  // function updateQuantity(selecteDataFromTable){
+  //   var quantity = 0;
+
+  //   selecteDataFromTable.forEach(element => {
+  //     quantity += element[3];
+  //   });
+
+  //   setQuantity(quantity);
+  //   return;
+  // }
 
 
   return (
