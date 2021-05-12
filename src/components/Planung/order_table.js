@@ -6,32 +6,17 @@ import React, { useState, useEffect} from "react";
 import MUIDataTable from "mui-datatables";
 import Button from '@material-ui/core/Button';
 import axios from "axios";
-import { CSVDownload, CSVLink} from "react-csv";
+import {CSVLink} from "react-csv";
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 export default function DataTable() {
 
   const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Hex-Wert", "Farbe", "Priorität", "Bild"];
-  const options = { filterType: 'checkbox' };
+  const options = { filterType: 'checkbox', download: false, onRowsSelect : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
   const [data, setData] = useState([])  
-  const [csvdata, setCsvData] = useState([])
-
-  //Headerline für CSV export
-  const headers = [
-    { label: "Bestelldatum", key: "Bestelldatum" },
-    { label: "BestellNr", key: "Bestellnr" },
-    { label: "ProduktionsNr", key: "Produktionsnr" },
-    { label: "Menge", key: "Menge" },
-    // { label: "Status", key: "Status" },
-    { label: "Hex-Wert", key: "Hex-Wert" },
-    { label: "Farbe", key: "Farbe" },
-    { label: "Priorität", key: "Priorität" },
-    { label: "Bild", key: "Bild" }
-  ];
- 
-  // var testdata = [ ["2021-04-21 11:50:05", "B-20000000-1", "1", "200", "In Planung", "1.324234", "#34923", "Marine", "1", "/home/img/tshirt123123.png"],
-  //     ["2021-04-21 11:50:05", "B-20000000-1", "2", "21", "In Planung", "1.324234", "#34923", "Rot", "1", "/home/img/tshirt123123.png"],
-  //     ["2021-04-21 11:50:05", "B-20000000-1", "3", "2", "In Planung", "1.324234", "#34923", "Blau", "2", "/home/img/tshirt123123.png"],
-  //     ["2021-04-21 11:50:05", "B-20000000-1", "4", "3", "In Produktion", "1.324234", "#34923t", "Grün", "2", "/home/img/tshirt123123.png"] ]; 
+  const [csvdata, setCsvData] = useState([])  
+  const [Quantity, setQuantity] = useState("");
+  const csvheaders = ["Bestelldatum", "BestellNr", "ProduktionsNr", "Menge", "Status", "Hex-Wert", "Farbe", "Priorität", "Bild"];
 
   useEffect(() => {
         
@@ -112,11 +97,23 @@ export default function DataTable() {
     if(statusNr === 3) return "Eingelagert";
   }
 
-  //Get all checked Data in an Obj.Array of Arrays
-  function download_csv_file() {
-    console.log("download_csv_file aufgerufen");
+  //Update status in planning to in production
+ function update_prod_status(){  
+    return;
+  }
 
-    let targets = Array.from(document.querySelectorAll("td input[type=checkbox]")).filter((elem) => { if(elem.checked) return elem })
+
+  //Get all checked Data in an Obj.Array of Arrays
+  /*  function download_csv_file(selectedData) {
+
+
+   var sortedDaten = csvDaten;
+      sorted
+
+  
+let targets = Array.from(document.querySelectorAll("td input[type=checkbox]")).filter((elem) => {
+      if(elem.checked) return elem 
+      else return null})
 
     let csv_data = []
 
@@ -139,6 +136,8 @@ export default function DataTable() {
     }) 
     console.log(csv_data);
     setCsvData(csv_data);
+ 
+    
     //Function in one Button
     // return(
     //   <CSVDownload 
@@ -148,6 +147,38 @@ export default function DataTable() {
     //     filename={"Test.csv"}
     //   />
     // )
+  }  */
+
+  //RowSelectEvent
+  function rowSelectEvent(curRowSelected, allRowsSelected){ 
+
+    var selectedData = [];
+    
+    if(allRowsSelected.length === 0) {         //Wenn keine Rows ausgewählt
+      setQuantity(0); //Menge auf 0 setzen
+      return;
+    }
+
+    allRowsSelected.forEach(element => {  //Convert all indexes to data array
+      selectedData.push(data[(element.dataIndex)]);
+    });
+
+    updateQuantity(selectedData); //UpdateQuantity
+    
+    setCsvData(selectedData);
+
+    return;
+  }
+
+  function updateQuantity(selecteDataFromTable){
+    var quantity = 0;
+
+    selecteDataFromTable.forEach(element => {
+      quantity += element[3];
+    });
+
+    setQuantity(quantity);
+    return;
   }
 
 
@@ -157,12 +188,18 @@ export default function DataTable() {
         title={"Planungsaufträge"}
         data={data}      
         columns={columns}
-        options={options} />
+        options={options}/>
     <br/>
     <br/>
-    <Button variant="contained" onClick={download_csv_file}>In Produktion geben</Button>
-    <br/>
-    <CSVLink data={csvdata} headers={headers} filename={"MachineConfiguration.csv"}>Download CSV Here</CSVLink>
+    <Button variant="contained" onClick={update_prod_status}>In Produktion geben</Button>
+    <text name="DummySeperator">  </text>
+    <Button variant="contained" onClick={update_prod_status}>
+    <CSVLink data={csvdata} headers={csvheaders} filename={"MachineConfiguration.csv"}>Download CSV</CSVLink>
+    <GetAppIcon/>  
+    </Button>
+    <text name="DummySeperato2">  </text>
+    <Button variant="Quantity" style={{color: '#ffffff'}}>Menge: {Quantity}</Button>
+    
     </div>
   );
 }
