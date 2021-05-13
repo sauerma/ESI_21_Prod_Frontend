@@ -10,15 +10,9 @@ import axios from "axios";
 
 export default function Orders() {
   
-  const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Hex-Wert", "Farbe", "Priorität", "Bild"];
+  const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Hex-Wert", "Priorität", "Bild"];
   const options = { filterType: 'checkbox' };
   const [data, setData] = useState([])
-
-  /* 
-  var testdata = [ ["2021-04-21 11:50:05", "B-20000000-1", "1", "200", "In Planung", "1.324234", "#34923", "Marine", "1", "/home/img/tshirt123123.png"],
-      ["2021-04-21 11:50:05", "B-20000000-1", "2", "21", "In Planung", "1.324234", "#34923", "Rot", "1", "/home/img/tshirt123123.png"],
-      ["2021-04-21 11:50:05", "B-20000000-1", "3", "2", "In Planung", "1.324234", "#34923", "Blau", "2", "/home/img/tshirt123123.png"],
-      ["2021-04-21 11:50:05", "B-20000000-1", "4", "3", "In Produktion", "1.324234", "#34923t", "Grün", "2", "/home/img/tshirt123123.png"] ]; */
 
   useEffect(() => {
     
@@ -84,7 +78,6 @@ export default function Orders() {
       singleSortedList.push(unsortedOrders[6]); //Menge
       singleSortedList.push(StatusNrToBez(unsortedOrders[7])); //Status
       singleSortedList.push(unsortedOrders[14]); // Hex-Wert
-      singleSortedList.push(unsortedOrders[9]); //Farbe
       singleSortedList.push(unsortedOrders[15]); //Priorität
       singleSortedList.push(unsortedOrders[16]); //Bild 
     

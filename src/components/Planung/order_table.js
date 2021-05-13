@@ -8,16 +8,18 @@ import Button from '@material-ui/core/Button';
 import axios from "axios";
 import {CSVLink} from "react-csv";
 import GetAppIcon from '@material-ui/icons/GetApp';
-import { keys } from "@material-ui/core/styles/createBreakpoints";
+//import { keys } from "@material-ui/core/styles/createBreakpoints";
 
 export default function DataTable() {
 
-  const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Hex-Wert", "Farbe", "Priorität", "Bild"];
+  const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Hex-Wert", "Priorität", "Bild"];
   const options = { filterType: 'checkbox', download: false, onRowsSelect : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
   const [data, setData] = useState([])  
   const [csvdata, setCsvData] = useState([])  
   const [Quantity, setQuantity] = useState("");
-  const csvheaders = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Hex-Wert", "Farbe", "Bild"];
+  const [QuantityColor, setQuantityColor] = useState("#ffffff");
+  const csvheaders = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Hex-Wert", "Bild"];
+
 
   useEffect(() => {
         
@@ -81,7 +83,6 @@ export default function DataTable() {
       singleSortedList.push(unsortedOrders[6]); //Menge
       singleSortedList.push(StatusNrToBez(unsortedOrders[7])); //Status
       singleSortedList.push(unsortedOrders[14]); // Hex-Wert
-      singleSortedList.push(unsortedOrders[9]); //Farbe
       singleSortedList.push(unsortedOrders[15]); //Priorität
       singleSortedList.push(unsortedOrders[16]); //Bild 
     
@@ -110,6 +111,7 @@ export default function DataTable() {
     
     if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
       setQuantity(0); //Menge auf 0 setzen
+      setQuantityColor("#088A08");
       return;
     }
 
@@ -137,8 +139,11 @@ export default function DataTable() {
     selecteDataFromTable.forEach(element => {
       quantity += element["Menge"]
     });
-
     setQuantity(quantity)
+    
+    if(quantity > 350) setQuantityColor("#FF0040");
+    else setQuantityColor("#088A08");
+
     return;
   }
 
@@ -166,11 +171,11 @@ export default function DataTable() {
     <Button variant="contained" onClick={update_prod_status}>In Produktion geben</Button>
     <text name="DummySeperator">  </text>
     <Button variant="contained" onClick={update_prod_status}>
-    <CSVLink data={csvdata} headers={csvheaders} filename={"MachineConfiguration.csv"}>Download CSV</CSVLink>
+    <CSVLink data={csvdata} headers={csvheaders}  style={{textDecoration: "none", color: "black"}} filename={"MachineConfiguration.csv"}>Download CSV</CSVLink>
     <GetAppIcon/>  
     </Button>
     <text name="DummySeperato2">  </text>
-    <Button variant="Quantity" style={{color: '#ffffff'}}>Menge: {Quantity}</Button>
+    <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity}</Button>
     
     </div>
   );
