@@ -79,12 +79,12 @@ export default function DataTable() {
       
       singleSortedList.push(unsortedOrders[4]); //Bestelldatum
       singleSortedList.push(unsortedOrders[1]); //Bestellnummer
-      singleSortedList.push(unsortedOrders[18]); //Produktionsnummer
+      singleSortedList.push(unsortedOrders[17]); //Produktionsnummer
       singleSortedList.push(unsortedOrders[6]); //Menge
       singleSortedList.push(StatusNrToBez(unsortedOrders[7])); //Status
-      singleSortedList.push(unsortedOrders[14]); // Hex-Wert
-      singleSortedList.push(unsortedOrders[15]); //Priorität
-      singleSortedList.push(unsortedOrders[16]); //Bild 
+      singleSortedList.push(unsortedOrders[13]); // Hex-Wert
+      singleSortedList.push(unsortedOrders[14]); //Priorität
+      singleSortedList.push(unsortedOrders[15]); //Bild 
     
       sortedOrders.push(singleSortedList)
   }     
