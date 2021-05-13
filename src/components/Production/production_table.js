@@ -10,7 +10,7 @@ import axios from "axios";
 export default function DataTable() {
 
   const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Hex-Wert", "Priorität", "Bild"];
-  const options = { filterType: 'checkbox' };
+  const options = { customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox' };
   const [data, setData] = useState([])
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -36,6 +36,7 @@ import Produktion from './components/Produktion';
 import Material from './components/Material';
 import Hilfebereich from './components/Hilfebereich';
 import Einstellungen from './components/Einstellungen';
+
 
 
 
@@ -120,7 +121,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 function App() {
   const classes = useStyles();
   const theme = useTheme();
@@ -133,6 +133,7 @@ function App() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
 
   return (
     <div className={classes.root} >
@@ -193,25 +194,25 @@ function App() {
         <Divider />
 
         <List >
-        <ListItem button component={Link} to="/" key="MainPage" >
+        <ListItem  button component={Link} to="/" key="MainPage" >
             <ListItemIcon >
               <HomeIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon >
             <ListItemText primary="Home" />   
          </ListItem>
-         <ListItem button component={Link} to="/Planung"key="Planung">
+         <ListItem button component={Link} to="/Planung" key="Planung" >
             <ListItemIcon>
               <Event style={{fill: "#fff6e5"}}/>
             </ListItemIcon>
             <ListItemText primary="Planung" />   
          </ListItem>
-         <ListItem button component={Link} to="/Produktion" key="Produktion">
+         <ListItem button component={Link} to="/Produktion" key="Produktion" >
             <ListItemIcon>
               <SettingsApplicationsIcon style={{fill: "#fff6e5"}}/>
             </ListItemIcon>
             <ListItemText primary="Produktion" />   
          </ListItem>
-         <ListItem button component={Link} to="/Material" key="Material">
+         <ListItem button component={Link} to="/Material" key="Material" >
             <ListItemIcon>
               <ShoppingCartIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
@@ -220,13 +221,13 @@ function App() {
         </List>
 
         <List>
-        <ListItem button component={Link} to="/Hilfebereich" key="Hilfebereich">
+        <ListItem button component={Link} to="/Hilfebereich" key="Hilfebereich" >
             <ListItemIcon>
               <HelpIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
             <ListItemText primary="Hilfebereich" />   
          </ListItem>
-        <ListItem button component={Link} to="/Einstellungen"key="Einstellungen">
+        <ListItem button component={Link} to="/Einstellungen" key="Einstellungen" >
             <ListItemIcon>
               <SettingsIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>

@@ -7,11 +7,12 @@ import MUIDataTable from "mui-datatables";
 import './dashboard_order_table.css';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import axios from "axios";
+import Link from '@material-ui/core/Link';
 
 export default function Orders() {
   
   const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Hex-Wert", "Priorität", "Bild"];
-  const options = { filterType: 'checkbox' };
+  const options = {selectableRows: false , filterType: 'checkbox' };
   const [data, setData] = useState([])
 
   useEffect(() => {
@@ -108,12 +109,19 @@ export default function Orders() {
   });
 
   return (
+    <div>
   <MuiThemeProvider theme={getMuiTheme()}>
     <MUIDataTable 
     title={"Aktive Aufträge"}
     data={data}
     columns={columns}
     options={options} />
+   
     </MuiThemeProvider>
+    <Link color="primary" href="/Produktion" /*onClick={preventDefault}*/>
+     Details anzeigen
+   </Link>
+    </div>
+    
   );
 }

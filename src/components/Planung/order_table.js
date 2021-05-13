@@ -13,7 +13,8 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 export default function DataTable() {
 
   const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Hex-Wert", "Priorität", "Bild"];
-  const options = { filterType: 'checkbox', download: false, onRowsSelect : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
+  const options = { customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox', download: false, 
+                  onRowsSelect : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
   const [data, setData] = useState([])  
   const [csvdata, setCsvData] = useState([])  
   const [Quantity, setQuantity] = useState("");
@@ -59,7 +60,7 @@ export default function DataTable() {
 
   //Check if old data = new data
   function DataAreEqual(data, sortedOrders){
-
+    if(data.length === 0) return false; 
     if(data.sort().join(',') === sortedOrders.sort().join(',')){
       return true;
       }
@@ -68,7 +69,6 @@ export default function DataTable() {
 
   //Sort data from api
   function sortOrders(list){
-
     var sortedOrders = [];
 
     for (var key in list){
@@ -116,8 +116,7 @@ export default function DataTable() {
     }
 
     allRowsSelected.forEach(element => {  //Convert all indexes to data array
-      // selectedData.push(data[(element.dataIndex)]);
-
+  
       let obj = {}
 
       columns.forEach((key, i) => {
@@ -146,17 +145,6 @@ export default function DataTable() {
 
     return;
   }
-
-  // function updateQuantity(selecteDataFromTable){
-  //   var quantity = 0;
-
-  //   selecteDataFromTable.forEach(element => {
-  //     quantity += element[3];
-  //   });
-
-  //   setQuantity(quantity);
-  //   return;
-  // }
 
 
   return (
