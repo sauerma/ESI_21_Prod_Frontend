@@ -52,7 +52,7 @@ export default function DataTable() {
 
         if(res.data.body.length === 0) { //Check if data is available
           setAllData(undefined);
-          setCsvData(undefined);
+          setCsvData([]);
           return;
         }          
 
@@ -147,7 +147,7 @@ function filterPks(selectedData){
       setQuantity(0); //Menge auf 0 setzen
       setQuantityColor("#088A08");
       setSelectedData(undefined);
-      setCsvData(undefined);
+      setCsvData([]);
       return;
     }
     
