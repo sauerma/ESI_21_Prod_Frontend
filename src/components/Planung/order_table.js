@@ -14,7 +14,7 @@ export default function DataTable() {
 
   const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Hex-Wert", "Priorität", "Bild"];
   const options = { customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox',  
-                    sortOrder: {name: 'Priorität', direction: 'asc'}, download: false, 
+                    sortOrder: {name: 'Priorität', direction: 'asc'},  download: false, 
                     onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
   const [data, setData] = useState([]);  
   const [csvdata, setCsvData] = useState([]); 
@@ -120,14 +120,37 @@ export default function DataTable() {
     alert("Bitte Positionen auswählen!");
     return;
   }
-  console.log("Update Pks:", selectedPkData);
+
+  var formatedPks = {}; 
+  var count = 0;  
+  selectedPkData.forEach(element => {
+
+    var singleObj = {};
+    singleObj["O_NR"] = element[0];
+    singleObj["OI_NR"] = element[1];
+    singleObj["PO_CODE"] = element[2];
+    singleObj["PO_COUNTER"] = element[3];
+    formatedPks[count] = singleObj;
+    count += 1;
+
+  });
+
+ console.log(formatedPks);
 
   //TODO Update Production table
-  
 
-  //TODO Update Verkauf & Versand table
+  axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateplanningtoprod", formatedPks)
+  .then(res => {
+    console.log(res);
+  })
+  .catch(err => {
+    console.log(err.message); //Error-Handling
+  })
+
+  //TODO Update Verkauf & Versand table --> In Lambda-Funktion packen
 
 
+ 
   alert("Erfolgreich geupdated.")
   return;
 }
