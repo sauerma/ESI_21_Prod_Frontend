@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import axios from "axios";
 import {CSVLink} from "react-csv";
 import GetAppIcon from '@material-ui/icons/GetApp';
-//import { keys } from "@material-ui/core/styles/createBreakpoints";
 
 export default function DataTable() {
 
@@ -18,7 +17,7 @@ export default function DataTable() {
    {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: false, display: false}},  
    {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
    {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
-   {name: "QUANTITY", label: "Menge", options: {filter: true, sort: false, display: true}}, 
+   {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
    {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 
    {name: "MAT_NR", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
    {name: "C", label: "C", options: {filter: true, sort: false, display: false}},
@@ -31,8 +30,9 @@ export default function DataTable() {
    {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}},
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}}];
 
-  const options = { customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox', download: false, 
+  const options = { customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity}</Button>}, filterType: 'checkbox', download: false, 
                     onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
+               
   const [csvdata, setCsvData] = useState([]); 
   const [Quantity, setQuantity] = useState("");
   const [QuantityColor, setQuantityColor] = useState("#ffffff");
@@ -85,12 +85,12 @@ export default function DataTable() {
     }
 
   //Status-Nr to Status-Bez
-  function StatusNrToBez(statusNr){
+/*   function StatusNrToBez(statusNr){
     if(statusNr === 0) return "In Planung";
     if(statusNr === 1) return "In Produktion";
     if(statusNr === 2) return "Produziert";
     if(statusNr === 3) return "Eingelagert";
-  }
+  } */
 
  //Update status in planning to in production
   function update_prod_status(){  
@@ -186,15 +186,15 @@ function filterPks(selectedData){
         options={options}/>
     <br/>
     <br/>
-    <Button variant="contained" onClick={update_prod_status} >In Produktion geben</Button>
+    <Button variant="contained" onClick={update_prod_status} title="Mit Klick auf diesen Button
+    werden alle markierten Planungsaufträge
+    auf 'in Produktion' gesetzt." >In Produktion geben</Button>
     <text name="DummySeperator">  </text>
-    <Button variant="contained" onClick={update_prod_status} >
+    <Button variant="contained" onClick={update_prod_status} title="Mit Klick auf diesen Button wird eine CSV-Datei mit allen marktieren Aufträgen erstellt. 
+    Außerdem ändert sich der Status auf 'in Produktion'.">
     <CSVLink data={csvdata} headers={csvheaders} style={{textDecoration: "none", color: "black"}} filename={"MachineConfiguration.csv"}>Download CSV</CSVLink>
     <GetAppIcon/>  
-    </Button>
-    <text name="DummySeperato2">  </text>
-    <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity}</Button>
-    
+    </Button>   
     </div>
   );
 }

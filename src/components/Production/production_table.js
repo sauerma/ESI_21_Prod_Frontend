@@ -9,9 +9,29 @@ import axios from "axios";
 
 export default function DataTable() {
 
-  const columns = ["Bestelldatum", "Bestellnr", "Produktionsnr", "Menge", "Status", "Hex-Wert", "Priorität", "Bild"];
-  const options = { customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox' };
-  const [data, setData] = useState([])
+  const columns = [{ name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
+  {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true }}, 
+  {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: false,  display: false}}, 
+  {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: false, display: false}},  
+  {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
+  {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
+  {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
+  {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 
+  {name: "MAT_NR", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
+  {name: "C", label: "C", options: {filter: true, sort: false, display: false}},
+  {name: "M", label: "M",options: {filter: true,sort: false,display: false}},
+  {name: "Y",label: "Y",options: {filter: true,sort: false, display: false}},
+  {name: "K", label: "K", options: {filter: true,sort: false, display: false}},
+  {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
+  {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}},
+  {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
+  {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}},
+  {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}}];
+
+  const options = { customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox',  
+                    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
+  const [allData, setAllData] = useState([]); 
+  const [selectedData, setSelectedData] =  useState([]); 
 
   useEffect(() => {
         
@@ -23,13 +43,12 @@ export default function DataTable() {
         if(IsDataBaseOffline(res)) return; //Check if db is available
 
         if(res.data.body.length === 0) { //Check if data is available
-          setData(undefined);
+          setAllData(undefined);
           return;
         }          
 
-        var sortedOrders = sortOrders(res.data.body); //Sort data from api 
-        if (DataAreEqual(data, sortedOrders)) return; //Check if data has changed       
-        setData(sortedOrders); //Set new data
+        if (DataAreEqual(allData, res.data.body)) return; //Check if data has changed       
+        setAllData(res.data.body); //Set new data
   
         })
         .catch(err => {
@@ -58,59 +77,44 @@ export default function DataTable() {
       else return false;
     }
 
-  //Sort data from api
-  function sortOrders(list){
-
-    var sortedOrders = [];
-
-    for (var key in list){
-
-      var singleSortedList = null;
-      singleSortedList = [];
-      var unsortedOrders = Object.values(list[key]);
-      
-      singleSortedList.push(unsortedOrders[4]); //Bestelldatum
-      singleSortedList.push(unsortedOrders[1]); //Bestellnummer
-      singleSortedList.push(unsortedOrders[17]); //Produktionsnummer
-      singleSortedList.push(unsortedOrders[6]); //Menge
-      singleSortedList.push(StatusNrToBez(unsortedOrders[7])); //Status
-      singleSortedList.push(unsortedOrders[13]); // Hex-Wert
-      singleSortedList.push(unsortedOrders[14]); //Priorität
-      singleSortedList.push(unsortedOrders[15]); //Bild 
-    
-      sortedOrders.push(singleSortedList)
-  }     
-    return sortedOrders;
-  }
-
-  //Status-Nr to Status-Bez
+ /*  //Status-Nr to Status-Bez
   function StatusNrToBez(statusNr){
     if(statusNr === 0) return "In Planung";
     if(statusNr === 1) return "In Produktion";
     if(statusNr === 2) return "Produziert";
     if(statusNr === 3) return "Eingelagert";
   }
+ */
 
-  function UpdateProdStatus(){
-    //Prod Status updaten
-    return; 
-  }
+//RowSelectEvent
+function rowSelectEvent(curRowSelected, allRowsSelected){ 
 
-  function CsvErstellen(){
-    //Csv erstellen 
+  var _selectedData = [];
+
+if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
+    setSelectedData(undefined);
     return;
   }
+  
+  allRowsSelected.forEach(element => {
+    _selectedData.push(allData[element.dataIndex])
+  });
+
+  setSelectedData(_selectedData);
+
+  return;
+}
+
 
   function Abschliesen(){
-    UpdateProdStatus();
-    CsvErstellen();
+    return;
   }
 
     return (
 <dev>
   <MUIDataTable
     title={"Produktionsaufträge"}
-    data={data}
+    data={allData}
     columns={columns}
     options={options} />
     <br></br>
