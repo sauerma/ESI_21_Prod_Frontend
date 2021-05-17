@@ -31,7 +31,7 @@ export default function DataTable() {
   const options = { customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox',  
                     onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
   const [allData, setAllData] = useState([]); 
-  const [selectedData, setSelectedData] =  useState([]); 
+  const [/*selectedData*/, setSelectedData] =  useState([]); 
 
   useEffect(() => {
         
@@ -107,6 +107,8 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
 
 
   function Abschliesen(){
+
+    
     return;
   }
 

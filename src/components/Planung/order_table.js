@@ -42,29 +42,32 @@ export default function DataTable() {
   const [selectedData, setSelectedData] =  useState([]); 
 
 
-  useEffect(() => {
+  useEffect(() => { DatenLaden();});
+  
+  function DatenLaden(){
 
     axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getplanningorders')
-        .then(res => {
-        console.log("RESPONSE:", res); //Data from Gateway
-        
-        if(IsDataBaseOffline(res)) return; //Check if db is available
+    .then(res => {
+    console.log("RESPONSE:", res); //Data from Gateway
+    
+    if(IsDataBaseOffline(res)) return; //Check if db is available
 
-        if(res.data.body.length === 0) { //Check if data is available
-          setAllData(undefined);
-          setCsvData([]);
-          return;
-        }          
+    if(res.data.body.length === 0) { //Check if data is available
+      setAllData(undefined);
+      setCsvData([]);
+      return;
+    }          
 
-        if (DataAreEqual(allData, res.data.body)) return; //Check if data has changed       
-        setAllData(res.data.body); //Set new table data
+    if (DataAreEqual(allData, res.data.body)) return; //Check if data has changed       
+    setAllData(res.data.body); //Set new table data
 
-        })
-        .catch(err => {
-            console.log(err.message); //Error-Handling
-        })
-  });
-  
+    })
+    .catch(err => {
+        console.log(err.message); //Error-Handling
+    })
+
+  }
+
   //Check if database is offline (AWS)
   function IsDataBaseOffline(res){
       if(res.data.errorMessage == null) return false; 
@@ -93,7 +96,7 @@ export default function DataTable() {
   } */
 
  //Update status in planning to in production
-  function update_prod_status(){  
+  function updateProdStatus(){  
       
     if (selectedData == null || selectedData === undefined || selectedData.length === 0) {
         alert("Bitte Positionen auswählen!");
@@ -101,11 +104,13 @@ export default function DataTable() {
       }
 
       var pKs = filterPks(selectedData);
-      console.log("Selected Pks:", pKs);
+      //console.log("Selected Pks:", pKs);
+      var pKs_json = JSON.stringify(pKs)
+      console.log(pKs_json)
 
       //TODO Update Production table
 
-      axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateplanningtoprod", pKs)
+      axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateplanningtoprod", pKs_json)
       .then(res => {
         console.log(res);
       })
@@ -115,25 +120,27 @@ export default function DataTable() {
 
       //TODO Update Verkauf & Versand table --> In Lambda-Funktion packen
 
+      sleep(900).then(() => { window.location.reload(); }); 
 
- 
-    alert("Erfolgreich geupdated.")
     return;
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function filterPks(selectedData){
-  var _pks = {};
-  var counter = 0;
+  var _pks = [];
+ 
   selectedData.forEach(element => {
     var singleVal = {};
     singleVal["O_NR"] = element["O_NR"];
     singleVal["OI_NR"] = element["OI_NR"];
     singleVal["PO_CODE"] = element["PO_CODE"];
     singleVal["PO_COUNTER"] = element["PO_COUNTER"];
-    _pks[counter] = singleVal;
-    counter += 1;
+    _pks.push(singleVal);
   });
-  console.log(_pks);
+
   return _pks; 
 }
 
@@ -166,7 +173,17 @@ function filterPks(selectedData){
 
     var quantity = 0
 
+    if (selecteDataFromTable === undefined || selecteDataFromTable.length === 0) {
+        setQuantity(0)
+        return;
+    }
+
     selecteDataFromTable.forEach(element => {
+      if (element === undefined || element["QUANTITY"] === undefined ) {
+        setQuantity(0)
+        return;
+      }
+  
       quantity += element["QUANTITY"]
     });
     setQuantity(quantity)
@@ -186,11 +203,11 @@ function filterPks(selectedData){
         options={options}/>
     <br/>
     <br/>
-    <Button variant="contained" onClick={update_prod_status} title="Mit Klick auf diesen Button
+    <Button variant="contained" onClick={updateProdStatus} title="Mit Klick auf diesen Button
     werden alle markierten Planungsaufträge
     auf 'in Produktion' gesetzt." >In Produktion geben</Button>
     <text name="DummySeperator">  </text>
-    <Button variant="contained" onClick={update_prod_status} title="Mit Klick auf diesen Button wird eine CSV-Datei mit allen marktieren Aufträgen erstellt. 
+    <Button variant="contained" onClick={updateProdStatus} title="Mit Klick auf diesen Button wird eine CSV-Datei mit allen marktieren Aufträgen erstellt. 
     Außerdem ändert sich der Status auf 'in Produktion'.">
     <CSVLink data={csvdata} headers={csvheaders} style={{textDecoration: "none", color: "black"}} filename={"MachineConfiguration.csv"}>Download CSV</CSVLink>
     <GetAppIcon/>  
