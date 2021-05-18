@@ -30,13 +30,13 @@ export default function DataTable() {
    {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}},
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}}];
 
-  const options = { customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity}</Button>}, filterType: 'checkbox', download: false, 
-                    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
+   const options = { customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
+   onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
                
   const [csvdata, setCsvData] = useState([]); 
   const [Quantity, setQuantity] = useState("");
   const [QuantityColor, setQuantityColor] = useState("#ffffff");
-  const csvheaders = ["OI_NR", "O_DATE", "p_nr", "QUANTITY", "HEXCOLOR", "IMAGE"];
+  const csvheaders = ["OI_NR", "O_DATE", "p_nr", "QUANTITY", "HEXCOLOR", "C", "M", "Y", "K", "IMAGE"];
   
   const [allData, setAllData] = useState([]); 
   const [selectedData, setSelectedData] =  useState([]); 
@@ -108,8 +108,7 @@ export default function DataTable() {
       var pKs_json = JSON.stringify(pKs)
       console.log(pKs_json)
 
-      //TODO Update Production table
-
+      //Update Production table from Prod_status 0 to 1 (In Planung zu In Produktion)
       axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateplanningtoprod", pKs_json)
       .then(res => {
         console.log(res);

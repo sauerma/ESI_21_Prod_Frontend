@@ -17,13 +17,13 @@ export default function DataTable() {
   {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
   {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
   {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 
-  {name: "MAT_NR", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
+  {name: "MAT_NR", label: "Material-Nr", options: {filter: true, sort: true, display: false}}, 
   {name: "C", label: "C", options: {filter: true, sort: false, display: false}},
   {name: "M", label: "M",options: {filter: true,sort: false,display: false}},
   {name: "Y",label: "Y",options: {filter: true,sort: false, display: false}},
   {name: "K", label: "K", options: {filter: true,sort: false, display: false}},
   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
-  {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}},
+  {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: false}},
   {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
   {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}},
   {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}}];
@@ -31,7 +31,7 @@ export default function DataTable() {
   const options = { customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox',  
                     onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
   const [allData, setAllData] = useState([]); 
-  const [/*selectedData*/, setSelectedData] =  useState([]); 
+  const [selectedData, setSelectedData] =  useState([]); 
 
   useEffect(() => {
         
@@ -108,9 +108,51 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
 
   function Abschliesen(){
 
-    
-    return;
+    if (selectedData == null || selectedData === undefined || selectedData.length === 0) {
+      alert("Bitte Positionen auswählen!");
+      return;
+    }
+
+    var pKs = filterPks(selectedData);
+    var pKs_json = JSON.stringify(pKs)
+    console.log(pKs_json)
+
+    //Update Production table from Prod_status 1 to 2 (In Produktion zu Produziert)
+    axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateinprodtoproducted", pKs_json)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err.message); //Error-Handling
+    })
+
+    //TODO Update Verkauf & Versand table --> In Lambda-Funktion packen
+
+    sleep(900).then(() => { window.location.reload(); }); 
+
+  return;
   }
+  
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  function filterPks(selectedData){
+    var _pks = [];
+   
+    selectedData.forEach(element => {
+      var singleVal = {};
+      singleVal["O_NR"] = element["O_NR"];
+      singleVal["OI_NR"] = element["OI_NR"];
+      singleVal["PO_CODE"] = element["PO_CODE"];
+      singleVal["PO_COUNTER"] = element["PO_COUNTER"];
+      _pks.push(singleVal);
+    });
+  
+    return _pks; 
+  }
+  
+
 
     return (
 <dev>
