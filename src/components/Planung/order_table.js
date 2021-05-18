@@ -162,10 +162,29 @@ function filterPks(selectedData){
       _selectedData.push(allData[element.dataIndex])
     });
 
-    updateQuantity(_selectedData);  
-    setCsvData(_selectedData); 
+    updateQuantity(_selectedData);
     setSelectedData(_selectedData);
 
+//-------------Sortieren der CSV WIP-----------------// 
+    var _sortedCsvData = _selectedData;
+    // console.log(_selectedData);
+
+    //Sortieren Für Strings
+    _sortedCsvData.sort(function(a,b){
+      if(a.HEXCOLOR.toLowerCase() < b.HEXCOLOR.toLowerCase())return -1;
+      if(a.HEXCOLOR.toLowerCase() > b.HEXCOLOR.toLowerCase())return 1;
+      return 0;
+    })
+    // console.log(_sortedCsvData);
+
+    // //Sortieren Für Integer
+    // _sortedCsvData.sort(function(a,b){
+    //   return a.PROD_PRIO - b.PROD_PRIO;
+    // });
+    // console.log(_sortedCsvData);
+//-------------Sortieren der CSV Ende-----------------//
+    setCsvData(_sortedCsvData);
+    
     return;
   }
 
