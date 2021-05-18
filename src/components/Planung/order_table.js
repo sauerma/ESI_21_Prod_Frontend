@@ -30,7 +30,7 @@ export default function DataTable() {
    {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}},
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}}];
 
-   const options = { customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
+   const options = {rowsPerPage: 8, customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
                
   const [csvdata, setCsvData] = useState([]); 
