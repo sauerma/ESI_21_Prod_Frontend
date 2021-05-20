@@ -1,6 +1,6 @@
 import React, { /*useState, useEffect*/} from "react";
 import MUIDataTable from "mui-datatables";
-
+import Button from '@material-ui/core/Button';
 
 export default function MatBestellTable() {
         
@@ -34,6 +34,9 @@ title={"Material - Bestellung"}
 data={data}
 columns={columns}
 options={options} />
+<br></br>
+<Button variant="contained" stitle="Mit Klick auf diesen Button
+    werden die entsprechenden T-Shirts oder Farben bestellt.">Bestellen</Button>
 </div>
 
   );

@@ -23,12 +23,12 @@ export default function DataTable() {
    {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
    {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
    {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 
-   {name: "MAT_NR", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
+   {name: "MAT_NR", label: "Material-Nr", options: {filter: true, sort: true, display: false}}, 
    {name: "C", label: "C", options: {filter: true, sort: false, display: false}},
    {name: "M", label: "M",options: {filter: true,sort: false,display: false}},
    {name: "Y",label: "Y",options: {filter: true,sort: false, display: false}},
    {name: "K", label: "K", options: {filter: true,sort: false, display: false}},
-   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true ,
+   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true,
     customBodyRender: (value, tableMeta, updateValue) => {
     return (
       <QualityCell
@@ -37,18 +37,13 @@ export default function DataTable() {
         change={event => updateValue(event)}
       />
     );} }},
-   {name: "MAT_NR", label: "Material-Nr", options: {filter: false, sort: false, display: false}}, 
-   {name: "C", label: "C", options: {filter: true, sort: true, display: false}},
-   {name: "M", label: "M",options: {filter: true,sort: true,display: false}},
-   {name: "Y",label: "Y",options: {filter: true,sort: true, display: false}},
-   {name: "K", label: "K", options: {filter: true,sort: true, display: false}},
-   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
+
    {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}},
    {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
    {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}},
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}}];
 
-   const options = {rowsPerPage: 8, customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
+   const options = {rowsPerPage: 5, customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
                
   const [csvdata, setCsvData] = useState([]); 

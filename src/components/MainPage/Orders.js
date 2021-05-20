@@ -8,6 +8,7 @@ import './dashboard_order_table.css';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import axios from "axios";
 import Link from '@material-ui/core/Link';
+import QualityCell from '../Planung/qualityCell.js';
 
 export default function Orders() {
   
@@ -24,7 +25,14 @@ export default function Orders() {
   {name: "M", label: "M",options: {filter: true,sort: false,display: false}},
   {name: "Y",label: "Y",options: {filter: true,sort: false, display: false}},
   {name: "K", label: "K", options: {filter: true,sort: false, display: false}},
-  {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
+  {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true, customBodyRender: (value, tableMeta, updateValue) => {
+    return (
+      <QualityCell
+        value={value}
+        index={tableMeta.columnIndex}
+        change={event => updateValue(event)}
+      />
+    );}}},
   {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}},
   {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
   {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}},
