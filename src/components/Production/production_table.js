@@ -6,6 +6,7 @@ import React, { useState, useEffect} from "react";
 import MUIDataTable from "mui-datatables";
 import Button from '@material-ui/core/Button';
 import axios from "axios";
+import QualityCell from '../Planung/qualityCell.js';
 
 export default function DataTable() {
 
@@ -22,7 +23,15 @@ export default function DataTable() {
   {name: "M", label: "M",options: {filter: true,sort: false,display: false}},
   {name: "Y",label: "Y",options: {filter: true,sort: false, display: false}},
   {name: "K", label: "K", options: {filter: true,sort: false, display: false}},
-  {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
+  {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true ,
+    customBodyRender: (value, tableMeta, updateValue) => {
+    return (
+      <QualityCell
+        value={value}
+        index={tableMeta.columnIndex}
+        change={event => updateValue(event)}
+      />
+    );} }},
   {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: false}},
   {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
   {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}},

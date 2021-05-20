@@ -8,11 +8,12 @@ import Button from '@material-ui/core/Button';
 import axios from "axios";
 import {CSVLink} from "react-csv";
 import GetAppIcon from '@material-ui/icons/GetApp';
+import QualityCell from './qualityCell.js';
 
 export default function DataTable() {
 
   const columns = [{ name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
-   {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true }}, 
+   {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true}},
    {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: false,  display: false}}, 
    {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: false, display: false}},  
    {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
@@ -24,7 +25,15 @@ export default function DataTable() {
    {name: "M", label: "M",options: {filter: true,sort: false,display: false}},
    {name: "Y",label: "Y",options: {filter: true,sort: false, display: false}},
    {name: "K", label: "K", options: {filter: true,sort: false, display: false}},
-   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
+   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true ,
+    customBodyRender: (value, tableMeta, updateValue) => {
+    return (
+      <QualityCell
+        value={value}
+        index={tableMeta.columnIndex}
+        change={event => updateValue(event)}
+      />
+    );} }},
    {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}},
    {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
    {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}},
@@ -225,7 +234,7 @@ function filterPks(selectedData){
     werden alle markierten Planungsaufträge
     auf 'in Produktion' gesetzt." >In Produktion geben</Button>
     <text name="DummySeperator">  </text>
-    <Button variant="contained" onClick={updateProdStatus} title="Mit Klick auf diesen Button wird eine CSV-Datei mit allen marktieren Aufträgen erstellt. 
+    <Button variant="contained" onClick={updateProdStatus} title="Mit Klick auf diesen Button wird eine CSV-Datei mit allen markierten Aufträgen erstellt. 
     Außerdem ändert sich der Status auf 'in Produktion'.">
     <CSVLink data={csvdata} headers={csvheaders} style={{textDecoration: "none", color: "black"}} filename={"MachineConfiguration.csv"}>Download CSV</CSVLink>
     <GetAppIcon/>  
@@ -233,18 +242,3 @@ function filterPks(selectedData){
     </div>
   );
 }
-
-    // //REST CALL Create CSV mit array Übergabe  
-    // var data = { title: 'React POST Request Example' };    
-    // axios.post('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/createcsv',data)
-    //     .then(res => {      
-        
-    //     console.log("RESPONSE:", res); //Data from Gateway
-
-    //   })
-    //     .catch(err => {
-    //         console.error('There was an error!', error); //Error-Handling
-    //     });
-
-  // }
-// }
