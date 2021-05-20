@@ -13,20 +13,16 @@ import QualityCell from './qualityCell.js';
 export default function DataTable() {
 
   const columns = [{ name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
-<<<<<<< HEAD
    {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true}},
    {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: false,  display: false}}, 
    {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: false, display: false}},  
-=======
    {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true }}, 
    {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: true,  display: false}}, 
    {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: true, display: false}},  
->>>>>>> Master
    {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
    {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
    {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
    {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 
-<<<<<<< HEAD
    {name: "MAT_NR", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
    {name: "C", label: "C", options: {filter: true, sort: false, display: false}},
    {name: "M", label: "M",options: {filter: true,sort: false,display: false}},
@@ -41,14 +37,12 @@ export default function DataTable() {
         change={event => updateValue(event)}
       />
     );} }},
-=======
    {name: "MAT_NR", label: "Material-Nr", options: {filter: false, sort: false, display: false}}, 
    {name: "C", label: "C", options: {filter: true, sort: true, display: false}},
    {name: "M", label: "M",options: {filter: true,sort: true,display: false}},
    {name: "Y",label: "Y",options: {filter: true,sort: true, display: false}},
    {name: "K", label: "K", options: {filter: true,sort: true, display: false}},
    {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
->>>>>>> Master
    {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}},
    {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
    {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}},
