@@ -7,21 +7,21 @@ export default function FaqBereich() {
         title: "FAQ",
         rows: [
           {
-            title: "Wie kann ich eine CSV-Datei mit den geplanten Produktionsaufträge für die Maschine erstellen?",
-            content: "Im Tab 'Planung' kann über den Button 'CSV erzeugen' eine CSV-Datei für die Maschine erstellt werden."
+            title: "Wie lässt sich eine CSV-Datei mit den geplanten Produktionsaufträgen für die Maschine erstellen?",
+            content: "Im Tab 'Planung' werden die Aufträge automatisch nach deren Priorität sortiert. Der User kann nun Aufträge auswählen und sich über den Button 'CSV erzeugen' eine CSV-Datei für die Maschine erstellen lassen."
             
           },
           {
-            title: "Wie lassen sich Produktionsaufträge als produziert kennzeichnen?",
-            content: "Im Tab Produktion lassen sich die einzelnen Positionen auswählen und können über den Button 'Produziert' als produziert kennzeichnen lassen."
+            title: "Wie erfolgt die Sortierung in der Produktionsplanung und wie werden die Aufträge in der CSV-Datei angeordnet?",
+            content: "In der Planung werden die Aufträge automatisch nach ihrer Priorität sortiert und können auf Basis der Sortierung oder manuell in die Produktion gegeben werden. In der CSV-Datei werden die Aufträge nach der T-Shirt Helligkeit angeordnet."
           },
           {
-            title: "Curabitur laoreet, mauris vel blandit fringilla",
-            content: "Curabitur laoreet, mauris vel blandit fringilla, leo elit rhoncus nunc"
+            title: "Wie können Materialien in der Materialwirtschaft bestellt werden?",
+            content: "Im Bereich des Materialmanagements können die gewünschten Mengen an T-Shirts und Farben eingegeben und bestellt werden."
           },
           {
-            title: "What is the package version?",
-            content: "v1.0.5"
+            title: "Wie lassen sich Qualitätswerte von Materialien ausgeben?",
+            content: "Im Bereich des Materialmanagements können die Qualtiätswerte aller Chargen eingesehen werden."
           }]
       }
 
@@ -42,7 +42,7 @@ export default function FaqBereich() {
 
   return (
 
-          <div style={{ padding: '20px'}}>
+          <div style={{ padding: '2px'}}>
             <Faq data={data} styles={styles} config={config} />
           </div>
       
