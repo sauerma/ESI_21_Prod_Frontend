@@ -19,7 +19,7 @@ export default function Orders() {
   {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
   {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
   {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 
-  {name: "MAT_NR", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
+  {name: "MAT_NR", label: "Material-Nr", options: {filter: true, sort: true, display: false}}, 
   {name: "C", label: "C", options: {filter: true, sort: false, display: false}},
   {name: "M", label: "M",options: {filter: true,sort: false,display: false}},
   {name: "Y",label: "Y",options: {filter: true,sort: false, display: false}},
@@ -30,7 +30,7 @@ export default function Orders() {
   {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}},
   {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}}];
 
-  const options = {selectableRows: false , filterType: 'checkbox' };
+  const options = {rowsPerPage: 4, selectableRows: false , filterType: 'checkbox' };
   const [allData, setAllData] = useState([]); 
 
   useEffect(() => {

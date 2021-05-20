@@ -1,8 +1,8 @@
 import React from 'react';
 import Faq from 'react-faq-component';
 
-
 export default function FaqBereich() {
+
     const data = {
         title: "FAQ",
         rows: [
@@ -41,9 +41,10 @@ export default function FaqBereich() {
     
 
   return (
+
           <div style={{ padding: '20px'}}>
             <Faq data={data} styles={styles} config={config} />
           </div>
-
+      
   );
 }
