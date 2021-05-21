@@ -9,7 +9,6 @@ import axios from "axios";
 import {CSVLink} from "react-csv";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import QualityCell from './qualityCell.js';
-import {lab} from 'culori';
 
 export default function DataTable() {
 
@@ -225,7 +224,6 @@ function filterPks(selectedData){
 
   function convertColors(dataforCSV){
     var culori = require("culori")
-    let helligkeit;
 
     dataforCSV.forEach(element => {
       let obj = culori.lab(element["HEXCOLOR"]);

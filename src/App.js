@@ -67,6 +67,21 @@ const useStyles = makeStyles((theme) => ({
   hide: {
     display: 'none',
   },
+
+  activeTab:{
+    "&$selected": {
+      backgroundColor: "#90caf9",
+      color: "white"
+    },
+    "&:hover": {
+      backgroundColor: "#90caf9",
+      color: "white"
+    },
+    "&$selected:hover": {
+      backgroundColor: "#90caf9",
+      color: "black"
+    } 
+},
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -75,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   drawerOpen: {
     width: drawerWidth,
     color: '#fff6e5',
-    backgroundColor: '#424242',
+    backgroundColor: '#6b6969',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -88,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
      
     }),
     color: '#fff6e5',
-    backgroundColor: '#424242',
+    backgroundColor: '#6b6969',
     overflowX: 'hidden',
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
@@ -108,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     color:'#fff6e5',
-    backgroundColor:'#282828'
+    backgroundColor:'#2e2e2e'
   },
 
   imageIcon: {
@@ -117,18 +132,23 @@ const useStyles = makeStyles((theme) => ({
   iconRoot: {
     textAlign: 'center'
   },
-
+  selected: {}
 }));
 
 
 function App() {
   const classes = useStyles();
   const theme = useTheme();
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index)};
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -194,25 +214,30 @@ function App() {
         <Divider />
 
         <List >
-        <ListItem  button component={Link} to="/" key="MainPage" >
+        <ListItem  button component={Link} to="/" key="MainPage" className={classes.activeTab} selected={selectedIndex === 0}
+          onClick={event => handleListItemClick(event, 0)}
+        >
             <ListItemIcon >
               <HomeIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon >
             <ListItemText primary="Home" />   
          </ListItem>
-         <ListItem button component={Link} to="/Planung" key="Planung" >
+         <ListItem button component={Link} to="/Planung" key="Planung" className={classes.activeTab} selected={selectedIndex === 1}
+          onClick={event => handleListItemClick(event, 1)}>
             <ListItemIcon>
               <Event style={{fill: "#fff6e5"}}/>
             </ListItemIcon>
             <ListItemText primary="Planung" />   
          </ListItem>
-         <ListItem button component={Link} to="/Produktion" key="Produktion" >
+         <ListItem button component={Link} to="/Produktion" key="Produktion" className={classes.activeTab} selected={selectedIndex === 2}
+          onClick={event => handleListItemClick(event, 2)}>
             <ListItemIcon>
               <SettingsApplicationsIcon style={{fill: "#fff6e5"}}/>
             </ListItemIcon>
             <ListItemText primary="Produktion" />   
          </ListItem>
-         <ListItem button component={Link} to="/Material" key="Material" >
+         <ListItem button component={Link} to="/Material" key="Material" className={classes.activeTab} selected={selectedIndex === 3}
+          onClick={event => handleListItemClick(event, 3)}>
             <ListItemIcon>
               <ShoppingCartIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
@@ -221,13 +246,15 @@ function App() {
         </List>
 
         <List>
-        <ListItem button component={Link} to="/Hilfebereich" key="Hilfebereich" >
+        <ListItem button component={Link} to="/Hilfebereich" key="Hilfebereich" className={classes.activeTab} selected={selectedIndex === 4}
+          onClick={event => handleListItemClick(event, 4)}>
             <ListItemIcon>
               <HelpIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
             <ListItemText primary="Hilfebereich" />   
          </ListItem>
-        <ListItem button component={Link} to="/Einstellungen" key="Einstellungen" >
+        <ListItem button component={Link} to="/Einstellungen" key="Einstellungen" className={classes.activeTab} selected={selectedIndex === 5}
+          onClick={event => handleListItemClick(event, 5)}>
             <ListItemIcon>
               <SettingsIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
