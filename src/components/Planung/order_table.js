@@ -14,7 +14,7 @@ export default function DataTable() {
 
   const columns = [ {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
-   { name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
+   {name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
    {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true}},
    {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: false,  display: false}}, 
    {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: false, display: false}},  
@@ -26,7 +26,8 @@ export default function DataTable() {
    {name: "M", label: "M",options: {filter: true,sort: false,display: false}},
    {name: "Y",label: "Y",options: {filter: true,sort: false, display: false}},
    {name: "K", label: "K", options: {filter: true,sort: false, display: false}},
-   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true,
+   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
+   {name: "HEXCOLOR", label: "Farbe", options: {filter: true,sort: true, display: true,
     customBodyRender: (value, tableMeta, updateValue) => {
     return (
       <QualityCell

@@ -10,13 +10,13 @@ class QualityCell extends Component {
   
     render() {
       const { value, index, change } = this.props;
-      let backgroundColor = String(value);
+      let backgroundColor = String(value);      
   
       return (
         <p
           value={value}
           onChange={event => change(event.target.value, index)}
-          style={{ backgroundColor: backgroundColor }}>{value}</p>
+          style={{ backgroundColor: backgroundColor }}>{" Farbe "}</p>
       )
     }
   }

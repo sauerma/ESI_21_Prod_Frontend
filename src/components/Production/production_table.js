@@ -17,8 +17,8 @@ export default function DataTable() {
   {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: false,  display: false}}, 
   {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: false, display: false}},  
   {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
-
-  {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true ,
+  {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
+  {name: "HEXCOLOR", label: "Farbe", options: {filter: true,sort: true, display: true ,
     customBodyRender: (value, tableMeta, updateValue) => {
     return (
       <QualityCell

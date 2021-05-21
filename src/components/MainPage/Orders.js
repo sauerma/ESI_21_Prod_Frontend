@@ -19,7 +19,8 @@ export default function Orders() {
   {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true }}, 
   {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
   {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
-  {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true, customBodyRender: (value, tableMeta, updateValue) => {
+  {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
+  {name: "HEXCOLOR", label: "Farbe", options: {filter: true,sort: true, display: true, customBodyRender: (value, tableMeta, updateValue) => {
     return (
       <QualityCell
         value={value}
