@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^12.8.3",
     "@types/react-router-dom": "^5.1.7",
     "axios": "^0.21.1",
+    "culori": "^0.18.2",
     "emailjs-com": "^2.6.4",
     "mui-datatables": "^3.7.7",
     "react": "^17.0.2",

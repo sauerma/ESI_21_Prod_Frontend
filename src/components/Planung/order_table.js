@@ -9,6 +9,7 @@ import axios from "axios";
 import {CSVLink} from "react-csv";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import QualityCell from './qualityCell.js';
+import {lab} from 'culori';
 
 export default function DataTable() {
 
@@ -35,7 +36,6 @@ export default function DataTable() {
         change={event => updateValue(event)}
       />
     );} }},
-
    {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}},
    {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
    {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
@@ -57,7 +57,7 @@ export default function DataTable() {
   useEffect(() => { DatenLaden();});
   
   function DatenLaden(){
-
+    
     axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getplanningorders')
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
@@ -68,7 +68,7 @@ export default function DataTable() {
       setAllData(undefined);
       setCsvData([]);
       return;
-    }          
+    }
 
     if (DataAreEqual(allData, res.data.body)) return; //Check if data has changed       
     setAllData(res.data.body); //Set new table data
@@ -176,23 +176,22 @@ function filterPks(selectedData){
     updateQuantity(_selectedData);
     setSelectedData(_selectedData);
 
-//-------------Sortieren der CSV WIP-----------------// 
+//-------------Sortieren der CSV WIP-----------------//
     var _sortedCsvData = _selectedData;
-    // console.log(_selectedData);
+    //Nach Helligkeit konvertieren
+    convertColors(_sortedCsvData);
 
     //Sortieren Für Strings
-    _sortedCsvData.sort(function(a,b){
-      if(a.HEXCOLOR.toLowerCase() < b.HEXCOLOR.toLowerCase())return -1;
-      if(a.HEXCOLOR.toLowerCase() > b.HEXCOLOR.toLowerCase())return 1;
-      return 0;
-    })
-    // console.log(_sortedCsvData);
-
-    // //Sortieren Für Integer
     // _sortedCsvData.sort(function(a,b){
-    //   return a.PROD_PRIO - b.PROD_PRIO;
-    // });
-    // console.log(_sortedCsvData);
+    //   if(a.HEXCOLOR.toLowerCase() < b.HEXCOLOR.toLowerCase())return -1;
+    //   if(a.HEXCOLOR.toLowerCase() > b.HEXCOLOR.toLowerCase())return 1;
+    //   return 0;
+    // })
+
+    //Sortieren Für Integer
+    _sortedCsvData.sort(function(a,b){
+      return a.helligkeit - b.helligkeit;
+    });
 //-------------Sortieren der CSV Ende-----------------//
     setCsvData(_sortedCsvData);
     
@@ -222,6 +221,16 @@ function filterPks(selectedData){
     else setQuantityColor("#088A08");
 
     return;
+  }
+
+  function convertColors(dataforCSV){
+    var culori = require("culori")
+    let helligkeit;
+
+    dataforCSV.forEach(element => {
+      let obj = culori.lab(element["HEXCOLOR"]);
+      element['helligkeit'] = obj.l;
+    });
   }
 
   return (
