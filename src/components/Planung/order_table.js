@@ -176,21 +176,14 @@ function filterPks(selectedData){
     updateQuantity(_selectedData);
     setSelectedData(_selectedData);
 
-//-------------Sortieren der CSV WIP-----------------//
+//-------------Sortieren der CSV ---------------------//
     var _sortedCsvData = _selectedData;
     //Nach Helligkeit konvertieren
     convertColors(_sortedCsvData);
 
-    //Sortieren Für Strings
-    // _sortedCsvData.sort(function(a,b){
-    //   if(a.HEXCOLOR.toLowerCase() < b.HEXCOLOR.toLowerCase())return -1;
-    //   if(a.HEXCOLOR.toLowerCase() > b.HEXCOLOR.toLowerCase())return 1;
-    //   return 0;
-    // })
-
-    //Sortieren Für Integer
+    //Sortieren der Delta E Werte
     _sortedCsvData.sort(function(a,b){
-      return a.helligkeit - b.helligkeit;
+      return b.helligkeit - a.helligkeit;
     });
 //-------------Sortieren der CSV Ende-----------------//
     setCsvData(_sortedCsvData);
