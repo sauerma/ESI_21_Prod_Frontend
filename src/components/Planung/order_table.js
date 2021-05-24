@@ -116,20 +116,27 @@ export default function DataTable() {
       }
 
       var pKs = filterPks(selectedData);
-      //console.log("Selected Pks:", pKs);
       var pKs_json = JSON.stringify(pKs)
       console.log(pKs_json)
 
-      //Update Production table from Prod_status 0 to 1 (In Planung zu In Produktion)
+      //Update V&V Status
+      axios.put("https://hfmbwiwpid.execute-api.eu-central-1.amazonaws.com/sales/orders/orderitems?status=3", pKs_json)
+      .then(res => {
+        console.log(res);
+  
+      })
+      .catch(err => {
+        console.log(err.message); //Error-Handling
+      });
+
+     //Update Production table from Prod_status 0 to 1 (In Planung zu In Produktion)
       axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateplanningtoprod", pKs_json)
       .then(res => {
         console.log(res);
       })
-      .catch(err => {
+     .catch(err => {
         console.log(err.message); //Error-Handling
-      })
-
-      //TODO Update Verkauf & Versand table --> In Lambda-Funktion packen
+      }); 
 
       sleep(900).then(() => { window.location.reload(); }); 
 

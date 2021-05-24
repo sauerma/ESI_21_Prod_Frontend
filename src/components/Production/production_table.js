@@ -129,8 +129,8 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
     var pKs_json = JSON.stringify(pKs)
     console.log(pKs_json)
 
-    //Update Production table from Prod_status 1 to 2 (In Produktion zu Produziert)
-    axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateinprodtoproducted", pKs_json)
+    //Update V&V Status
+    axios.put('https://hfmbwiwpid.execute-api.eu-central-1.amazonaws.com/sales/orders/orderitems?status=4', pKs_json)
     .then(res => {
       console.log(res);
     })
@@ -138,7 +138,14 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
       console.log(err.message); //Error-Handling
     })
 
-    //TODO Update Verkauf & Versand table --> In Lambda-Funktion packen
+    //Update Production table from Prod_status 1 to 2 (In Produktion zu Produziert)
+     axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateinprodtoproducted", pKs_json)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err.message); //Error-Handling
+    })  
 
     sleep(900).then(() => { window.location.reload(); }); 
 
@@ -182,7 +189,6 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
     als produziert markiert." >
     Produziert
     </Button>
-    <text>   </text>
     
 </dev>
     );
