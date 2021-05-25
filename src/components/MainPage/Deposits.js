@@ -4,89 +4,97 @@ import axios from "axios";
 
 export default function Deposits() {
 
-const [auslastungRes, setAuslastungRes] = useState([]);
 const [auslastungData, setAuslastungData] = useState([]); 
 const [auslastungNumber, setAuslastungNumber] = useState(); 
 
+const [fortschrittData, setFortschrittData] = useState([]); 
+const [fortschrittNumber, setFortschrittNumber] = useState(); 
 
-//------------------------------Test Daten-------------------------------------//
-const dataChart2 = [{ x: 'Auslastung', y: 70 }, { x: 'Fehlende Auslastung', y: 30 }];
-const dataChart3 = [{ x: 'Auslastung', y: 70 }, { x: 'Fehlende Auslastung', y: 30 }]; 
+const [privatKundenData, setPrivatKundenData] = useState([]); 
+const [privatKundenNumber, setPrivatKundenNumber] = useState(); 
+
 
 useEffect(() => {
     
+  //const dataChart2 = [{ x: 'Auslastung', y: 70 }, { x: 'Fehlende Auslastung', y: 30 }];
 
-  //---------------------------- First KPI: Auslastung ----------------------------//
+  //---------------------------- START First KPI: Auslastung ----------------------------//
 
   axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getkpidataauslastung')
       .then(res => {
-      
-      console.log("RESPONSE:", res); //Data from Gateway
 
       if(IsDataBaseOffline(res)) return; //Check if db is available
 
       if(res.data.body.length === 0) { //Check if data is available
         setAuslastungData(undefined);
-        setAuslastungRes(undefined);
-        setAuslastungNumber("0");
+        setAuslastungNumber(undefined);
         return;
-      }          
+      }       
 
-      if (DataAreEqual(auslastungRes, res.data.body)) return;  //Check if data has changed
-      setAuslastungRes(res.data.body)    //Important for checking updated data   
-      setAuslastungData([{ x: ' ', y: Math.round((100-res.data.body[0]['auslastung'])* 100)/100 }, {x: ' ', y: (res.data.body[0]['auslastung']) } ]); //Set new data
-      setAuslastungNumber(res.data.body[0]['auslastung'] + "%");
+      //Attention: Response is an string!
+      if (auslastungNumber === res.data.body[0]['auslastung']) return;  //Check if data has changed
+      setAuslastungNumber(res.data.body[0]['auslastung']); //Set new data   
+      setAuslastungData([{ x: ' ', y: auslastungNumber}, {x: ' ', y: auslastungNumber} ]); //Set new data
+     
+
       })
       .catch(err => {
           console.log(err.message); //Error-Handling
       })
     });
 
-    //---------------------------- Second KPI: Fortschritt ----------------------------//
+    //---------------------------- END First KPI: Auslastung ----------------------------//
 
-    /*   axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getkpidataauslastung')
+
+    //---------------------------- START Second KPI: Fortschritt ----------------------------//
+
+      axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getkpidatafortschritt')
       .then(res => {
-      
-      console.log("RESPONSE:", res); //Data from Gateway
 
       if(IsDataBaseOffline(res)) return; //Check if db is available
 
       if(res.data.body.length === 0) { //Check if data is available
-        auslastungData(undefined);
+        setFortschrittData(undefined);
+        setFortschrittNumber(undefined);
         return;
       }          
 
-      if (DataAreEqual(allData, res.data.body)) return;  //Check if data has changed       
-      auslastungData([{ x: 'Auslastung', y: 70 }, { x: 'Fehlende Auslastung', y: 30 }]); //Set new data
-
+      //Attention: Response is an string!
+      if (fortschrittNumber === res.data.body[0]['fortschritt']) return;  //Check if data has changed       
+      setFortschrittNumber(res.data.body[0]['fortschritt']); //Set new data
+      setFortschrittData([{ x: ' ', y: fortschrittNumber}, {x: ' ', y: fortschrittNumber } ]); //Set new data
       })
       .catch(err => {
           console.log(err.message); //Error-Handling
-      }); */
+      }); 
 
+    //---------------------------- END Second KPI: Fortschritt ----------------------------//
 
-
-      //---------------------------- Third KPI: Verhältnis Privat- und Businesskunden ----------------------------//
-
-          /*   axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getkpidataauslastung')
+    
+    //------------------ START Third KPI: Verhältnis Privat- und Businesskunden -------------------//
+       
+      axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getkpidataprivatkunden')
       .then(res => {
-      
-      console.log("RESPONSE:", res); //Data from Gateway
-
+    
       if(IsDataBaseOffline(res)) return; //Check if db is available
 
       if(res.data.body.length === 0) { //Check if data is available
-        auslastungData(undefined);
+        setPrivatKundenData(undefined);
+        setPrivatKundenNumber(undefined);
         return;
       }          
 
-      if (DataAreEqual(allData, res.data.body)) return;  //Check if data has changed       
-      auslastungData([{ x: 'Auslastung', y: 70 }, { x: 'Fehlende Auslastung', y: 30 }]); //Set new data
+      //Attention: Response is an string!
+      if (privatKundenNumber === res.data.body[0]['privatkunden']) return;  //Check if data has changed       
+      setPrivatKundenNumber(res.data.body[0]['privatkunden']); //Set new data
+      setPrivatKundenData([{ x: ' ', y: privatKundenNumber}, {x: ' ', y: privatKundenNumber} ]); //Set new data
 
       })
       .catch(err => {
           console.log(err.message); //Error-Handling
-      }); */
+      }); 
+
+      //---------------------------- END Third KPI: Verhältnis Privat- und Businesskunden ----------------------------//
 
 
   //Check if database is offline (AWS)
@@ -95,21 +103,11 @@ useEffect(() => {
     if(res.data.errorMessage == null) return false; 
     if(res.data.errorMessage === 'undefined') return false;
     if(res.data.errorMessage.endsWith("timed out after 3.00 seconds")){
-        alert("Database is offline (AWS).");
+        //alert("Database is offline (AWS).");
         return true;
     }     
     return false;
   }
-
-  //Check if old data = new data
-  function DataAreEqual(data, sortedOrders){
-
-    if(data.sort().join(',') === sortedOrders.sort().join(',')){
-      return true;
-      }
-      else return false;
-    }
-
 
   return (
     <div style={{ height: '80px', width: '90px', padding: 0, margin: 0 }}>   
@@ -138,10 +136,10 @@ useEffect(() => {
           top: 0
         }}
         constrainToVisibleArea={true}
-        data={dataChart2}
+        data={fortschrittData}
         height={120}
-        labels={({ datum }) => `${datum.x}: ${datum.y}%`}
-        title="100%"
+        labels={({ datum }) => ` Fortschritt`}
+        title={fortschrittNumber}
         width={140}/>
       <ChartDonut
         ariaDesc="Average number of pets"
@@ -153,9 +151,10 @@ useEffect(() => {
           top: 0
         }}
         constrainToVisibleArea={true}
-        data={dataChart3}
+        data={privatKundenData}
         height={120}
-        title="100%"
+        labels={({ datum }) => ` Privatkundenanteil`}
+        title={privatKundenNumber}
         width={140}/>
     </div>
   );

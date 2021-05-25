@@ -49,7 +49,7 @@ useEffect(() => {
     if(res.data.errorMessage == null) return false; 
     if(res.data.errorMessage === 'undefined') return false;
     if(res.data.errorMessage.endsWith("timed out after 3.00 seconds")){
-        alert("Database is offline (AWS).");
+        //alert("Database is offline (AWS).");
         return true;
     }     
     return false;
