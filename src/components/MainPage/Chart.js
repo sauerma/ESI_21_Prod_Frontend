@@ -90,7 +90,7 @@ const theme = useTheme();
             </Label>
           </YAxis>
           <Tooltip  />
-          <Line type="monotone" dataKey="quantity" stroke="#90caf9" dot={true} strokeWidth="3" activeDot={{r:7}}/>
+          <Line type="monotone" dataKey="quantity" name="Tagesmenge" stroke="#90caf9" dot={true} strokeWidth="3" activeDot={{r:7}}/>
         </LineChart>
       </ResponsiveContainer>
     </React.Fragment>

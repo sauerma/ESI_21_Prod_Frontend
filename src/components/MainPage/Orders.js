@@ -40,7 +40,7 @@ export default function Orders() {
   {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
   {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}}];
 
-  const options = {rowsPerPage: 4, selectableRows: false , filterType: 'checkbox' };
+  const options = {rowsPerPage: 3, selectableRows: false , filterType: 'checkbox' };
   const [allData, setAllData] = useState([]); 
 
   useEffect(() => {
