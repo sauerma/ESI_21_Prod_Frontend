@@ -1,32 +1,77 @@
-import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
-
-// Generate Sales Data
-function createData(time, amount) {
-  return { time, amount };
-}
-
-const data = [
-  createData('1. April', 0),
-  createData('5. April', 300),
-  createData('10. April', 600),
-  createData('15. April', 800),
-  createData('20. April', 1500),
-  createData('25. April', 2000),
-  createData('1. Mai', 2400),
-  createData('05. Mai', undefined),
-];
+import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer, Tooltip } from 'recharts';
+import React, { useState, useEffect} from "react";
+import axios from "axios";
 
 export default function Chart() {
-  const theme = useTheme();
+  
+const [allData, setAllData] = useState([{}]); 
+const [maxQuantity, setMaxQuantity] = useState(); 
 
+
+
+useEffect(() => {
+    
+  axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getchartdatalastorders')
+      .then(res => {
+      
+      console.log("RESPONSE:", res); //Data from Gateway
+
+      if(IsDataBaseOffline(res)) return; //Check if db is available
+
+      if(res.data.body.length === 0) { //Check if data is available
+        setAllData(undefined);
+        return;
+      }          
+      if (DataAreEqual(allData, res.data.body)) return;  //Check if data has changed     
+      setAllData(res.data.body); //Set new data
+      getMaxQuantity(res.data.body);
+
+      })
+      .catch(err => {
+          console.log(err.message); //Error-Handling
+      })
+});
+
+  function getMaxQuantity(data){
+    var maxQuan = 10;
+    data.forEach(element => {
+      if(element['quantity'] > maxQuan) maxQuan = parseInt(element['quantity']);
+    });
+    console.log("MaxQuan:", Math.ceil(maxQuan / 10) * 10);
+    setMaxQuantity((Math.ceil(maxQuan / 10) * 10)); 
+    return;
+  }
+
+  //Check if database is offline (AWS)
+  function IsDataBaseOffline(res){
+
+    if(res.data.errorMessage == null) return false; 
+    if(res.data.errorMessage === 'undefined') return false;
+    if(res.data.errorMessage.endsWith("timed out after 3.00 seconds")){
+        alert("Database is offline (AWS).");
+        return true;
+    }     
+    return false;
+  }
+
+   //Check if old data = new data
+   function DataAreEqual(data, sortedOrders){
+
+    if(data.sort().join(',') === sortedOrders.sort().join(',')){
+      return true;
+      }
+      else return false;
+    }
+
+
+const theme = useTheme();
   return (
     <React.Fragment>
       <h2>Letzter Monat</h2>
       <ResponsiveContainer>
         <LineChart
-          data={data}
+          data={allData}
           margin={{
             top: 16,
             right: 16,
@@ -34,17 +79,18 @@ export default function Chart() {
             left: 24,
           }}
         >
-          <XAxis dataKey="time" stroke={theme.palette.text.secondary} />
-          <YAxis stroke={theme.palette.text.secondary}>
+          <XAxis dataKey="date" stroke={theme.palette.text.secondary} />
+          <YAxis type="number" domain={[0, maxQuantity]} allowDataOverflow={true}>
             <Label
               angle={270}
               position="left"
-              style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
+              style={{ textAnchor: 'middle' }}
             >
-              Menge (Stück)
+              Produktionsmenge
             </Label>
           </YAxis>
-          <Line type="monotone" dataKey="amount" stroke={theme.palette.primary.main} dot={false} />
+          <Tooltip  />
+          <Line type="monotone" dataKey="quantity" stroke="#90caf9" dot={true} strokeWidth="3" activeDot={{r:7}}/>
         </LineChart>
       </ResponsiveContainer>
     </React.Fragment>

@@ -65,8 +65,6 @@ export default function Orders() {
             console.log(err.message); //Error-Handling
         })
   });
-
-
   
   //Check if database is offline (AWS)
   function IsDataBaseOffline(res){
@@ -88,15 +86,6 @@ export default function Orders() {
       }
       else return false;
     }
-
-/*   //Status-Nr to Status-Bez
-  function StatusNrToBez(statusNr){
-    if(statusNr === 0) return "In Planung";
-    if(statusNr === 1) return "In Produktion";
-    if(statusNr === 2) return "Produziert";
-    if(statusNr === 3) return "Eingelagert";
-  }
- */
 
   const getMuiTheme = () => createMuiTheme({
     overrides: {
