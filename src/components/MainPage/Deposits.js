@@ -31,11 +31,9 @@ useEffect(() => {
         return;
       }       
 
-      //Attention: Response is an string!
       if (auslastungNumber === res.data.body[0]['auslastung']) return;  //Check if data has changed
-      setAuslastungNumber(res.data.body[0]['auslastung']); //Set new data   
-      setAuslastungData([{ x: ' ', y: auslastungNumber}, {x: ' ', y: auslastungNumber} ]); //Set new data
-     
+      setAuslastungNumber(parseFloat(res.data.body[0]['auslastung'])); //Set new data   
+      setAuslastungData([{ x: ' ', y: auslastungNumber}, {x: ' ', y: auslastungNumber} ]); //Set new data   
 
       })
       .catch(err => {
@@ -61,7 +59,9 @@ useEffect(() => {
 
       //Attention: Response is an string!
       if (fortschrittNumber === res.data.body[0]['fortschritt']) return;  //Check if data has changed       
+      console.log(res.data.body[0]['fortschritt']);
       setFortschrittNumber(res.data.body[0]['fortschritt']); //Set new data
+      // setFortschrittNumber(parseFloat(res.data.body[0]['fortschritt'])); //Set new data
       setFortschrittData([{ x: ' ', y: fortschrittNumber}, {x: ' ', y: fortschrittNumber } ]); //Set new data
       })
       .catch(err => {
@@ -84,9 +84,8 @@ useEffect(() => {
         return;
       }          
 
-      //Attention: Response is an string!
-      if (privatKundenNumber === res.data.body[0]['privatkunden']) return;  //Check if data has changed       
-      setPrivatKundenNumber(res.data.body[0]['privatkunden']); //Set new data
+      if (privatKundenNumber === res.data.body[0]['privatkunden']) return;  //Check if data has changed     
+      setPrivatKundenNumber(parseFloat(res.data.body[0]['privatkunden'])); //Set new data
       setPrivatKundenData([{ x: ' ', y: privatKundenNumber}, {x: ' ', y: privatKundenNumber} ]); //Set new data
 
       })
