@@ -126,7 +126,7 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
     }
 
     var pKs = filterPks(selectedData);
-    var pKs_json = JSON.stringify(pKs)
+    var pKs_json = JSON.parse(JSON.stringify(pKs));
     console.log(pKs_json)
 
     //Update V&V Status

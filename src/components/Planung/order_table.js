@@ -116,8 +116,9 @@ export default function DataTable() {
       }
 
       var pKs = filterPks(selectedData);
-      var pKs_json = JSON.stringify(pKs)
-      console.log(pKs_json)
+      var pKs_json = JSON.parse(JSON.stringify(pKs));
+
+      console.log(pKs_json);
 
       //Update V&V Status
       axios.put("https://hfmbwiwpid.execute-api.eu-central-1.amazonaws.com/sales/orders/orderitems?status=3", pKs_json)
@@ -137,7 +138,7 @@ export default function DataTable() {
      .catch(err => {
         console.log(err.message); //Error-Handling
       }); 
-
+ 
       sleep(900).then(() => { window.location.reload(); }); 
 
     return;
