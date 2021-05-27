@@ -1,11 +1,12 @@
 import React, { useState, useEffect} from "react";
-import { ChartDonut } from '@patternfly/react-charts';
+import { ChartDonut, ChartThemeColor} from '@patternfly/react-charts';
 import axios from "axios";
 
 export default function Auslastung() {
 
 const [auslastungData, setAuslastungData] = useState([]); 
 const [auslastungNumber, setAuslastungNumber] = useState(); 
+const [kpiColor, setKpiColor] = useState(ChartThemeColor.orange);
 
 useEffect(() => { getAuslastung(); });
 
@@ -27,6 +28,7 @@ function getAuslastung()
       console.log(typeof resp);
       if (typeof resp !== 'number') return;
       setAuslastungNumber(resp);
+      CalcKpiColor(resp);
       setAuslastungData([{ x: '', y: resp}, {x: '', y: 100-resp }]); //Set new data     
 
       })
@@ -34,6 +36,13 @@ function getAuslastung()
           console.log(err.message); //Error-Handling
       })
   } 
+
+  function CalcKpiColor(resp){
+    console.log("Auslastung:", resp);
+    if (resp < 80) setKpiColor(ChartThemeColor.orange);
+    else if (resp >= 80 && resp <= 90) setKpiColor(ChartThemeColor.gold);
+    else setKpiColor(ChartThemeColor.green);
+  }
 
   //Check if database is offline (AWS)
   function IsDataBaseOffline(res){
@@ -56,6 +65,7 @@ function getAuslastung()
         data={auslastungData}
         height={110}
         labels={({ datum }) => `${datum.x} ${datum.y}%`}
+        themeColor={kpiColor}
         title= {auslastungNumber + "%"}
         padding={{
           bottom: 0,
