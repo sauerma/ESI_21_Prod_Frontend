@@ -17,16 +17,13 @@ const [privatKundenNumber, setPrivatKundenNumber] = useState();
 useEffect(() => 
 {
   console.log("test");
-  //getAuslastung();
- // getFortschritt();
-  //getPrivatKundenAnteil();
+  getAuslastung();
+  getFortschritt();
+  getPrivatKundenAnteil();
 });
 
-    
-  //const dataChart2 = [{ x: 'Auslastung', y: 70 }, { x: 'Fehlende Auslastung', y: 30 }];
 
-
-  function getAuslastung()
+function getAuslastung()
 { 
   axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getkpidataauslastung')
       .then(res => {
@@ -35,13 +32,16 @@ useEffect(() =>
 
       if(res.data.body.length === 0) { //Check if data is available
         setAuslastungData(undefined);
-        setAuslastungNumber(undefined);
+        setAuslastungNumber(Number(0.00));
         return;
       }       
 
-      if (auslastungNumber === res.data.body[0]['auslastung']) return;  //Check if data has changed
-      setAuslastungNumber(parseFloat(res.data.body[0]['auslastung'])); //Set new data   
-      setAuslastungData([{ x: ' ', y: auslastungNumber}, {x: ' ', y: auslastungNumber} ]); //Set new data   
+      var resp = JSON.parse(res.data.body[0]['auslastung']);
+      if (auslastungNumber === resp) return;  //Check if data has changed
+      console.log(typeof resp);
+      if (typeof resp !== 'number') return;
+      setAuslastungNumber(resp);
+      setAuslastungData([{ x: '', y: resp}, {x: '', y: 100-resp }]);     //Set new data     
 
       })
       .catch(err => {
@@ -58,16 +58,16 @@ function getFortschritt(){
 
   if(res.data.body.length === 0) { //Check if data is available
     setFortschrittData(undefined);
-    setFortschrittNumber(undefined);
+    setFortschrittNumber(Number(0.00));
     return;
   }          
 
-  //Attention: Response is an string!
-  if (fortschrittNumber === res.data.body[0]['fortschritt']) return;  //Check if data has changed       
-  console.log(res.data.body[0]['fortschritt']);
-  setFortschrittNumber(res.data.body[0]['fortschritt']); //Set new data
-  // setFortschrittNumber(parseFloat(res.data.body[0]['fortschritt'])); //Set new data
-  setFortschrittData([{ x: ' ', y: fortschrittNumber}, {x: ' ', y: fortschrittNumber } ]); //Set new data
+  var resp = JSON.parse(res.data.body[0]['fortschritt']);
+  if (fortschrittNumber === resp) return;  //Check if data has changed       
+  if (typeof resp !== 'number') return;
+  setFortschrittNumber(resp); //Set new data
+  setFortschrittData([{ x: '', y: resp}, {x: '', y: 100-resp } ]); //Set new data
+
   })
   .catch(err => {
       console.log(err.message); //Error-Handling
@@ -87,9 +87,11 @@ function getPrivatKundenAnteil(){
         return;
       }          
 
-      if (privatKundenNumber === res.data.body[0]['privatkunden']) return;  //Check if data has changed     
-      setPrivatKundenNumber(parseFloat(res.data.body[0]['privatkunden'])); //Set new data
-      setPrivatKundenData([{ x: ' ', y: privatKundenNumber}, {x: ' ', y: privatKundenNumber} ]); //Set new data
+      var resp = JSON.parse(res.data.body[0]['privatkunden']);
+      if (privatKundenNumber === resp) return;  //Check if data has changed  
+      if (typeof resp !== 'number') return;   
+      setPrivatKundenNumber(resp); //Set new data
+      setPrivatKundenData([{ x: '', y: resp}, {x: '', y: 100 - resp} ]); //Set new data
 
       })
       .catch(err => {
@@ -118,8 +120,8 @@ function getPrivatKundenAnteil(){
         constrainToVisibleArea={true}
         data={auslastungData}
         height={120}
-        labels={({ datum }) => ` Auslastung`}
-        title= {auslastungNumber}
+        labels={({ datum }) => `${datum.x} ${datum.y}%`}
+        title= {auslastungNumber + "%"}
         padding={{
           bottom: 0,
           left: 0,
@@ -139,8 +141,8 @@ function getPrivatKundenAnteil(){
         constrainToVisibleArea={true}
         data={fortschrittData}
         height={120}
-        labels={({ datum }) => ` Fortschritt`}
-        title={fortschrittNumber}
+        labels={({ datum }) => `${datum.x} ${datum.y}%`}
+        title={fortschrittNumber + "%"}
         width={140}/>
       <ChartDonut
         ariaDesc="Average number of pets"
@@ -154,8 +156,8 @@ function getPrivatKundenAnteil(){
         constrainToVisibleArea={true}
         data={privatKundenData}
         height={120}
-        labels={({ datum }) => ` Privatkundenanteil`}
-        title={privatKundenNumber}
+        labels={({ datum }) => `${datum.x} ${datum.y}%`}
+        title={privatKundenNumber + "%"}
         width={140}/>
     </div>
   );

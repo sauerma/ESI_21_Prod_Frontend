@@ -38,8 +38,8 @@ useEffect(() => {
     data.forEach(element => {
       if(element['quantity'] > maxQuan) maxQuan = parseInt(element['quantity']);
     });
-    console.log("MaxQuan:", Math.ceil(maxQuan / 10) * 10);
-    setMaxQuantity((Math.ceil(maxQuan / 10) * 10)); 
+    console.log("MaxQuan:", (Math.ceil((maxQuan +5) / 10) * 10));
+    setMaxQuantity((Math.ceil((maxQuan +5) / 10) * 10)); 
     return;
   }
 
