@@ -14,12 +14,20 @@ const [privatKundenData, setPrivatKundenData] = useState([]);
 const [privatKundenNumber, setPrivatKundenNumber] = useState(); 
 
 
-useEffect(() => {
+useEffect(() => 
+{
+  console.log("test");
+  //getAuslastung();
+ // getFortschritt();
+  //getPrivatKundenAnteil();
+});
+
     
   //const dataChart2 = [{ x: 'Auslastung', y: 70 }, { x: 'Fehlende Auslastung', y: 30 }];
 
-  //---------------------------- START First KPI: Auslastung ----------------------------//
 
+  function getAuslastung()
+{ 
   axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getkpidataauslastung')
       .then(res => {
 
@@ -39,40 +47,35 @@ useEffect(() => {
       .catch(err => {
           console.log(err.message); //Error-Handling
       })
-    });
-
-    //---------------------------- END First KPI: Auslastung ----------------------------//
+  } 
 
 
-    //---------------------------- START Second KPI: Fortschritt ----------------------------//
+function getFortschritt(){
+  axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getkpidatafortschritt')
+  .then(res => {
 
-      axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getkpidatafortschritt')
-      .then(res => {
+  if(IsDataBaseOffline(res)) return; //Check if db is available
 
-      if(IsDataBaseOffline(res)) return; //Check if db is available
+  if(res.data.body.length === 0) { //Check if data is available
+    setFortschrittData(undefined);
+    setFortschrittNumber(undefined);
+    return;
+  }          
 
-      if(res.data.body.length === 0) { //Check if data is available
-        setFortschrittData(undefined);
-        setFortschrittNumber(undefined);
-        return;
-      }          
+  //Attention: Response is an string!
+  if (fortschrittNumber === res.data.body[0]['fortschritt']) return;  //Check if data has changed       
+  console.log(res.data.body[0]['fortschritt']);
+  setFortschrittNumber(res.data.body[0]['fortschritt']); //Set new data
+  // setFortschrittNumber(parseFloat(res.data.body[0]['fortschritt'])); //Set new data
+  setFortschrittData([{ x: ' ', y: fortschrittNumber}, {x: ' ', y: fortschrittNumber } ]); //Set new data
+  })
+  .catch(err => {
+      console.log(err.message); //Error-Handling
+    }) 
+}
 
-      //Attention: Response is an string!
-      if (fortschrittNumber === res.data.body[0]['fortschritt']) return;  //Check if data has changed       
-      console.log(res.data.body[0]['fortschritt']);
-      setFortschrittNumber(res.data.body[0]['fortschritt']); //Set new data
-      // setFortschrittNumber(parseFloat(res.data.body[0]['fortschritt'])); //Set new data
-      setFortschrittData([{ x: ' ', y: fortschrittNumber}, {x: ' ', y: fortschrittNumber } ]); //Set new data
-      })
-      .catch(err => {
-          console.log(err.message); //Error-Handling
-      }); 
+function getPrivatKundenAnteil(){
 
-    //---------------------------- END Second KPI: Fortschritt ----------------------------//
-
-    
-    //------------------ START Third KPI: Verhältnis Privat- und Businesskunden -------------------//
-       
       axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getkpidataprivatkunden')
       .then(res => {
     
@@ -91,10 +94,9 @@ useEffect(() => {
       })
       .catch(err => {
           console.log(err.message); //Error-Handling
-      }); 
-
-      //---------------------------- END Third KPI: Verhältnis Privat- und Businesskunden ----------------------------//
-
+      })
+   
+    }
 
   //Check if database is offline (AWS)
   function IsDataBaseOffline(res){
