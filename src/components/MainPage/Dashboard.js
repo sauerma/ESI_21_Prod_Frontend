@@ -6,8 +6,10 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Chart from './Chart';
-import Deposits from './Deposits';
+import Auslastung from './Auslastung';
 import Orders from './Orders';
+import Fortschritt from './Fortschritt';
+import PrivatKundenAnteil from './Privatkundenanteil';
 
 
 const drawerWidth = 240;
@@ -51,19 +53,25 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
+          <Grid container spacing={2}>
             {/* Chart */}
             <Grid item xs={12} md={6} lg={9}>
               <Paper className={fixedHeightPaper}>
                 <Chart />
               </Paper>
             </Grid>
-            {/* Recent Deposits */}
+            {/* Recent Auslastung */}
             <Grid item xs={12} md={6} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
+            <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert"}}>
+                <Auslastung /> <h2>&nbsp; Auslastung</h2>
+            </Paper>
+            <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert" }}>
+                <Fortschritt /> <h2>&nbsp; Fortschritt</h2>
+            </Paper>
+            <Paper className={classes.paper} style={{  padding: 0, margin: 1, flexDirection: "revert" }}>
+                 <PrivatKundenAnteil /> <h2>&nbsp; Privatkunden</h2>
+            </Paper>
+            </Grid>            
             {/* Recent Orders */}
             <Grid item xs={12} md={12}>
               <Paper className={classes.paper}>
