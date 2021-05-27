@@ -5,7 +5,7 @@ import axios from "axios";
 export default function Fortschritt() {
 
 const [fortschrittData, setFortschrittData] = useState([]); 
-const [fortschrittNumber, setFortschrittNumber] = useState(); 
+const [fortschrittNumber, setFortschrittNumber] = useState(Number(0.00)); 
 
 useEffect(() => { getFortschritt(); });
 
@@ -21,6 +21,7 @@ function getFortschritt(){
     return;
   }          
 
+  console.log("Forschritt:", resp);
   var resp = JSON.parse(res.data.body[0]['fortschritt']);
   if (fortschrittNumber === resp) return;  //Check if data has changed       
   if (typeof resp !== 'number') return;
