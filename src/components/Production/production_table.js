@@ -16,7 +16,8 @@ export default function DataTable() {
   {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true }}, 
   {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: false,  display: false}}, 
   {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: false, display: false}},  
-  {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
+  {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}},
+  {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: false}}, 
   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
   {name: "HEXCOLOR", label: "Farbe", options: {filter: true,sort: true, display: true ,
     customBodyRender: (value, tableMeta, updateValue) => {
@@ -27,7 +28,7 @@ export default function DataTable() {
         change={event => updateValue(event)}
       />
     );} }},
-  {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: false}},
+  {name: "DELTA_E", label: "Delta_e", options: {filter: true,sort: true, display: true}},
   {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}},  
   {name: "MAT_NR", label: "Material-Nr", options: {filter: true, sort: true, display: false}}, 
   {name: "C", label: "C", options: {filter: true, sort: false, display: false}},

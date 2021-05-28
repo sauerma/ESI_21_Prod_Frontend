@@ -25,7 +25,8 @@ export default function DataTable() {
    {name: "C", label: "C", options: {filter: true, sort: false, display: false}},
    {name: "M", label: "M",options: {filter: true,sort: false,display: false}},
    {name: "Y",label: "Y",options: {filter: true,sort: false, display: false}},
-   {name: "K", label: "K", options: {filter: true,sort: false, display: false}},
+   {name: "K", label: "K", options: {filter: true,sort: false, display: false}},   
+   {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}},
    {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
    {name: "HEXCOLOR", label: "Farbe", options: {filter: true,sort: true, display: true,
     customBodyRender: (value, tableMeta, updateValue) => {
@@ -36,7 +37,7 @@ export default function DataTable() {
         change={event => updateValue(event)}
       />
     );} }},
-   {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}},
+   {name: "DELTA_E", label: "Delta_e", options: {filter: true,sort: true, display: true}},
    {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
    {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
    {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 

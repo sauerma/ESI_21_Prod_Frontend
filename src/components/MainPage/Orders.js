@@ -18,7 +18,8 @@ export default function Orders() {
   {name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: false}}, 
   {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true }}, 
   {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
-  {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
+  {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}},
+  {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}}, 
   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
   {name: "HEXCOLOR", label: "Farbe", options: {filter: true,sort: true, display: true, customBodyRender: (value, tableMeta, updateValue) => {
     return (
@@ -28,7 +29,7 @@ export default function Orders() {
         change={event => updateValue(event)}
       />
     );}}},
-  {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}},
+  {name: "DELTA_E", label: "Delta_e", options: {filter: true,sort: true, display: true}},
   {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 
   {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: false,  display: false}}, 
   {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: false, display: false}},  
