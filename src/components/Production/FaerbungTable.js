@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import axios from "axios";
 import QualityCell from '../Planung/qualityCell.js';
 
-export default function DataTable() {
+export default function FaerbungTable() {
 
   const columns = [  {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
   {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
@@ -41,7 +41,7 @@ export default function DataTable() {
   {name: "END_DATE", label: "Enddatum",options: {filter: true,sort: true, display: true}},
  ];
 
-  const options = {rowsPerPage: 5, customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox',  
+  const options = {rowsPerPage: 4, customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox',  
                     onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
   const [allData, setAllData] = useState([]); 
   const [selectedData, setSelectedData] =  useState([]); 
@@ -90,14 +90,6 @@ export default function DataTable() {
       else return false;
     }
 
- /*  //Status-Nr to Status-Bez
-  function StatusNrToBez(statusNr){
-    if(statusNr === 0) return "In Planung";
-    if(statusNr === 1) return "In Produktion";
-    if(statusNr === 2) return "Produziert";
-    if(statusNr === 3) return "Eingelagert";
-  }
- */
 
 //RowSelectEvent
 function rowSelectEvent(curRowSelected, allRowsSelected){ 
@@ -175,9 +167,9 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
 
 
     return (
-<dev>
+<dev> 
   <MUIDataTable
-    title={"Produktionsaufträge"}
+    //title={"Färbeaufträge"}
     data={allData}
     columns={columns}
     options={options} />
@@ -185,9 +177,13 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
     <Button
     variant="contained" 
     onClick={Abschliesen}
-    title="Mit Klick auf diesen Button
-    werden alle markierten Produktionsaufträge
-    als produziert markiert." >
+    title="Mit Klick auf diesen Button werden alle markierten Färbeaufträge in den Druck gegeben." >
+    In Druck geben
+    </Button>
+    <text> </text>
+    <Button
+    variant="contained" 
+    title="Mit Klick auf diesen Button werden alle markierten Färbeaufträge als proudziert markiert." >
     Produziert
     </Button>
     

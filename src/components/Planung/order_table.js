@@ -235,12 +235,10 @@ function filterPks(selectedData){
         options={options}/>
     <br/>
     <br/>
-    <Button variant="contained" onClick={updateProdStatus} title="Mit Klick auf diesen Button
-    werden alle markierten Planungsaufträge
-    auf 'in Produktion' gesetzt." >In Produktion geben</Button>
+    <Button variant="contained" onClick={updateProdStatus} title="Mit Klick auf diesen Button werden alle markierten Planungsaufträge in die Färbung gegeben." >In Färbung geben</Button>
     <text name="DummySeperator">  </text>
     <Button variant="contained" onClick={updateProdStatus} title="Mit Klick auf diesen Button wird eine CSV-Datei mit allen markierten Aufträgen erstellt. 
-    Außerdem ändert sich der Status auf 'in Produktion'.">
+    Außerdem ändert sich der Status auf 'in Färbung'.">
     <CSVLink data={csvdata} headers={csvheaders} style={{textDecoration: "none", color: "black"}} filename={"MachineConfiguration.csv"}>Download CSV</CSVLink>
     <GetAppIcon/>  
     </Button>   

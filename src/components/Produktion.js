@@ -1,7 +1,7 @@
 import React from 'react';
 import './Style/Produktion.css';
 import Typography from '@material-ui/core/Typography';
-import  DataTable  from './Production/production_table.js'
+import  TabChange  from './Production/TabChange.js'
 
 const Produktion = () => {
     return (
@@ -9,7 +9,7 @@ const Produktion = () => {
             <Typography paragraph>
             Produktion
             </Typography>
-           <DataTable/>
+           <TabChange/>
         </div>
     )
 }

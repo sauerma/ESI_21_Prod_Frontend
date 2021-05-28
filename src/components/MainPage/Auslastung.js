@@ -41,6 +41,7 @@ function getAuslastung()
     console.log("Auslastung:", resp);
     if (resp < 80) setKpiColor(ChartThemeColor.orange);
     else if (resp >= 80 && resp <= 90) setKpiColor(ChartThemeColor.gold);
+    else if (resp > 100) setKpiColor(ChartThemeColor.orange);
     else setKpiColor(ChartThemeColor.green);
   }
 
