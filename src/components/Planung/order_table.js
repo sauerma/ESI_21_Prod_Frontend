@@ -49,7 +49,7 @@ export default function DataTable() {
   const [csvdata, setCsvData] = useState([]); 
   const [Quantity, setQuantity] = useState("");
   const [QuantityColor, setQuantityColor] = useState("#ffffff");
-  const csvheaders = ["OI_NR", "O_DATE", "p_nr", "QUANTITY", "HEXCOLOR", "C", "M", "Y", "K", "IMAGE"];
+  const csvheaders = ["OI_NR", "O_DATE", "p_nr", "QUANTITY", "HEXCOLOR","DELTA_E", "C", "M", "Y", "K", "IMAGE"];
   
   const [allData, setAllData] = useState([]); 
   const [selectedData, setSelectedData] =  useState([]); 
@@ -58,7 +58,7 @@ export default function DataTable() {
   useEffect(() => { DatenLaden();});
   
   function DatenLaden(){
-    
+ 
     axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getplanningorders')
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
@@ -179,12 +179,10 @@ function filterPks(selectedData){
 
 //-------------Sortieren der CSV ---------------------//
     var _sortedCsvData = _selectedData;
-    //Nach Helligkeit konvertieren
-    convertColors(_sortedCsvData);
 
-    //Sortieren der Delta E Werte
+    //Sortieren der Delta-E Werte von Hell nach Dunkel
     _sortedCsvData.sort(function(a,b){
-      return b.helligkeit - a.helligkeit;
+      return b.DELTA_E - a.DELTA_E;
     });
 //-------------Sortieren der CSV Ende-----------------//
     setCsvData(_sortedCsvData);
@@ -217,14 +215,14 @@ function filterPks(selectedData){
     return;
   }
 
-  function convertColors(dataforCSV){
-    var culori = require("culori")
+  // function convertColors(dataforCSV){
+  //   var culori = require("culori")
 
-    dataforCSV.forEach(element => {
-      let obj = culori.lab(element["HEXCOLOR"]);
-      element['helligkeit'] = obj.l;
-    });
-  }
+  //   dataforCSV.forEach(element => {
+  //     let obj = culori.lab(element["HEXCOLOR"]);
+  //     element['helligkeit'] = obj.l;
+  //   });
+  // }
 
   return (
   <div>
