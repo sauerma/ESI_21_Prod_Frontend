@@ -21,7 +21,6 @@ function getFortschritt(){
     return;
   }          
 
-  console.log("Forschritt:", resp);
   var resp = JSON.parse(res.data.body[0]['fortschritt']);
   if (fortschrittNumber === resp) return;  //Check if data has changed       
   if (typeof resp !== 'number') return;

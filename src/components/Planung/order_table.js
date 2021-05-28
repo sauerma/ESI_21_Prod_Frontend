@@ -100,14 +100,6 @@ export default function DataTable() {
       else return false;
     }
 
-  //Status-Nr to Status-Bez
-/*   function StatusNrToBez(statusNr){
-    if(statusNr === 0) return "In Planung";
-    if(statusNr === 1) return "In Produktion";
-    if(statusNr === 2) return "Produziert";
-    if(statusNr === 3) return "Eingelagert";
-  } */
-
  //Update status in planning to in production
   function updateProdStatus(){  
       
