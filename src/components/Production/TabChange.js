@@ -7,10 +7,12 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import ArchiveIcon from '@material-ui/icons/Archive';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import Box from '@material-ui/core/Box';
 
 import Faerbung from './Faerbung.js';
 import Druck from './Druck.js';
+import ProduzierteAuft from'./ProduzierteAuft.js'; 
 
 
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +69,7 @@ export default function ScrollableTabsButtonForce() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -83,6 +85,7 @@ export default function ScrollableTabsButtonForce() {
         >
           <Tab label="Färbeaufträge" icon={<ColorLensIcon />} {...a11yProps(2)} />
           <Tab label="Druckaufträge" icon={<ArchiveIcon />} {...a11yProps(3)} />
+          <Tab label= "Produzierte Aufträge" icon={<AssignmentTurnedInIcon />} {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -104,6 +107,16 @@ export default function ScrollableTabsButtonForce() {
         </Grid>
         </div> 
       </TabPanel>    
+      <TabPanel value={value} index={2}>
+
+<div className={classes.root}>
+    <Grid item xs={12}>
+        
+    <ProduzierteAuft/>
+    
+    </Grid>
+    </div> 
+  </TabPanel>    
     </div>
 )
 }

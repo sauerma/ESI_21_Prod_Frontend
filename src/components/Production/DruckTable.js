@@ -130,7 +130,7 @@ export default function DruckTable() {
         console.log(err.message); //Error-Handling
     })
 
-    //Update Production table from Prod_status 1 to 2 (In Produktion zu Produziert)
+    //Update Production table from Prod_status2 to 3 (In Druck zu Produziert)
         axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateinprodtoproducted", pKs_json)
     .then(res => {
         console.log(res);

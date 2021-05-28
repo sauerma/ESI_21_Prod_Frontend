@@ -48,7 +48,7 @@ export default function FaerbungTable() {
 
   useEffect(() => {
         
-    axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getprodorders')
+    axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getfaerbeorders')
         .then(res => {
         
         console.log("RESPONSE:", res); //Data from Gateway
@@ -110,9 +110,7 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
   return;
 }
 
-
-  function Abschliesen(){
-
+  function Produziert(){
     if (selectedData == null || selectedData === undefined || selectedData.length === 0) {
       alert("Bitte Positionen auswählen!");
       return;
@@ -125,14 +123,41 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
     //Update V&V Status
     axios.put('https://hfmbwiwpid.execute-api.eu-central-1.amazonaws.com/sales/orders/orderitems?status=4', pKs_json)
     .then(res => {
+        console.log(res);
+    })
+    .catch(err => {
+        console.log(err.message); //Error-Handling
+    })
+
+    //Update Production table from Prod_status 1 to 3 (In Färbung  zu Produziert)
+     axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateinprodtoproducted", pKs_json)
+    .then(res => {
       console.log(res);
     })
     .catch(err => {
       console.log(err.message); //Error-Handling
-    })
+    })  
 
-    //Update Production table from Prod_status 1 to 2 (In Produktion zu Produziert)
-     axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateinprodtoproducted", pKs_json)
+    sleep(900).then(() => { window.location.reload(); }); 
+
+  return;
+
+  }
+
+
+  function InDruckGeben(){
+
+    if (selectedData == null || selectedData === undefined || selectedData.length === 0) {
+      alert("Bitte Positionen auswählen!");
+      return;
+    }
+
+    var pKs = filterPks(selectedData);
+    var pKs_json = JSON.parse(JSON.stringify(pKs));
+    console.log(pKs_json)
+
+    //Update Production table from Prod_status 1 to 2 (In Färbung  zu In Druck)
+     axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updatefaerbeorders", pKs_json)
     .then(res => {
       console.log(res);
     })
@@ -176,13 +201,14 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
     <br></br>
     <Button
     variant="contained" 
-    onClick={Abschliesen}
+    onClick={InDruckGeben}
     title="Mit Klick auf diesen Button werden alle markierten Färbeaufträge in den Druck gegeben." >
     In Druck geben
     </Button>
     <text> </text>
     <Button
     variant="contained" 
+    onClick={Produziert}
     title="Mit Klick auf diesen Button werden alle markierten Färbeaufträge als proudziert markiert." >
     Produziert
     </Button>

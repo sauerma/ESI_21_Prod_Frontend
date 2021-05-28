@@ -123,7 +123,7 @@ export default function DataTable() {
         console.log(err.message); //Error-Handling
       });
 
-     //Update Production table from Prod_status 0 to 1 (In Planung zu In Produktion)
+     //Update Production table from Prod_status 0 to 1 (In Planung zu In Färbung)
       axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateplanningtoprod", pKs_json)
       .then(res => {
         console.log(res);
