@@ -60,9 +60,9 @@ function getPrivatKundenAnteil(){
         }}
         constrainToVisibleArea={true}
         data={privatKundenData}
-        height={110}
+        height={90}
         labels={({ datum }) => `${datum.x} ${datum.y}%`}
-        title={privatKundenNumber + "%"}
+        title={Math.round(privatKundenNumber, 2) + "%"}
         width={140}/>
     </div>
   );

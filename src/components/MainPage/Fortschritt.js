@@ -47,7 +47,7 @@ function IsDataBaseOffline(res){
 }
 
 return (
-    <div style={{ height: '78px', width: '90px', padding: 0, margin: 0 }}>   
+    <div style={{ height: '78px', width: '90px' }}>   
         <ChartDonut
         ariaDesc="Average number of pets"
         ariaTitle="Donut chart example"
@@ -59,9 +59,9 @@ return (
         }}
         constrainToVisibleArea={true}
         data={fortschrittData}
-        height={110}
+        height={90}
         labels={({ datum }) => `${datum.x} ${datum.y}%`}
-        title={fortschrittNumber + "%"}
+        title={Math.round(fortschrittNumber, 2) +"%"}
         width={140}/>
     </div>
   );

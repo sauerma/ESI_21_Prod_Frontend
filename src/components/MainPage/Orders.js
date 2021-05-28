@@ -29,7 +29,7 @@ export default function Orders() {
         change={event => updateValue(event)}
       />
     );}}},
-  {name: "DELTA_E", label: "Delta_e", options: {filter: true,sort: true, display: true}},
+  {name: "DELTA_E", label: "Delta_e", options: {filter: true,sort: true, display: false}},
   {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 
   {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: false,  display: false}}, 
   {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: false, display: false}},  

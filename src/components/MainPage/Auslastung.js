@@ -63,10 +63,10 @@ function getAuslastung()
         ariaTitle="Auslastung"
         constrainToVisibleArea={true}
         data={auslastungData}
-        height={110}
+        height={90}
         labels={({ datum }) => `${datum.x} ${datum.y}%`}
         themeColor={kpiColor}
-        title= {auslastungNumber + "%"}
+        title= {Math.round(auslastungNumber, 2) + "%"}
         padding={{
           bottom: 0,
           left: 0,
