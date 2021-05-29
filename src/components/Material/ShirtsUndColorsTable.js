@@ -16,7 +16,7 @@ const [ShirtData , setShirtData] = useState([]);
 const columnsShirts = 
   [ 
     {name: "prodmat_id", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
-    {name: "m_id_materialstype", label: "Typ", options: {filter: true, sort: true, display: true}},
+    {name: "m_id_materialstype", label: "Typ", options: {filter: false, sort: false, display: false}},
     {name: "quantity", label: "Menge",  options: {filter: true,  sort: true, display: true}}, 
     {name: "ppml", label: "PPML", options: {filter: true, sort: true, display: true}},
     {name: "whitness", label: "Weißgrad", options: {filter: true,  sort: true,  display: true}}, 
