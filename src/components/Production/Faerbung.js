@@ -46,7 +46,9 @@ export default function Faerbung() {
   const [allData, setAllData] = useState([]); 
   const [selectedData, setSelectedData] =  useState([]); 
 
-  useEffect(() => {
+  useEffect(() => { DatenLaden(); });
+
+  function DatenLaden(){
         
     axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getfaerbeorders')
         .then(res => {
@@ -67,7 +69,8 @@ export default function Faerbung() {
         .catch(err => {
             console.log(err.message); //Error-Handling
         })
-  });
+
+  }
 
   //Check if database is offline (AWS)
   function IsDataBaseOffline(res){
@@ -138,7 +141,7 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
       console.log(err.message); //Error-Handling
     })  
 
-    sleep(900).then(() => { window.location.reload(); }); 
+    sleep(900).then(() => { setSelectedData(undefined); DatenLaden(); }); 
 
   return;
 
@@ -165,7 +168,7 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
       console.log(err.message); //Error-Handling
     })  
 
-    sleep(900).then(() => { window.location.reload(); }); 
+    sleep(900).then(() => { setSelectedData(undefined); DatenLaden(); }); 
 
   return;
   }

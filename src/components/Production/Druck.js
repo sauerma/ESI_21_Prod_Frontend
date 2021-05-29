@@ -142,7 +142,7 @@ export default function Druck() {
         console.log(err.message); //Error-Handling
     })
 
-    sleep(900).then(() => {window.location.reload(); }); 
+    sleep(900).then(() => {setSelectedData(undefined); DatenLaden(); }); 
 
     return;
     }

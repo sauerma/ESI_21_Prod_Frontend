@@ -45,7 +45,7 @@ export default function DataTable() {
 
    const options = {rowsPerPage: 5, customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
-               
+              
   const [csvdata, setCsvData] = useState([]); 
   const [Quantity, setQuantity] = useState("");
   const [QuantityColor, setQuantityColor] = useState("#ffffff");
@@ -132,7 +132,7 @@ export default function DataTable() {
         console.log(err.message); //Error-Handling
       }); 
  
-      sleep(900).then(() => { window.location.reload(); }); 
+      sleep(900).then(() => { setSelectedData(undefined); DatenLaden(); }); 
 
     return;
 }
@@ -184,6 +184,7 @@ function filterPks(selectedData){
     _sortedCsvData.sort(function(a,b){
       return b.DELTA_E - a.DELTA_E;
     });
+
 //-------------Sortieren der CSV Ende-----------------//
     setCsvData(_sortedCsvData);
     
@@ -214,15 +215,6 @@ function filterPks(selectedData){
 
     return;
   }
-
-  // function convertColors(dataforCSV){
-  //   var culori = require("culori")
-
-  //   dataforCSV.forEach(element => {
-  //     let obj = culori.lab(element["HEXCOLOR"]);
-  //     element['helligkeit'] = obj.l;
-  //   });
-  // }
 
   return (
   <div>

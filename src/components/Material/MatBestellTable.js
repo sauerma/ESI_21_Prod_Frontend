@@ -17,7 +17,6 @@ function OrderMaterial(){
   console.log("You ordered: Black Shirt:", stk_shirt, ", Shirt Divers: (color:", colordiv,"):", stk_shirt_div, ", C:", liter_c, ", M:", liter_m, ", Y:", liter_y, ", K:", liter_k);
 
 
-  //sleep(900).then(() => { window.location.reload(); }); 
 
 }
 
