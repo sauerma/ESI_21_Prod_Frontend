@@ -1,6 +1,7 @@
 import React, { /*useState, useEffect*/} from "react";
 import Button from '@material-ui/core/Button';
 import './MatBestellTable.css';
+import axios from "axios";
 
 export default function MatBestellTable() {
   
@@ -16,7 +17,42 @@ function OrderMaterial(){
 
   console.log("You ordered: Black Shirt:", stk_shirt, ", Shirt Divers: (color:", colordiv,"):", stk_shirt_div, ", C:", liter_c, ", M:", liter_m, ", Y:", liter_y, ", K:", liter_k);
 
+  var body = []
+
+  if (stk_shirt !== undefined && stk_shirt !== 0 && stk_shirt !== "") body.push({"m_id_materialstype": "T", "quantity": stk_shirt, "RES_QTY": stk_shirt, "hexcolor": '#FFFFFF' });  //Black Shirt 
+  if (stk_shirt_div !== undefined && stk_shirt_div !== 0 && stk_shirt_div !== "") body.push({"m_id_materialstype": "T", "quantity": stk_shirt_div, "RES_QTY": stk_shirt_div, "hexcolor": colordiv });  //Divers Shirt
+  if (liter_c !== undefined && liter_c !== 0 && liter_c !== "") body.push({"m_id_materialstype": "C", "quantity": liter_c, "RES_QTY": liter_c, "hexcolor": " " });  //C
+  if (liter_m !== undefined && liter_m !== 0 && liter_m !== "") body.push({"m_id_materialstype": "M", "quantity": liter_m, "RES_QTY": liter_m, "hexcolor": " " });  //M
+  if (liter_y !== undefined && liter_y !== 0 && liter_y !== "") body.push({"m_id_materialstype": "Y", "quantity": liter_y, "RES_QTY": liter_y, "hexcolor": " " });  //Y
+  if (liter_k !== undefined && liter_k !== 0 && liter_k !== "") body.push({"m_id_materialstype": "K", "quantity": liter_k, "RES_QTY": liter_k, "hexcolor": " " });  //K
+
+  InsertMatOrders(body);
+  console.log("Body for insert:", body);
+
+  return; 
 }
+
+
+function InsertMatOrders(body){
+
+  if (body.length === 0) return; 
+
+  axios.post('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/creatematerialorder', body)
+  .then(res => {
+  console.log("RESPONSE:", res);
+  sleep(100).then(() => {window.location.reload(); }); 
+
+  })
+  .catch(err => {
+      console.log(err.message); //Error-Handling
+  })
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 
   return (
 
@@ -35,10 +71,10 @@ function OrderMaterial(){
             <td colspan="1" >#FFFFFF</td>
             <td colspan="2">
              <select name="colordivers" id="colordiv">
-              <option value="1">#55343</option>
-              <option value="2">#zr4tz</option>
-              <option value="3">#23343</option>
-              <option value="4">#2344</option>
+              <option value="#55343">#55343</option>
+              <option value="zr4tz">#zr4tz</option>
+              <option value="23343">#23343</option>
+              <option value="2344">#2344</option>
              </select>
             </td>
             <td colspan="3" className="color1"> </td>
