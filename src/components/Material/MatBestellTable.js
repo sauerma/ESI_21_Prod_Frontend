@@ -35,7 +35,7 @@ function OrderMaterial(){
 
 function InsertMatOrders(body){
 
-  if (body.length === 0) return; 
+  if (body.length === 0) { alert("Bitte Anzahl eingeben!"); return; }; 
 
   axios.post('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/creatematerialorder', body)
   .then(res => {
