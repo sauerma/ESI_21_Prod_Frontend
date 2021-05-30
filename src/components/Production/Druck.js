@@ -128,9 +128,11 @@ export default function Druck() {
     axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateinprodtoproducted", pKs_json)
     .then(res => {
         console.log(res);
+        cssMessage("Erfolgreich auf produziert gesetzt.", "#4dff88");
     })
     .catch(err => {
         console.log(err.message); //Error-Handling
+        cssMessage("Error.", "#9c2c2c");
     })  
 
     //Update V&V Status
@@ -142,9 +144,26 @@ export default function Druck() {
         console.log(err.message); //Error-Handling
     })
 
-    sleep(900).then(() => {setSelectedData(undefined); DatenLaden(); }); 
+    sleep(900).then(() => {
+      setSelectedData(undefined);
+       DatenLaden(); 
+      }); 
 
     return;
+    }
+
+    function cssMessage(message, color)
+    { //Set
+      document.getElementsByClassName("footer")[0].style.textAlign = "center";
+      document.getElementsByClassName("footer")[0].innerHTML = message;
+      document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+    
+      //Reset
+      sleep(2200).then(() => { 
+      document.getElementsByClassName("footer")[0].style.textAlign = "right";
+      document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©BlackForestConsulting";
+      document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+      });
     }
     
     function sleep(ms) {
