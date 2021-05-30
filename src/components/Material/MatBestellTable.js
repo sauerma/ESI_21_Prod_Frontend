@@ -16,13 +16,7 @@ function OrderMaterial(){
 
   console.log("You ordered: Black Shirt:", stk_shirt, ", Shirt Divers: (color:", colordiv,"):", stk_shirt_div, ", C:", liter_c, ", M:", liter_m, ", Y:", liter_y, ", K:", liter_k);
 
-
-
 }
-
-/* function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-} */
 
   return (
 
@@ -53,16 +47,22 @@ function OrderMaterial(){
             <td colspan="6" className="color4"> </td>
         </tr>
         <tr >
-        <td colspan="1"><input type="number" id="tshirt" name="tshirt" />Stk</td>
-            <td colspan="2"><input type="number" id="tshirtdiv" name="tshirtdiv" />Stk</td>
-            <td colspan="3"><input type="number" id="c" name="c"/>Liter</td>
-            <td colspan="4"><input type="number" id="m" name="m"/>Liter</td>
-            <td colspan="5"><input type="number" id="y" name="y"/>Liter</td>
-            <td colspan="6"><input type="number" id="k" name="k"/>Liter</td>
+        <td colspan="1"><input type="number" id="tshirt" name="tshirt" />  Stück&nbsp;</td>
+            <td colspan="2"><input type="number" id="tshirtdiv" name="tshirtdiv" /> Stück&nbsp;</td>
+            <td colspan="3"><input type="number" id="c" name="c"/>  Liter&nbsp;</td>
+            <td colspan="4"><input type="number" id="m" name="m"/>  Liter&nbsp;</td>
+            <td colspan="5"><input type="number" id="y" name="y"/>  Liter&nbsp;</td>
+            <td colspan="6"><input type="number" id="k" name="k"/>  Liter&nbsp;</td>
         </tr>
 </table>
 <br></br>
-<Button variant="contained" onClick={OrderMaterial} title="Mit Klick auf diesen Button werden die entsprechenden T-Shirts oder Farben bestellt." >Bestellen</Button>
+<Button 
+  variant="contained" 
+  style={{float: "left"}}
+  onClick={OrderMaterial} 
+  title="Mit Klick auf diesen Button werden die entsprechenden T-Shirts oder Farben bestellt." >
+  Bestellen
+</Button>
 </div>
 
   );

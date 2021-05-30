@@ -81,10 +81,10 @@ function DataAreEqual(data, sortedOrders){
   }
 
   return (
-  <div>
-    <MUIDataTable 
-        title={"In Bestellung"}
-        data={allData}      
+  <div  style={{marginTop: "3%"}}>
+    <MUIDataTable style={{float: "left"}}
+        data={allData}    
+        title="In Bestellung"
         columns={columns}
         options={options}/>
     </div>

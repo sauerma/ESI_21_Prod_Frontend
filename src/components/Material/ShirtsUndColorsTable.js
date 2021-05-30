@@ -35,7 +35,7 @@ const columnsShirts =
      );} }}, 
     {name: "delta_e", label: "Delta_e", options: {filter: true,sort: true, display: true}}
   ];
-const optionsShirts = {rowsPerPage: 5, customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox' };
+const optionsShirts = {rowsPerPage: 3, customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox' };
 
 
 function ShirtDatenLaden(){
@@ -89,7 +89,7 @@ const columnsColors =
   {name: "delta_e", label: "Delta_e", options: {filter: true,sort: true, display: true}}
 ];
 
-const optionsColors = {rowsPerPage: 5, customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox' };
+const optionsColors = {rowsPerPage: 3, customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox' };
 
 function ColorDatenLaden(){
 
@@ -150,8 +150,7 @@ options={optionsShirts} />
     columns={columnsColors}
     options={optionsColors} />
     <br></br>
-<Button variant="contained" title="Mit Klick auf diesen Button
-    werden die entsprechenden Restmengen aktualisiert.">Restmengen aktualisieren</Button> 
+<Button variant="contained" title="Mit Klick auf diesen Button werden die entsprechenden Restmengen aktualisiert.">Restmengen aktualisieren</Button> 
 </div>
 
   );
