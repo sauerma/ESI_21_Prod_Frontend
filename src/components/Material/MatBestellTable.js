@@ -40,7 +40,7 @@ function InsertMatOrders(body){
   axios.post('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/creatematerialorder', body)
   .then(res => {
   console.log("RESPONSE:", res);
-  sleep(100).then(() => {window.location.reload(); }); 
+  sleep(800).then(() => {window.location.reload(); }); 
 
   })
   .catch(err => {
