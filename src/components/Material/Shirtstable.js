@@ -1,5 +1,5 @@
 import React, { useState, useEffect, forwardRef } from "react";
-//import QualityCell from '../Planung/qualityCell.js';
+// import QualityCell from '../Planung/qualityCell.js';
 import axios from "axios";
 import MaterialTable from 'material-table';
 
@@ -31,8 +31,9 @@ const [columnsShirts, /*setColumnsShirts*/] = useState([
   { title: 'Restmenge', field: 'RES_QTY', editable: 'onUpdate' },
   { title: 'Weißgrad', field: 'whitness', editable: 'never' },
   { title: 'Saugfähigkeit', field: 'absorbency', editable: 'never' },
-  { title: 'Hex-Wert', field: 'hexcolor', editable: 'never' },
-  { title: 'Farbe', field: 'hexcolor', editable: 'never' }
+  { title: 'Hex-Wert', field: 'hexcolor', editable: 'never'},
+  { title: 'Farbe', field: 'hexcolor',editable: 'never',cellStyle: value=>({
+    backgroundColor: value = value})}
 ]);
 
 const tableIcons = {
@@ -56,29 +57,30 @@ const tableIcons = {
   };
 
 
-/* const columnsShirts = 
-  [ 
-    {name: "prodmat_id", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
-    {name: "m_id_materialstype", label: "Typ", options: {filter: false, sort: false, display: false}},
-    {name: "quantity", label: "Menge",  options: {filter: true,  sort: true, display: true}}, 
-    {name: "ppml", label: "PPML", options: {filter: true, sort: true, display: true}},
-    {name: "whitness", label: "Weißgrad", options: {filter: true,  sort: true,  display: true}}, 
-    {name: "viscosity", label: "Viskosität", options: {filter: true, sort: true, display: true}},  
-    {name: "absorbency", label: "Saugfähigkeit", options: {filter: true,  sort: true,  display: true}}, 
-    {name: "RES_QTY", label: "Restmenge", options: {filter: true, sort: true, display: true}}, 
-    {name: "hexcolor", label: "HEX-Wert", options: {filter: true, sort: true, display: true}}, 
-    {name: "hexcolor", label: "Farbe", options: {filter: true,sort: true, display: true,
-     customBodyRender: (value, tableMeta, updateValue) => {
-     return (
-       <QualityCell
-         value={value}
-         index={tableMeta.columnIndex}
-         change={event => updateValue(event)}
-       />
-     );} }}, 
-    {name: "delta_e", label: "Delta_e", options: {filter: true,sort: true, display: true}}
-  ];
-const optionsShirts = {rowsPerPage: 3, customToolbarSelect: () => { Hide Delete Button }, filterType: 'checkbox' }; */
+//  const columnsShirts = 
+//   [ 
+//     {name: "prodmat_id", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
+//     {name: "m_id_materialstype", label: "Typ", options: {filter: false, sort: false, display: false}},
+//     {name: "quantity", label: "Menge",  options: {filter: true,  sort: true, display: true}}, 
+//     {name: "ppml", label: "PPML", options: {filter: true, sort: true, display: true}},
+//     {name: "whitness", label: "Weißgrad", options: {filter: true,  sort: true,  display: true}}, 
+//     {name: "viscosity", label: "Viskosität", options: {filter: true, sort: true, display: true}},  
+//     {name: "absorbency", label: "Saugfähigkeit", options: {filter: true,  sort: true,  display: true}}, 
+//     {name: "RES_QTY", label: "Restmenge", options: {filter: true, sort: true, display: true}}, 
+//     {name: "hexcolor", label: "HEX-Wert", options: {filter: true, sort: true, display: true}}, 
+//     {name: "hexcolor", label: "Farbe", options: {filter: true,sort: true, display: true,
+//      customBodyRender: (value, tableMeta, updateValue) => {
+//      return (
+//        <QualityCell
+//          value={value}
+//          index={tableMeta.columnIndex}
+//          change={event => updateValue(event)}
+//        />
+//      );} }}, 
+//     {name: "delta_e", label: "Delta_e", options: {filter: true,sort: true, display: true}}
+//   ];
+// const optionsShirts = {rowsPerPage: 3, customToolbarSelect: () => { Hide Delete Button }, filterType: 'checkbox' }; 
+
 
 
 function ShirtDatenLaden(){
