@@ -17,12 +17,12 @@ export default function DataTable() {
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
    {name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
    {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true}},
-   {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: false,  display: false}}, 
-   {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: false, display: false}},  
-   {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: true,  display: false}}, 
-   {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: true, sort: true, display: false}},  
+   {name: "PO_CODE", label: "PO_CODE", options: {filter: false,  sort: false,  display: false}}, 
+   {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: false, sort: false, display: false}},  
+   {name: "PO_CODE", label: "PO_CODE", options: {filter: false,  sort: true,  display: false}}, 
+   {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: false, sort: true, display: false}},  
    {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
-   {name: "MAT_NR", label: "Material-Nr", options: {filter: true, sort: true, display: false}}, 
+   {name: "MAT_NR", label: "Material-Nr", options: {filter: false, sort: true, display: false}}, 
    {name: "C", label: "C", options: {filter: true, sort: false, display: false}},
    {name: "M", label: "M",options: {filter: true,sort: false,display: false}},
    {name: "Y",label: "Y",options: {filter: true,sort: false, display: false}},
@@ -41,8 +41,8 @@ export default function DataTable() {
    {name: "DELTA_E", label: "Delta_e", options: {filter: true,sort: true, display: true}},
    {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
    {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
-   {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 
-   {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}}];
+   {name: "PROD_STATUS", label: "Status", options: {filter: false, sort: true, display: true}}, 
+   {name: "END_DATE",label: "END_DATE",options: {filter: false,sort: false, display: false}}];
 
    const options = {rowsPerPage: 5, customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }, customToolbar: () => {
@@ -300,7 +300,7 @@ function filterPks(selectedData){
     <GetAppIcon/>  
     </Button>  
     <text name="DummySeperator">  </text>
-    <Button variant="contained" onClick={inDruckStatus} title="Mit Klick auf diesen Button werden alle markierten Planungsaufträge in die Färbung gegeben." >In Druck geben</Button>
+    <Button variant="contained" onClick={inDruckStatus} title="Mit Klick auf diesen Button werden alle markierten Planungsaufträge in den Druck gegeben." >In Druck geben</Button>
     </div>
   );
 }
