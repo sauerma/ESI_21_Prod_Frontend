@@ -3,7 +3,6 @@ import React, { useState, useEffect, forwardRef } from "react";
 import axios from "axios";
 import MaterialTable from 'material-table';
 
-
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import Check from '@material-ui/icons/Check';
@@ -29,17 +28,17 @@ useEffect(() => { ShirtDatenLaden();});
 
 const [ShirtData, setShirtData] = useState([]);
 
-const [columnsShirts, setColumnsShirts] = useState([
-  { title: 'Material', field: 'prodmat_id', editable: 'never' },
-  { title: 'Typ', field: 'm_id_materialstype', editable: 'never' },
+const [columnsShirts, /*setColumnsShirts*/] = useState([
+  { title: 'Material-Nr', field: 'prodmat_id', editable: 'never' },
+ // { title: 'Typ', field: 'm_id_materialstype', editable: 'never' },
   { title: 'Menge', field: 'quantity', editable: 'never' },
   { title: 'Restmenge', field: 'RES_QTY', editable: 'onUpdate' },
   { title: 'PPML', field: 'ppml', editable: 'never' },
   { title: 'Weißgrad', field: 'whitness', editable: 'never' },
   { title: 'Viskosität', field: 'viscosity', editable: 'never' },
   { title: 'Saugfähigkeit', field: 'absorbency', editable: 'never' },
-  { title: 'Wert', field: 'hexcolor', editable: 'never' },
-  { title: 'HEX-Farbe', field: 'hexcolor', editable: 'never' },
+  { title: 'Hex-Wert', field: 'hexcolor', editable: 'never' },
+  { title: 'Farbe', field: 'hexcolor', editable: 'never' },
   { title: 'Delta_e', field: 'delta_e', editable: 'never' },
 ]);
 
@@ -132,6 +131,27 @@ if(data.sort().join(',') === sortedOrders.sort().join(',')){
   else return false;
 }
 
+function UpdateResMenge(oldValue, newValue, rowData){
+
+    if(oldValue === newValue) return;
+    if(oldValue - newValue < 0) { alert("Keine negativen Restmengen möglich!");  return; }
+   
+    axios.put(' https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateresmenge', [{"prodmat_id": 2, "RES_QTY": rowData["prodmat_id"]}])
+    .then(res => {
+    console.log("RESPONSE:", res); //Data from Gateway
+
+     //aktualisieren
+     //Footer färben
+        return;
+    })
+
+    .catch(err => {
+        console.log(err.message); //Error-Handling
+        //footer färben
+    })
+
+    return;
+}
 
   return (
 <div style={{ padding: '0px'}}>
@@ -142,10 +162,7 @@ if(data.sort().join(',') === sortedOrders.sort().join(',')){
       data={ShirtData}
       cellEditable={{
         onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
-        return new Promise((resolve, reject) => {
-        console.log('newValue: ' + newValue);
-        setTimeout(resolve, 1000);
-        });
+        return new Promise((resolve, reject) => { UpdateResMenge(oldValue, newValue, rowData); setTimeout(resolve, 1000); });
         }
       }}
     />
