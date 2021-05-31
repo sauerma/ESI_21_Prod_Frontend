@@ -32,8 +32,8 @@ const [columnsShirts, /*setColumnsShirts*/] = useState([
   { title: 'Weißgrad', field: 'whitness', editable: 'never' },
   { title: 'Saugfähigkeit', field: 'absorbency', editable: 'never' },
   { title: 'Hex-Wert', field: 'hexcolor', editable: 'never'},
-  { title: 'Farbe', field: 'hexcolor',editable: 'never',cellStyle: value=>({
-    backgroundColor: value = value})}
+  { title: 'Farbe', field: 'hexcolor',editable: 'never', cellStyle: value=>({
+    color: value, backgroundColor: value })}
 ]);
 
 const tableIcons = {
@@ -56,33 +56,7 @@ const tableIcons = {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
   };
 
-
-//  const columnsShirts = 
-//   [ 
-//     {name: "prodmat_id", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
-//     {name: "m_id_materialstype", label: "Typ", options: {filter: false, sort: false, display: false}},
-//     {name: "quantity", label: "Menge",  options: {filter: true,  sort: true, display: true}}, 
-//     {name: "ppml", label: "PPML", options: {filter: true, sort: true, display: true}},
-//     {name: "whitness", label: "Weißgrad", options: {filter: true,  sort: true,  display: true}}, 
-//     {name: "viscosity", label: "Viskosität", options: {filter: true, sort: true, display: true}},  
-//     {name: "absorbency", label: "Saugfähigkeit", options: {filter: true,  sort: true,  display: true}}, 
-//     {name: "RES_QTY", label: "Restmenge", options: {filter: true, sort: true, display: true}}, 
-//     {name: "hexcolor", label: "HEX-Wert", options: {filter: true, sort: true, display: true}}, 
-//     {name: "hexcolor", label: "Farbe", options: {filter: true,sort: true, display: true,
-//      customBodyRender: (value, tableMeta, updateValue) => {
-//      return (
-//        <QualityCell
-//          value={value}
-//          index={tableMeta.columnIndex}
-//          change={event => updateValue(event)}
-//        />
-//      );} }}, 
-//     {name: "delta_e", label: "Delta_e", options: {filter: true,sort: true, display: true}}
-//   ];
-// const optionsShirts = {rowsPerPage: 3, customToolbarSelect: () => { Hide Delete Button }, filterType: 'checkbox' }; 
-
-
-
+  
 function ShirtDatenLaden(){
 
   axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getmaterialshirts')
