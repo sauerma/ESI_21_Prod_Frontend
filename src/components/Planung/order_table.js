@@ -13,6 +13,8 @@ import './order_table.css';
 
 export default function DataTable() {
 
+  const [filterData, setFilterData] =  useState([]); 
+
   const columns = [ {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
    {name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
@@ -28,7 +30,7 @@ export default function DataTable() {
    {name: "Y",label: "Y",options: {filter: true,sort: false, display: false}},
    {name: "K", label: "K", options: {filter: true,sort: false, display: false}},   
    {name: "PROD_PRIO", label: "Priorität", options: {filter: true,sort: true, display: true}},
-   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true,sort: true, display: true}},
+   {name: "HEXCOLOR", label: "Hex-Wert", options: {filter: true, filterList: filterData, sort: true, display: true}},
    {name: "HEXCOLOR", label: "Farbe", options: {filter: true,sort: true, display: true,
     customBodyRender: (value, tableMeta, updateValue) => {
     return (
@@ -45,7 +47,7 @@ export default function DataTable() {
    {name: "END_DATE",label: "END_DATE",options: {filter: false,sort: false, display: false}}];
 
    const options = {rowsPerPage: 5, customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
-   onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }, customToolbar: () => {
+   onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }, customToolbar: () => { 
     return    <select onChange={e => AuswahlChange(e.target.value)}  name="colordivers" id="colordiv" style={{ float: "left", backgroundColor: auswahlBackgroundColor}} >
     <option  value="Alle" style={{backgroundColor:"#ffffff"}}>Alle</option>
     <option  value="#00cc66" style={{backgroundColor:"#00cc66"}}>#00cc66</option>
@@ -53,8 +55,7 @@ export default function DataTable() {
     <option  value="#ff6600" style={{backgroundColor:"#ff6600"}}>#ff6600</option>
     <option  value="#999966" style={{backgroundColor:"#999966"}}>#999966</option>
    </select>;
-    
-    
+     
   }};
   const [auswahlBackgroundColor, SetAuswahlBackgroundColor] = useState("#fffff");            
   const [csvdata, setCsvData] = useState([]); 
@@ -64,12 +65,12 @@ export default function DataTable() {
   
   const [allData, setAllData] = useState([]); 
   const [selectedData, setSelectedData] =  useState([]); 
+
   
 
   useEffect(() => { DatenLaden();});
   
   function DatenLaden(){
- 
     axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getplanningorders')
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
@@ -95,8 +96,9 @@ export default function DataTable() {
   //TabAuswahl Change Event
   function AuswahlChange(newValue){
    
-      if (newValue === "Alle" ) { SetAuswahlBackgroundColor("#ffffff"); return;}
+      if (newValue === "Alle" ) { SetAuswahlBackgroundColor(["#ffffff"]); setFilterData([]); return;}
       SetAuswahlBackgroundColor(newValue);   
+      setFilterData([newValue])
 
   }
 
@@ -287,6 +289,7 @@ function filterPks(selectedData){
 
   return (
   <div>
+    
     <MUIDataTable 
         title={"Planungsaufträge"}
         data={allData}      
