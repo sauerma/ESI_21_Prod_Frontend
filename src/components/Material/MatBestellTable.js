@@ -41,7 +41,7 @@ function InsertMatOrders(body){
   .then(res => {
   console.log("RESPONSE:", res);
   cssMessage("Erfolgreich bestellt.", "#4dff88"); 
-  sleep(1300).then(() => {
+  sleep(700).then(() => {
     window.location.reload();    
   }); 
 
