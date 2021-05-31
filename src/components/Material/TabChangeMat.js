@@ -9,9 +9,13 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import BallotIcon from '@material-ui/icons/Ballot';
 import Box from '@material-ui/core/Box';
 
-import ShirtsUndColors from './ShirtsUndColorsTable.js';
 import MatBestellTable from './MatBestellTable.js';
 import InOrderTable from './InOrderTable.js';
+
+import Shirtstable from './Shirtstable.js';
+import ColorsTable from './ColorsTable.js';
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -103,8 +107,9 @@ export default function ScrollableTabsButtonForce() {
     <div className={classes.root}>
         <Grid item xs={12}>
             
-        <ShirtsUndColors/>
-        
+        <Shirtstable/>
+        <ColorsTable/>
+
         </Grid>
         </div> 
       </TabPanel>    

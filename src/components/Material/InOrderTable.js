@@ -54,7 +54,7 @@ export default function DataTable() {
 
     if (DataAreEqual(allData, res.data.body)) return; //Check if data has changed       
     //setAllData(res.data.body); //Set new table data
-    setAllDataWithTReplace(res.data.body);
+    setAllDataWithTReplace(res.data.body); //Set Data with T to Shirt replacement
 
     })
     .catch(err => {
