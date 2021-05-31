@@ -53,12 +53,26 @@ export default function DataTable() {
     }
 
     if (DataAreEqual(allData, res.data.body)) return; //Check if data has changed       
-    setAllData(res.data.body); //Set new table data
+    //setAllData(res.data.body); //Set new table data
+    setAllDataWithTReplace(res.data.body);
 
     })
     .catch(err => {
         console.log(err.message); //Error-Handling
     })
+  }
+
+  //Set Data with replacement T to Shirt
+  function setAllDataWithTReplace(data){
+
+    data.forEach(element => {
+     for (var key in element){
+       if(element[key] === "T"){
+        element[key] = "Shirt"
+       }
+     }
+   });
+     setAllData(data);
   }
 
   //Check if database is offline (AWS)
