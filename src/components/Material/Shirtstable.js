@@ -22,24 +22,17 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 export default function CellEditable() {
 
 useEffect(() => { ShirtDatenLaden();});
-  
-
-/*-----------------------------------------Section SHIRTS TABLE-----------------------------------------------------*/    
 
 const [ShirtData, setShirtData] = useState([]);
 
 const [columnsShirts, /*setColumnsShirts*/] = useState([
   { title: 'Material-Nr', field: 'prodmat_id', editable: 'never' },
- // { title: 'Typ', field: 'm_id_materialstype', editable: 'never' },
   { title: 'Menge', field: 'quantity', editable: 'never' },
   { title: 'Restmenge', field: 'RES_QTY', editable: 'onUpdate' },
-  { title: 'PPML', field: 'ppml', editable: 'never' },
   { title: 'Weißgrad', field: 'whitness', editable: 'never' },
-  { title: 'Viskosität', field: 'viscosity', editable: 'never' },
   { title: 'Saugfähigkeit', field: 'absorbency', editable: 'never' },
   { title: 'Hex-Wert', field: 'hexcolor', editable: 'never' },
-  { title: 'Farbe', field: 'hexcolor', editable: 'never' },
-  { title: 'Delta_e', field: 'delta_e', editable: 'never' },
+  { title: 'Farbe', field: 'hexcolor', editable: 'never' }
 ]);
 
 const tableIcons = {
@@ -110,8 +103,6 @@ function ShirtDatenLaden(){
   })
 }
 
-/*-----------------------------------------END Section SHIRTS TABLE-----------------------------------------------------*/   
-
  //Check if database is offline (AWS)
  function IsDataBaseOffline(res){
   if(res.data.errorMessage == null) return false; 
@@ -134,24 +125,48 @@ if(data.sort().join(',') === sortedOrders.sort().join(',')){
 function UpdateResMenge(oldValue, newValue, rowData){
 
     if(oldValue === newValue) return;
-    if(oldValue - newValue < 0) { alert("Keine negativen Restmengen möglich!");  return; }
-   
-    axios.put(' https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateresmenge', [{"prodmat_id": 2, "RES_QTY": rowData["prodmat_id"]}])
+    if(oldValue - newValue < 0) { alert("Keine negativen Restmengen möglich!"); return; }
+
+    axios.put(' https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateresmenge', [{"prodmat_id": rowData["prodmat_id"], "RES_QTY": newValue}])
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
 
-     //aktualisieren
-     //Footer färben
-        return;
+    cssMessage("Erfolgreich Restmenge geupdated.", "#4dff88"); //Footer färben
+ 
+    ShirtData.forEach(element => {    
+        if(element["prodmat_id"] === rowData["prodmat_id"]) element["RES_QTY"] = newValue; 
+    });
+    setShirtData(undefined);
+    setShirtData(ShirtData);
+
     })
 
     .catch(err => {
         console.log(err.message); //Error-Handling
-        //footer färben
+        cssMessage("Error.", "#9c2c2c"); //footer färben
     })
 
     return;
 }
+
+
+function cssMessage(message, color)
+{ //Set
+  document.getElementsByClassName("footer")[0].style.textAlign = "center";
+  document.getElementsByClassName("footer")[0].innerHTML = message;
+  document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+
+  //Reset
+  sleep(2200).then(() => { 
+  document.getElementsByClassName("footer")[0].style.textAlign = "right";
+  document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©BlackForestConsulting";
+  document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+  });
+}
+  
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   return (
 <div style={{ padding: '0px'}}>

@@ -14,11 +14,11 @@ export default function DataTable() {
    {name: "prodmat_id", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
    {name: "m_id_materialstype", label: "Typ", options: {filter: true, sort: true, display: true}},
    {name: "quantity", label: "Menge",  options: {filter: true,  sort: true, display: true}}, 
-   {name: "ppml", label: "PPML", options: {filter: true, sort: true, display: true}},
-   {name: "whitness", label: "Weißgrad", options: {filter: true,  sort: true,  display: true}}, 
-   {name: "viscosity", label: "Viskosität", options: {filter: true, sort: true, display: true}},  
-   {name: "absorbency", label: "Saugfähigkeit", options: {filter: true,  sort: true,  display: true}}, 
-   {name: "RES_QTY", label: "Restmenge", options: {filter: true, sort: true, display: true}}, 
+   {name: "ppml", label: "PPML", options: {filter: false, sort: false, display: false}},
+   {name: "whitness", label: "Weißgrad", options: {filter: false,  sort: false,  display: false}}, 
+   {name: "viscosity", label: "Viskosität", options: {filter: false, sort: false, display: false}},  
+   {name: "absorbency", label: "Saugfähigkeit", options: {filter: false,  sort: false,  display: false}}, 
+   {name: "RES_QTY", label: "Restmenge", options: {filter: false, sort: false, display: false}}, 
    {name: "hexcolor", label: "HEX-Wert", options: {filter: true, sort: true, display: true}}, 
    {name: "hexcolor", label: "Farbe", options: {filter: true,sort: true, display: true,
     customBodyRender: (value, tableMeta, updateValue) => {
@@ -29,7 +29,7 @@ export default function DataTable() {
         change={event => updateValue(event)}
       />
     );} }}, 
-   {name: "delta_e", label: "Delta_e", options: {filter: true,sort: true, display: true}}
+   {name: "delta_e", label: "Delta_e", options: {filter: false,sort: false, display: false}}
   ];
 
    const options = {rowsPerPage: 3, customToolbarSelect: () => {return; }, selectableRows: false, filterType: 'checkbox', download: false, };
