@@ -9,6 +9,7 @@ import axios from "axios";
 import {CSVLink} from "react-csv";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import QualityCell from './qualityCell.js';
+import './order_table.css';
 
 export default function DataTable() {
 
@@ -44,8 +45,18 @@ export default function DataTable() {
    {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}}];
 
    const options = {rowsPerPage: 5, customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
-   onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
-              
+   onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }, customToolbar: () => {
+    return    <select onChange={e => AuswahlChange(e.target.value)}  name="colordivers" id="colordiv" style={{ float: "left", backgroundColor: auswahlBackgroundColor}} >
+    <option  value="Alle" style={{backgroundColor:"#ffffff"}}>Alle</option>
+    <option  value="#00cc66" style={{backgroundColor:"#00cc66"}}>#00cc66</option>
+    <option  value="#0066ff" style={{backgroundColor:"#0066ff"}}>#0066ff</option>
+    <option  value="#ff6600" style={{backgroundColor:"#ff6600"}}>#ff6600</option>
+    <option  value="#999966" style={{backgroundColor:"#999966"}}>#999966</option>
+   </select>;
+    
+    
+  }};
+  const [auswahlBackgroundColor, SetAuswahlBackgroundColor] = useState("#fffff");            
   const [csvdata, setCsvData] = useState([]); 
   const [Quantity, setQuantity] = useState("");
   const [QuantityColor, setQuantityColor] = useState("#ffffff");
@@ -53,7 +64,7 @@ export default function DataTable() {
   
   const [allData, setAllData] = useState([]); 
   const [selectedData, setSelectedData] =  useState([]); 
-
+  
 
   useEffect(() => { DatenLaden();});
   
@@ -78,6 +89,14 @@ export default function DataTable() {
     .catch(err => {
         console.log(err.message); //Error-Handling
     })
+
+  }
+
+  //TabAuswahl Change Event
+  function AuswahlChange(newValue){
+   
+      if (newValue === "Alle" ) { SetAuswahlBackgroundColor("#ffffff"); return;}
+      SetAuswahlBackgroundColor(newValue);   
 
   }
 
@@ -141,6 +160,36 @@ export default function DataTable() {
       }); 
      
     return;
+}
+
+function inDruckStatus(){
+
+  if (selectedData == null || selectedData === undefined || selectedData.length === 0) {
+    alert("Bitte Positionen auswählen!");
+    return;
+  }
+
+  var pKs = filterPks(selectedData);
+  var pKs_json = JSON.parse(JSON.stringify(pKs));
+  console.log(pKs_json)
+
+  //Update Production table from Prod_status 0 to 2 (In Planung zu In Druck)
+   axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updatefaerbeorders", pKs_json)
+  .then(res => {
+    console.log(res);
+    cssMessage("Erfolgreich in den Druck gegeben.", "#4dff88"); 
+  })
+  .catch(err => {
+    console.log(err.message); //Error-Handling
+    cssMessage("Error.", "#9c2c2c"); 
+  })  
+
+  sleep(900).then(() => { 
+    setSelectedData(undefined); 
+    DatenLaden(); 
+  }); 
+
+return;
 }
 
 function cssMessage(message, color)
@@ -245,13 +294,13 @@ function filterPks(selectedData){
         options={options}/>
     <br/>
     <br/>
-    <Button variant="contained" onClick={updateProdStatus} title="Mit Klick auf diesen Button werden alle markierten Planungsaufträge in die Färbung gegeben." >In Färbung geben</Button>
-    <text name="DummySeperator">  </text>
     <Button variant="contained" onClick={updateProdStatus} title="Mit Klick auf diesen Button wird eine CSV-Datei mit allen markierten Aufträgen erstellt. 
     Außerdem ändert sich der Status auf 'in Färbung'.">
-    <CSVLink data={csvdata} headers={csvheaders} style={{textDecoration: "none", color: "black"}} filename={"MachineConfiguration.csv"}>Download CSV</CSVLink>
+    <CSVLink data={csvdata} headers={csvheaders} style={{textDecoration: "none", color: "black"}} filename={"MachineConfiguration.csv"}>In Färbung (CSV)</CSVLink>
     <GetAppIcon/>  
-    </Button>   
+    </Button>  
+    <text name="DummySeperator">  </text>
+    <Button variant="contained" onClick={inDruckStatus} title="Mit Klick auf diesen Button werden alle markierten Planungsaufträge in die Färbung gegeben." >In Druck geben</Button>
     </div>
   );
 }
