@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -36,8 +36,6 @@ import Produktion from './components/Produktion';
 import Material from './components/Material';
 import Hilfebereich from './components/Hilfebereich';
 import Einstellungen from './components/Einstellungen';
-
-
 
 
 const drawerWidth = 240;
@@ -137,6 +135,35 @@ const useStyles = makeStyles((theme) => ({
 
 
 function App() {
+
+  useEffect(() => {
+    console.log("Sicherheitsprüfungs-Loop - Wenn Endlosschleife, dann in App.js prüfen.");
+      
+    if(window.location.href.endsWith(".com")){
+      setSelectedIndex(0);
+    }
+    else if(window.location.href.endsWith("Planung")){
+
+       setSelectedIndex(1);
+     } 
+     else if(window.location.href.endsWith("Produktion")){
+
+      setSelectedIndex(2);
+    } 
+    else if(window.location.href.endsWith("Material")){
+
+      setSelectedIndex(3);
+    } 
+    else if(window.location.href.endsWith("Hilfebereich")){
+
+      setSelectedIndex(4);
+    } 
+    else if(window.location.href.endsWith("Einstellungen")){
+
+      setSelectedIndex(5);
+    } 
+    }, []);
+
   const classes = useStyles();
   const theme = useTheme();
   const [selectedIndex, setSelectedIndex] = React.useState(0);
