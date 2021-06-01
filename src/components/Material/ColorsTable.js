@@ -28,9 +28,10 @@ useEffect(() => {ColorDatenLaden(); });
 const [ColorData , setColorData] = useState([]); 
 
 const [columnsColors, /* setColumnsColors */] = useState([
-    { title: 'Material-Nr', field: 'prodmat_id', editable: 'never' },
+    { title: 'Mat-Bestellnr.', field: 'prodmat_id', editable: 'never' },
+    { title: 'Charge', field: 'chargen_nr', editable: 'never' },
     { title: 'Menge', field: 'quantity', editable: 'never' },
-    { title: 'Restmenge', field: 'RES_QTY' },
+    { title: 'Restmenge', field: 'RES_QTY', editable: 'onUpdate', cellStyle: {border: "5px, #000000", fontWeight: "bold", fontStyle: "italic", backgroundColor: "#e3e3e3"} },
     { title: 'PPML', field: 'ppml', editable: 'never' },
     { title: 'Viskosität', field: 'viscosity', editable: 'never' },
     { title: 'Delta_e', field: 'delta_e', editable: 'never' },
@@ -57,33 +58,6 @@ const [columnsColors, /* setColumnsColors */] = useState([
   };
 
   
-/* 
-const columnsColors = 
-[
-  {name: "prodmat_id", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
-  {name: "m_id_materialstype", label: "Typ", options: {filter: true, sort: true, display: true}},
-  {name: "quantity", label: "Menge",  options: {filter: true,  sort: true, display: true}}, 
-  {name: "ppml", label: "PPML", options: {filter: true, sort: true, display: true}},
-  {name: "whitness", label: "Weißgrad", options: {filter: true,  sort: true,  display: true}}, 
-  {name: "viscosity", label: "Viskosität", options: {filter: true, sort: true, display: true}},  
-  {name: "absorbency", label: "Saugfähigkeit", options: {filter: true,  sort: true,  display: true}}, 
-  {name: "RES_QTY", label: "Restmenge", options: {filter: true, sort: true, display: true}}, 
-  {name: "hexcolor", label: "HEX-Wert", options: {filter: true, sort: true, display: true}}, 
-  {name: "hexcolor", label: "Farbe", options: {filter: true,sort: true, display: true,
-   customBodyRender: (value, tableMeta, updateValue) => {
-   return (
-     <QualityCell
-       value={value}
-       index={tableMeta.columnIndex}
-       change={event => updateValue(event)}
-     />
-   );} }}, 
-  {name: "delta_e", label: "Delta_e", options: {filter: true,sort: true, display: true}}
-]; 
-
-const optionsColors = {rowsPerPage: 3, customToolbarSelect: () => { Hide Delete Button }, filterType: 'checkbox' };
-*/
-
 function ColorDatenLaden(){
 
   axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getmaterialcolors')

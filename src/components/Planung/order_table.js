@@ -14,14 +14,13 @@ import './order_table.css';
 export default function DataTable() {
 
   const [filterData, setFilterData] =  useState([]); 
+  const [filterDataPoCode, setFilterDataPoCode] =  useState([]); 
 
   const columns = [ {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
    {name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
    {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true}},
-   {name: "PO_CODE", label: "PO_CODE", options: {filter: false,  sort: false,  display: false}}, 
-   {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: false, sort: false, display: false}},  
-   {name: "PO_CODE", label: "PO_CODE", options: {filter: false,  sort: true,  display: false}}, 
+   {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  filterList: filterDataPoCode, sort: true,  display: false}}, 
    {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: false, sort: true, display: false}},  
    {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
    {name: "MAT_NR", label: "Material-Nr", options: {filter: false, sort: true, display: false}}, 
@@ -40,7 +39,7 @@ export default function DataTable() {
         change={event => updateValue(event)}
       />
     );} }},
-   {name: "DELTA_E", label: "Delta_e", options: {filter: true,sort: true, display: true}},
+   {name: "DELTA_E", label: "Helligkeit", options: {filter: true,sort: true, display: true}},
    {name: "CUSTOMER_TYPE", label: "Kundentyp", options: {filter: true, sort: true, display: true}}, 
    {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
    {name: "PROD_STATUS", label: "Status", options: {filter: false, sort: true, display: true}}, 
@@ -96,9 +95,10 @@ export default function DataTable() {
   //TabAuswahl Change Event
   function AuswahlChange(newValue){
    
-      if (newValue === "Alle" ) { SetAuswahlBackgroundColor(["#ffffff"]); setFilterData([]); return;}
+      if (newValue === "Alle" ) { SetAuswahlBackgroundColor(["#ffffff"]); setFilterData([]); setFilterDataPoCode([]); return;}
       SetAuswahlBackgroundColor(newValue);   
       setFilterData([newValue])
+      setFilterDataPoCode(["N", "Q", "R"]);
 
   }
 

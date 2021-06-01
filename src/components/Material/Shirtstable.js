@@ -26,9 +26,10 @@ useEffect(() => { ShirtDatenLaden();});
 const [ShirtData, setShirtData] = useState([]);
 
 const [columnsShirts, /*setColumnsShirts*/] = useState([
-  { title: 'Material-Nr', field: 'prodmat_id', editable: 'never' },
+  { title: 'Mat-Bestellnr.', field: 'prodmat_id', editable: 'never' },
+  { title: 'Charge', field: 'chargen_nr', editable: 'never' },
   { title: 'Menge', field: 'quantity', editable: 'never' },
-  { title: 'Restmenge', field: 'RES_QTY', editable: 'onUpdate' },
+  { title: 'Restmenge', field: 'RES_QTY', editable: 'onUpdate', cellStyle: {border: "5px, #000000", fontWeight: "bold", fontStyle: "italic", backgroundColor: "#e3e3e3"} },
   { title: 'Weißgrad', field: 'whitness', editable: 'never' },
   { title: 'Saugfähigkeit', field: 'absorbency', editable: 'never' },
   { title: 'Hex-Wert', field: 'hexcolor', editable: 'never'},

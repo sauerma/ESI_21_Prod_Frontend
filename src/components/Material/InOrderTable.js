@@ -11,7 +11,7 @@ export default function DataTable() {
 
   const columns = 
   [ 
-   {name: "prodmat_id", label: "Material-Nr", options: {filter: true, sort: true, display: true}}, 
+   {name: "prodmat_id", label: "Mat-Bestellnr.", options: {filter: true, sort: true, display: true}}, 
    {name: "m_id_materialstype", label: "Typ", options: {filter: true, sort: true, display: true}},
    {name: "quantity", label: "Menge",  options: {filter: true,  sort: true, display: true}}, 
    {name: "ppml", label: "PPML", options: {filter: false, sort: false, display: false}},
@@ -19,7 +19,7 @@ export default function DataTable() {
    {name: "viscosity", label: "Viskosität", options: {filter: false, sort: false, display: false}},  
    {name: "absorbency", label: "Saugfähigkeit", options: {filter: false,  sort: false,  display: false}}, 
    {name: "RES_QTY", label: "Restmenge", options: {filter: false, sort: false, display: false}}, 
-   {name: "hexcolor", label: "HEX-Wert", options: {filter: true, sort: true, display: true}}, 
+   {name: "hexcolor", label: "Hex-Wert", options: {filter: true, sort: true, display: true}}, 
    {name: "hexcolor", label: "Farbe", options: {filter: true,sort: true, display: true,
     customBodyRender: (value, tableMeta, updateValue) => {
     return (

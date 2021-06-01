@@ -38,7 +38,7 @@ export default function Faerbung() {
   {name: "K", label: "K", options: {filter: true,sort: false, display: false}},
   {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
   {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 
-  {name: "END_DATE", label: "Enddatum",options: {filter: true,sort: true, display: true}},
+  {name: "END_DATE", label: "Enddatum",options: {filter: false,sort: false, display: false}},
  ];
 
   const options = {rowsPerPage: 4, customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox',  
