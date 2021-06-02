@@ -48,15 +48,21 @@ export default function DataTable() {
    const options = {rowsPerPage: 5, customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }, customToolbar: () => { 
     return    <select onChange={e => AuswahlChange(e.target.value)}  name="colordivers" id="colordiv" style={{ float: "left", backgroundColor: auswahlBackgroundColor}} >
-    <option  value="Alle" style={{backgroundColor:"#ffffff"}}>Alle</option>
-    <option  value="#00cc66" style={{backgroundColor:"#00cc66"}}>#00cc66</option>
-    <option  value="#0066ff" style={{backgroundColor:"#0066ff"}}>#0066ff</option>
-    <option  value="#ff6600" style={{backgroundColor:"#ff6600"}}>#ff6600</option>
-    <option  value="#999966" style={{backgroundColor:"#999966"}}>#999966</option>
+    <option  value="Alle" style={{backgroundColor:"#d8dce4"}}>Alle</option>
+    <option  value="#fffafa" style={{backgroundColor:"#fffafa"}}>Schneeweiß</option>
+    <option  value="#322e38" style={{backgroundColor:"#322e38", color: "white"}}>Nachtschwarz</option>
+    <option  value="#6b1c23" style={{backgroundColor:"#6b1c23", color: "white"}}>Purpurrot</option>
+    <option  value="#4db560" style={{backgroundColor:"#4db560", color: "white"}}>Giftgrün</option>
+    <option  value="#35682d" style={{backgroundColor:"#35682d", color: "white"}}>Grasgrün</option>
+    <option  value="#0088ff" style={{backgroundColor:"#0088ff", color: "white"}}>Himmelblau</option>
+    <option  value="#e0b0ff" style={{backgroundColor:"#e0b0ff", color: "white"}}>Malve</option>
+    <option  value="#005f6a" style={{backgroundColor:"#005f6a", color: "white"}}>Petrol</option>
+    <option  value="#f39f18" style={{backgroundColor:"#f39f18", color: "white"}}>Sonnengelb</option>
+    <option  value="#00286e" style={{backgroundColor:"#00286e", color: "white"}}>HSOG-blau</option>
    </select>;
      
   }};
-  const [auswahlBackgroundColor, SetAuswahlBackgroundColor] = useState("#fffff");            
+  const [auswahlBackgroundColor, SetAuswahlBackgroundColor] = useState("#d8dce4");            
   const [csvdata, setCsvData] = useState([]); 
   const [Quantity, setQuantity] = useState("");
   const [QuantityColor, setQuantityColor] = useState("#ffffff");
@@ -95,7 +101,7 @@ export default function DataTable() {
   //TabAuswahl Change Event
   function AuswahlChange(newValue){
    
-      if (newValue === "Alle" ) { SetAuswahlBackgroundColor(["#ffffff"]); setFilterData([]); setFilterDataPoCode([]); return;}
+      if (newValue === "Alle" ) { SetAuswahlBackgroundColor(["#d8dce4"]); setFilterData([]); setFilterDataPoCode([]); return;}
       SetAuswahlBackgroundColor(newValue);   
       setFilterData([newValue])
       setFilterDataPoCode(["N", "Q", "R"]);

@@ -88,10 +88,15 @@ function sleep(ms) {
             <td colspan="1" >#FFFFFF</td>
             <td colspan="2">
              <select name="colordivers" id="colordiv">
-              <option value="#55343">#55343</option>
-              <option value="zr4tz">#zr4tz</option>
-              <option value="23343">#23343</option>
-              <option value="2344">#2344</option>
+    <option  value="#322e38" style={{backgroundColor:"#322e38", color: "white"}}>Nachtschwarz</option>
+    <option  value="#6b1c23" style={{backgroundColor:"#6b1c23", color: "white"}}>Purpurrot</option>
+    <option  value="#4db560" style={{backgroundColor:"#4db560", color: "white"}}>Giftgrün</option>
+    <option  value="#35682d" style={{backgroundColor:"#35682d", color: "white"}}>Grasgrün</option>
+    <option  value="#0088ff" style={{backgroundColor:"#0088ff", color: "white"}}>Himmelblau</option>
+    <option  value="#e0b0ff" style={{backgroundColor:"#e0b0ff", color: "white"}}>Malve</option>
+    <option  value="#005f6a" style={{backgroundColor:"#005f6a", color: "white"}}>Petrol</option>
+    <option  value="#f39f18" style={{backgroundColor:"#f39f18", color: "white"}}>Sonnengelb</option>
+    <option  value="#00286e" style={{backgroundColor:"#00286e", color: "white"}}>HSOG-blau</option>
              </select>
             </td>
             <td colspan="3" className="color1"> </td>
