@@ -51,7 +51,9 @@ export default function ProduzierteAuft() {
   
   function DatenLaden(){
 
-    axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getproducedorders')
+/*https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getproducedorders -> Nur für MaWi*/
+    
+    axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getproducedandstoredorders')
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
     
