@@ -16,7 +16,7 @@ class QualityCell extends Component {
         <p
           value={value}
           onChange={event => change(event.target.value, index)}
-          style={{ backgroundColor: backgroundColor ,color: value}}>{"."}</p>
+          style={{ backgroundColor: backgroundColor, color: "rgb(0,0,0,0)"}}>{"."}</p>
       )
     }
   }
