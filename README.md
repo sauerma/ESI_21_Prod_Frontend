@@ -7,7 +7,7 @@ This is the frontend git repository of team production.
 
 ## Demo
 
-*Demo Gif*
+![](https://github.com/sauerma/ESI_21_Prod_Frontend/blob/Master/Production.gif)
 
 # Get started
 ## - Create React App, Github and Amplify connection
