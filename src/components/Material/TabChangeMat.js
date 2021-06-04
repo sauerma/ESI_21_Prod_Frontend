@@ -1,3 +1,11 @@
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: Tab-Elemente
+/*-----------------------------------------------------------------------*/
+
 import React from 'react';
 import { Typography, Grid} from '@material-ui/core';
 import PropTypes from 'prop-types';
@@ -8,16 +16,12 @@ import Tab from '@material-ui/core/Tab';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import BallotIcon from '@material-ui/icons/Ballot';
 import Box from '@material-ui/core/Box';
-
 import MatBestellTable from './MatBestellTable.js';
 import InOrderTable from './InOrderTable.js';
-
 import Shirtstable from './Shirtstable.js';
 import ColorsTable from './ColorsTable.js';
 
-
-
-
+//Set style
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
@@ -34,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },  
 }));
 
+//Change tab section
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (

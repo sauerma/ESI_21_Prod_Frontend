@@ -1,6 +1,10 @@
-/*----------------------------------------*/
-  //Author: ESI SoSe21 - Team Production//
-/*----------------------------------------*/
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: Produzierte Aufträge Tabelle
+/*-----------------------------------------------------------------------*/
 
 import React, { useState, useEffect} from "react";
 import MUIDataTable from "mui-datatables";
@@ -10,9 +14,9 @@ import QualityCell from '../Planung/qualityCell.js';
 
 export default function ProduzierteAuft() {
 
-    const columns =  
-    [
-    {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
+  //Set table columns and options
+  const columns =  
+    [{name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
     {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
     { name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
     {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true }}, 
@@ -42,22 +46,21 @@ export default function ProduzierteAuft() {
     {name: "END_DATE", label: "Enddatum",options: {filter: true,sort: true, display: true}},
    ];
 
-   const options = {rowsPerPage: 4, customToolbarSelect: () => {return; }, selectableRows: false, filterType: 'checkbox', download: false, };
+  const options = {rowsPerPage: 4, customToolbarSelect: () => {return; }, selectableRows: false, filterType: 'checkbox', download: false, };
                
-   const [allData , setAllData] = useState([]); 
+  const [allData , setAllData] = useState([]); 
 
-
+  //Event if data changed
   useEffect(() => { DatenLaden();});
   
+  //Load data
   function DatenLaden(){
-
-/*https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getproducedorders -> Nur für MaWi*/
     
     axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getproducedandstoredorders')
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
     
-    if(IsDataBaseOffline(res)) return; //Check if db is available
+    if(IsDataBaseOffline(res)) return; //Check if database is available
 
     if(res.data.body.length === 0) { //Check if data is available
       setAllData(undefined);
@@ -84,13 +87,13 @@ export default function ProduzierteAuft() {
     return false;
   }
 
-//Check if old data = new data
-function DataAreEqual(data, sortedOrders){
-  if(data.sort().join(',') === sortedOrders.sort().join(',')){
-    return true;
+  //Check if old data = new data
+  function DataAreEqual(data, sortedOrders){
+    if(data.sort().join(',') === sortedOrders.sort().join(',')){
+      return true;
+      }
+      else return false;
     }
-    else return false;
-  }
 
   return (
   <div>

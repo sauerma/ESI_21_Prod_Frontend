@@ -1,6 +1,10 @@
-/*----------------------------------------*/
-  //Author: ESI SoSe21 - Team Production//
-/*----------------------------------------*/
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: Druck-Tabelle
+/*-----------------------------------------------------------------------*/
 
 import React, { useState, useEffect} from "react";
 import MUIDataTable from "mui-datatables";
@@ -10,6 +14,7 @@ import QualityCell from '../Planung/qualityCell.js';
 
 export default function Druck() {
 
+  //Init specific table columns
   const columns = [  {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
   {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
   { name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
@@ -37,27 +42,31 @@ export default function Druck() {
   {name: "K", label: "K", options: {filter: true,sort: false, display: false}},
   {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
   {name: "PROD_STATUS", label: "Status", options: {filter: true, sort: true, display: true}}, 
-
   {name: "END_DATE", label: "Enddatum",options: {filter: false,sort: false, display: false}},
  ];
 
-  const options = {rowsPerPage: 4, customToolbarSelect: () => {/* Hide Delete Button */}, filterType: 'checkbox',  
+  //Set table options
+  const options = {rowsPerPage: 4, customToolbarSelect: () => {}, filterType: 'checkbox',  
                     onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
+
+  //Set global variables                  
   const [allData, setAllData] = useState([]); 
   const [selectedData, setSelectedData] =  useState([]); 
 
+  //Event if something changed
   useEffect(() => { DatenLaden(); });
 
+  //Load print orders
   function DatenLaden(){
 
     axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getprodorders')
     .then(res => {
     
-    console.log("RESPONSE:", res); //Data from Gateway
+    console.log("RESPONSE:", res); //Show data from Gateway
 
-    if(IsDataBaseOffline(res)) return; //Check if db is available
+    if(IsDataBaseOffline(res)) return; //Check if database is available
 
-    if(res.data.body.length === 0) { //Check if data is available
+    if(res.data.body.length === 0) { //Check if data is not empty
       setAllData(undefined);
       return;
     }          
@@ -93,38 +102,38 @@ export default function Druck() {
       else return false;
     }
 
-
-    //RowSelectEvent
-    function rowSelectEvent(curRowSelected, allRowsSelected){ 
+  //Event for selecting row(s)
+  function rowSelectEvent(curRowSelected, allRowsSelected){ 
 
     var _selectedData = [];
 
-    if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
+    if(allRowsSelected.length === 0) {  //Check if no row is selected
         setSelectedData(undefined);
         return;
     }
     
-    allRowsSelected.forEach(element => {
+    allRowsSelected.forEach(element => { //Get all selected rows 
         _selectedData.push(allData[element.dataIndex])
     });
 
-    setSelectedData(_selectedData);
+    setSelectedData(_selectedData); //Set all selected rows
 
     return;
-    }
+  }
 
-    function Abschliesen(){
+  //Set selected orders to status produced
+  function Abschliesen(){
 
-    if (selectedData == null || selectedData === undefined || selectedData.length === 0) {
+    if (selectedData == null || selectedData === undefined || selectedData.length === 0) { //Check if no data is selected
         alert("Bitte Positionen auswählen!");
         return;
     }
 
-    var pKs = filterPks(selectedData);
+    var pKs = filterPks(selectedData); //Get primary keys
     var pKs_json = JSON.parse(JSON.stringify(pKs));
     console.log(pKs_json)
 
-    //Update Production table from Prod_status2 to 3 (In Druck zu Produziert)
+    //Update production table: Status 'In Druck' to 'Produziert'
     axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateinprodtoproducted", pKs_json)
     .then(res => {
         console.log(res);
@@ -135,7 +144,7 @@ export default function Druck() {
         cssMessage("Error.", "#9c2c2c");
     })  
 
-    //Update V&V Status
+    //Update Verkauf & Versand Status to 'Produziert'
     axios.put('https://hfmbwiwpid.execute-api.eu-central-1.amazonaws.com/sales/orders/orderitems?status=4', pKs_json)
     .then(res => {
         console.log(res);
@@ -144,51 +153,53 @@ export default function Druck() {
         console.log(err.message); //Error-Handling
     })
 
-    sleep(900).then(() => {
-      setSelectedData(undefined);
-       DatenLaden(); 
-      }); 
+    sleep(900).then(() => {  
+      setSelectedData(undefined); //Reset selected order 
+      DatenLaden(); //Reload data 
+    }); 
 
     return;
-    }
+  }
 
-    function cssMessage(message, color)
-    { //Set
-      document.getElementsByClassName("footer")[0].style.textAlign = "center";
-      document.getElementsByClassName("footer")[0].innerHTML = message;
-      document.getElementsByClassName("footer")[0].style.backgroundColor = color;
-    
-      //Reset
-      sleep(2200).then(() => { 
-      document.getElementsByClassName("footer")[0].style.textAlign = "right";
-      document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©BlackForestConsulting";
-      document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+  //Sucess- and error messages in footer
+  function cssMessage(message, color)
+  { //Set footer messages
+    document.getElementsByClassName("footer")[0].style.textAlign = "center";
+    document.getElementsByClassName("footer")[0].innerHTML = message;
+    document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+  
+    //Reset footer messages
+    sleep(2200).then(() => { 
+    document.getElementsByClassName("footer")[0].style.textAlign = "right";
+    document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©BlackForestConsulting";
+    document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+    });
+  }
+  
+  //Sleep function for asychronous calls
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  //Get only primary keys from selected orders
+  function filterPks(selectedData){
+      var _pks = [];
+  
+      selectedData.forEach(element => {
+      var singleVal = {};
+      singleVal["O_NR"] = element["O_NR"];
+      singleVal["OI_NR"] = element["OI_NR"];
+      singleVal["PO_CODE"] = element["PO_CODE"];
+      singleVal["PO_COUNTER"] = element["PO_COUNTER"];
+      _pks.push(singleVal);
       });
-    }
-    
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    function filterPks(selectedData){
-        var _pks = [];
-    
-        selectedData.forEach(element => {
-        var singleVal = {};
-        singleVal["O_NR"] = element["O_NR"];
-        singleVal["OI_NR"] = element["OI_NR"];
-        singleVal["PO_CODE"] = element["PO_CODE"];
-        singleVal["PO_COUNTER"] = element["PO_COUNTER"];
-        _pks.push(singleVal);
-        });
-    
-        return _pks; 
-    }
+  
+      return _pks; 
+  }
 
     return (
 <dev> 
   <MUIDataTable
-    //title={"Druckaufträge"}
     data={allData}
     columns={columns}
     options={options} />
@@ -197,7 +208,7 @@ export default function Druck() {
     style={{float: "left"}}
     variant="contained" 
     onClick={Abschliesen}
-    title="Mit Klick auf diesen Button werden alle markierten Färbeaufträge in den Druck gegeben." >
+    title="Mit Klick auf diesen Button werden alle markierten Druckaufträge als abgeschlossen markiert." >
     Produziert
     </Button> 
     <text><br></br></text>

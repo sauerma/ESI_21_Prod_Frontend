@@ -1,12 +1,22 @@
-import React, { /*useState, useEffect*/} from "react";
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: BEstell-Tabelle
+/*-----------------------------------------------------------------------*/
+
+import React from "react";
 import Button from '@material-ui/core/Button';
 import './MatBestellTable.css';
 import axios from "axios";
 
 export default function MatBestellTable() {
-  
+
+//Order material
 function OrderMaterial(){
 
+  //Get input values
   var stk_shirt= document.getElementById('weiß');
   var stk_shirt_div = document.getElementById('shirtDivers');
   var colordiv = document.getElementById('colordiv').value;
@@ -32,7 +42,7 @@ function OrderMaterial(){
   return; 
 }
 
-
+//Post new orders to database
 function InsertMatOrders(body){
 
   if (body.length === 0) { alert("Bitte Anzahl eingeben!"); return; }; 
@@ -52,6 +62,7 @@ function InsertMatOrders(body){
   })
 }
 
+//Success and errors messages
 function cssMessage(message, color)
 { 
   //Set
@@ -67,6 +78,7 @@ function cssMessage(message, color)
   });
 }
 
+//Sleep for asynchronous calls
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }

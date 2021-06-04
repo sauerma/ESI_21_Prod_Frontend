@@ -1,3 +1,11 @@
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: Tab-Elemente
+/*-----------------------------------------------------------------------*/
+
 import React from 'react';
 import { Typography, Grid} from '@material-ui/core';
 import PropTypes from 'prop-types';
@@ -14,7 +22,7 @@ import Faerbung from './Faerbung.js';
 import Druck from './Druck.js';
 import ProduzierteAuft from'./ProduzierteAuft.js'; 
 
-
+//Set style
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
@@ -31,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },  
 }));
 
+//Change tab
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -81,42 +90,37 @@ export default function ScrollableTabsButtonForce() {
           scrollButtons="on"
           indicatorColor="primary"
           textColor="primary"
-          aria-label="scrollable force tabs example"
-        >
+          aria-label="scrollable force tabs example" >
           <Tab label="Färbeaufträge" icon={<ColorLensIcon />} {...a11yProps(2)} />
           <Tab label="Druckaufträge" icon={<ArchiveIcon />} {...a11yProps(3)} />
           <Tab label= "Produzierte Aufträge" icon={<AssignmentTurnedInIcon />} {...a11yProps(4)} />
         </Tabs>
       </AppBar>
+
       <TabPanel value={value} index={0}>
-      <div className={classes.root}>
-        <Grid item xs={12}>
+        <div className={classes.root}>
+          <Grid item xs={12}>
+            <Faerbung/>
+          </Grid>
+        </div>
+      </TabPanel>
 
-        <Faerbung/>
-      </Grid>
-
-      </div>
-    </TabPanel>
-    <TabPanel value={value} index={1}>
-
-    <div className={classes.root}>
-        <Grid item xs={12}>
-            
-        <Druck/>
-        
-        </Grid>
+      <TabPanel value={value} index={1}>
+        <div className={classes.root}>
+            <Grid item xs={12}>   
+            <Druck/> 
+            </Grid>
         </div> 
-      </TabPanel>    
+      </TabPanel> 
+
       <TabPanel value={value} index={2}>
-
-    <div className={classes.root}>
-    <Grid item xs={12}>
-        
-    <ProduzierteAuft/>
-
-    </Grid>
-    </div> 
-    </TabPanel>    
+        <div className={classes.root}>
+          <Grid item xs={12}>      
+            <ProduzierteAuft/>
+          </Grid>
+        </div> 
+    </TabPanel> 
+       
     </div>
 )
 }

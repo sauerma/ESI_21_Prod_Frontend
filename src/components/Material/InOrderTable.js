@@ -1,6 +1,10 @@
-/*----------------------------------------*/
-  //Author: ESI SoSe21 - Team Production//
-/*----------------------------------------*/
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: InBestellung-Tabelle
+/*-----------------------------------------------------------------------*/
 
 import React, { useState, useEffect} from "react";
 import MUIDataTable from "mui-datatables";
@@ -9,6 +13,7 @@ import QualityCell from '../Planung/qualityCell.js';
 
 export default function DataTable() {
 
+  //Set table columns
   const columns = 
   [ 
    {name: "prodmat_id", label: "Mat-Bestellnr.", options: {filter: true, sort: true, display: true}}, 
@@ -32,20 +37,21 @@ export default function DataTable() {
    {name: "delta_e", label: "Delta_e", options: {filter: false,sort: false, display: false}}
   ];
 
-   const options = {rowsPerPage: 3, customToolbarSelect: () => {return; }, selectableRows: false, filterType: 'checkbox', download: false, };
-               
-   const [allData , setAllData] = useState([]); 
+  //Set table options
+  const options = {rowsPerPage: 3, customToolbarSelect: () => {return; }, selectableRows: false, filterType: 'checkbox', download: false, };          
+  const [allData , setAllData] = useState([]); 
 
-
+  //Event if data changed
   useEffect(() => { DatenLaden();});
-  
+    
+  //Load data
   function DatenLaden(){
 
     axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getinbestellungorders')
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
     
-    if(IsDataBaseOffline(res)) return; //Check if db is available
+    if(IsDataBaseOffline(res)) return; //Check if database is available
 
     if(res.data.body.length === 0) { //Check if data is available
       setAllData(undefined);
@@ -53,7 +59,6 @@ export default function DataTable() {
     }
 
     if (DataAreEqual(allData, res.data.body)) return; //Check if data has changed       
-    //setAllData(res.data.body); //Set new table data
     setAllDataWithTReplace(res.data.body); //Set Data with T to Shirt replacement
 
     })
@@ -66,13 +71,13 @@ export default function DataTable() {
   function setAllDataWithTReplace(data){
 
     data.forEach(element => {
-     for (var key in element){
-       if(element[key] === "T"){
+      for (var key in element){
+        if(element[key] === "T"){
         element[key] = "Shirt"
-       }
-     }
-   });
-     setAllData(data);
+        }
+      }
+    });
+      setAllData(data);
   }
 
   //Check if database is offline (AWS)
@@ -86,13 +91,13 @@ export default function DataTable() {
     return false;
   }
 
-//Check if old data = new data
-function DataAreEqual(data, sortedOrders){
-  if(data.sort().join(',') === sortedOrders.sort().join(',')){
-    return true;
+  //Check if old data = new data
+  function DataAreEqual(data, sortedOrders){
+    if(data.sort().join(',') === sortedOrders.sort().join(',')){
+      return true;
+      }
+      else return false;
     }
-    else return false;
-  }
 
   return (
   <div  style={{marginTop: "3%"}}>

@@ -1,3 +1,11 @@
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: KPI-Auslastung
+/*-----------------------------------------------------------------------*/
+
 import React, { useState, useEffect} from "react";
 import { ChartDonut, ChartThemeColor} from '@patternfly/react-charts';
 import axios from "axios";
@@ -10,12 +18,13 @@ const [kpiColor, setKpiColor] = useState(ChartThemeColor.orange);
 
 useEffect(() => { getAuslastung(); });
 
+//Get KPI
 function getAuslastung()
 { 
   axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getkpidataauslastung')
       .then(res => {
 
-      if(IsDataBaseOffline(res)) return; //Check if db is available
+      if(IsDataBaseOffline(res)) return; //Check if database is available
 
       if(res.data.body.length === 0) { //Check if data is available
         setAuslastungData(undefined);
@@ -28,7 +37,7 @@ function getAuslastung()
       console.log(typeof resp);
       if (typeof resp !== 'number') return;
       setAuslastungNumber(resp);
-      CalcKpiColor(resp);
+      CalcKpiColor(resp); //Set dynamic color
       setAuslastungData([{ x: '', y: resp}, {x: '', y: 100-resp }]); //Set new data     
 
       })
@@ -37,6 +46,7 @@ function getAuslastung()
       })
   } 
 
+  //Set dynamic color 
   function CalcKpiColor(resp){
     console.log("Auslastung:", resp);
     if (resp < 80) setKpiColor(ChartThemeColor.orange);
@@ -58,7 +68,8 @@ function getAuslastung()
   }
 
   return (
-    <div style={{ height: '78px', width: '90px', padding: 0, margin: 0}}>   
+    <div style={{ height: '78px', width: '90px', padding: 0, margin: 0}}>  
+     
       <ChartDonut
         ariaDesc="Auslastung"
         ariaTitle="Auslastung"

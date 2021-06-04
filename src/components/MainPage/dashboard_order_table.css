@@ -1,9 +1,8 @@
 .MUIDataTableToolbar-titleRoot-39{
-    /*text-align:left; */
     color: black;
 }
 
- .MuiTypography-h6 .title{
+.MuiTypography-h6 .title{
     font-size: 1.25rem;
     font-family: "Arial";
     font-weight: "black";

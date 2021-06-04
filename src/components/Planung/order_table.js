@@ -1,6 +1,10 @@
-/*----------------------------------------*/
-  //Author: ESI SoSe21 - Team Production//
-/*----------------------------------------*/
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: Planung-Tabelle
+/*-----------------------------------------------------------------------*/
 
 import React, { useState, useEffect} from "react";
 import MUIDataTable from "mui-datatables";
@@ -13,6 +17,7 @@ import './order_table.css';
 
 export default function DataTable() {
 
+  //Set table data
   const [filterData, setFilterData] =  useState([]); 
   const [filterDataPoCode, setFilterDataPoCode] =  useState([]); 
 
@@ -45,7 +50,7 @@ export default function DataTable() {
    {name: "PROD_STATUS", label: "Status", options: {filter: false, sort: true, display: true}}, 
    {name: "END_DATE",label: "END_DATE",options: {filter: false,sort: false, display: false}}];
 
-   const options = {rowsPerPage: 5, customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
+  const options = {rowsPerPage: 5, customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }, customToolbar: () => { 
     return    <select onChange={e => AuswahlChange(e.target.value)}  name="colordivers" id="colordiv" style={{ float: "left", backgroundColor: auswahlBackgroundColor}} >
     <option  value="Alle" style={{backgroundColor:"#d8dce4"}}>Alle</option>
@@ -71,16 +76,16 @@ export default function DataTable() {
   const [allData, setAllData] = useState([]); 
   const [selectedData, setSelectedData] =  useState([]); 
 
+  //Event if data changed
+  useEffect(() => { DatenLaden(); });
   
-
-  useEffect(() => { DatenLaden();});
-  
+  //Load data
   function DatenLaden(){
     axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getplanningorders')
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
     
-    if(IsDataBaseOffline(res)) return; //Check if db is available
+    if(IsDataBaseOffline(res)) return; //Check if database is available
 
     if(res.data.body.length === 0) { //Check if data is available
       setAllData(undefined);
@@ -102,7 +107,7 @@ export default function DataTable() {
   function AuswahlChange(newValue){
    
       if (newValue === "Alle" ) { SetAuswahlBackgroundColor(["#d8dce4"]); setFilterData([]); setFilterDataPoCode([]); return;}
-      SetAuswahlBackgroundColor(newValue);   
+      //SetAuswahlBackgroundColor(newValue); //Background color change  
       setFilterData([newValue])
       setFilterDataPoCode(["N", "Q", "R"]);
 
@@ -135,41 +140,42 @@ export default function DataTable() {
         return;
       }
 
-      var pKs = filterPks(selectedData);
-      var pKs_json = JSON.parse(JSON.stringify(pKs));
+    var pKs = filterPks(selectedData);
+    var pKs_json = JSON.parse(JSON.stringify(pKs));
 
-      console.log(pKs_json);
+    console.log(pKs_json);
 
-      //Update V&V Status
-      axios.put("https://hfmbwiwpid.execute-api.eu-central-1.amazonaws.com/sales/orders/orderitems?status=3", pKs_json)
-      .then(res => {
-        console.log(res);
-  
-      })
-      .catch(err => {
-        console.log(err.message); //Error-Handling
-      });
+    //Update V&V Status
+    axios.put("https://hfmbwiwpid.execute-api.eu-central-1.amazonaws.com/sales/orders/orderitems?status=3", pKs_json)
+    .then(res => {
+      console.log(res);
 
-     //Update Production table from Prod_status 0 to 1 (In Planung zu In Färbung)
-      axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateplanningtoprod", pKs_json)
-      .then(res => {
-        console.log(res);
-        cssMessage("Erfolgreich in die Färbung gegeben.", "#4dff88");
-      })
-     .catch(err => {
-        console.log(err.message); //Error-Handling
-        cssMessage("Error.", "#9c2c2c");
-      }); 
- 
-      sleep(900).then(() => { 
-        setSelectedData(undefined); 
-        DatenLaden(); 
-        
-      }); 
+    })
+    .catch(err => {
+      console.log(err.message); //Error-Handling
+    });
+
+    //Update Production table from Prod_status 0 to 1 (In Planung zu In Färbung)
+    axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateplanningtoprod", pKs_json)
+    .then(res => {
+      console.log(res);
+      cssMessage("Erfolgreich in die Färbung gegeben.", "#4dff88");
+    })
+    .catch(err => {
+      console.log(err.message); //Error-Handling
+      cssMessage("Error.", "#9c2c2c");
+    }); 
+
+    sleep(900).then(() => { 
+      setSelectedData(undefined); 
+      DatenLaden(); 
+      
+    }); 
      
     return;
 }
 
+//Update to 'in Druck'
 function inDruckStatus(){
 
   if (selectedData == null || selectedData === undefined || selectedData.length === 0) {
@@ -181,7 +187,7 @@ function inDruckStatus(){
   var pKs_json = JSON.parse(JSON.stringify(pKs));
   console.log(pKs_json)
 
-  //Update Production table from Prod_status 0 to 2 (In Planung zu In Druck)
+  //Update Production table from 'In Planung' to 'In Druck'
    axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updatefaerbeorders", pKs_json)
   .then(res => {
     console.log(res);
@@ -192,7 +198,7 @@ function inDruckStatus(){
     cssMessage("Error.", "#9c2c2c"); 
   })  
 
-  sleep(900).then(() => { 
+  sleep(900).then(() => { //Reload data
     setSelectedData(undefined); 
     DatenLaden(); 
   }); 
@@ -200,6 +206,7 @@ function inDruckStatus(){
 return;
 }
 
+//Success and error messages
 function cssMessage(message, color)
 { //Set
   document.getElementsByClassName("footer")[0].style.textAlign = "center";
@@ -214,10 +221,12 @@ function cssMessage(message, color)
   });
 }
 
+//Sleep for asynchronous calls
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+//Get only primary keys from selected orders
 function filterPks(selectedData){
   var _pks = [];
  
@@ -234,64 +243,62 @@ function filterPks(selectedData){
 }
 
 
-  //RowSelectEvent
-  function rowSelectEvent(curRowSelected, allRowsSelected){ 
+//RowSelectEvent
+function rowSelectEvent(curRowSelected, allRowsSelected){ 
 
-    var _selectedData = [];
+  var _selectedData = [];
 
   if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
-      setQuantity(0); //Menge auf 0 setzen
-      setQuantityColor("#088A08");
-      setSelectedData(undefined);
-      setCsvData([]);
+    setQuantity(0); //Menge auf 0 setzen
+    setQuantityColor("#088A08");
+    setSelectedData(undefined);
+    setCsvData([]);
+    return;
+  }
+  
+  allRowsSelected.forEach(element => { //Get selected orders
+    _selectedData.push(allData[element.dataIndex])
+  });
+
+  updateQuantity(_selectedData);
+  setSelectedData(_selectedData);
+
+  var _sortedCsvData = _selectedData;
+
+  //Sortieren der Delta-E Werte von Hell nach Dunkel
+  _sortedCsvData.sort(function(a,b){
+    return b.DELTA_E - a.DELTA_E;
+  });
+
+  setCsvData(_sortedCsvData);
+  return;
+}
+
+//Update quantities
+function updateQuantity(selecteDataFromTable){
+
+  var quantity = 0
+
+  if (selecteDataFromTable === undefined || selecteDataFromTable.length === 0) {
+      setQuantity(0)
+      return;
+  }
+
+  selecteDataFromTable.forEach(element => {
+    if (element === undefined || element["QUANTITY"] === undefined ) {
+      setQuantity(0)
       return;
     }
-    
-    allRowsSelected.forEach(element => {
-      _selectedData.push(allData[element.dataIndex])
-    });
 
-    updateQuantity(_selectedData);
-    setSelectedData(_selectedData);
+    quantity += element["QUANTITY"]
+  });
+  setQuantity(quantity)
 
-//-------------Sortieren der CSV ---------------------//
-    var _sortedCsvData = _selectedData;
+  if(quantity > 350) setQuantityColor("#FF0040");
+  else setQuantityColor("#088A08");
 
-    //Sortieren der Delta-E Werte von Hell nach Dunkel
-    _sortedCsvData.sort(function(a,b){
-      return b.DELTA_E - a.DELTA_E;
-    });
-
-//-------------Sortieren der CSV Ende-----------------//
-    setCsvData(_sortedCsvData);
-    
-    return;
-  }
-
-  function updateQuantity(selecteDataFromTable){
-
-    var quantity = 0
-
-    if (selecteDataFromTable === undefined || selecteDataFromTable.length === 0) {
-        setQuantity(0)
-        return;
-    }
-
-    selecteDataFromTable.forEach(element => {
-      if (element === undefined || element["QUANTITY"] === undefined ) {
-        setQuantity(0)
-        return;
-      }
-  
-      quantity += element["QUANTITY"]
-    });
-    setQuantity(quantity)
-
-    if(quantity > 350) setQuantityColor("#FF0040");
-    else setQuantityColor("#088A08");
-
-    return;
-  }
+  return;
+}
 
   return (
   <div>

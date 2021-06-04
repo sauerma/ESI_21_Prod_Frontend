@@ -1,6 +1,10 @@
-/*----------------------------------------*/
-  //Author: ESI SoSe21 - Team Production//
-/*----------------------------------------*/
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: Färbung-Tabelle
+/*-----------------------------------------------------------------------*/
 
 import React, { useState, useEffect} from "react";
 import MUIDataTable from "mui-datatables";
@@ -11,6 +15,7 @@ import './TabStyle.css';
 
 export default function Faerbung() {
 
+  //Init specific table data
   const columns = [  {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
   {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
   { name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
@@ -46,29 +51,31 @@ export default function Faerbung() {
   const [allData, setAllData] = useState([]); 
   const [selectedData, setSelectedData] =  useState([]); 
 
+  //Event if data changed
   useEffect(() => { DatenLaden(); });
 
+  //Load data
   function DatenLaden(){
         
     axios.get('https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/getfaerbeorders')
-        .then(res => {
-        
-        console.log("RESPONSE:", res); //Data from Gateway
+      .then(res => {
+      
+      console.log("RESPONSE:", res); //Data from Gateway
 
-        if(IsDataBaseOffline(res)) return; //Check if db is available
+      if(IsDataBaseOffline(res)) return; //Check if db is available
 
-        if(res.data.body.length === 0) { //Check if data is available
-          setAllData(undefined);
-          return;
-        }          
+      if(res.data.body.length === 0) { //Check if data is available
+        setAllData(undefined);
+        return;
+      }          
 
-        if (DataAreEqual(allData, res.data.body)) return; //Check if data has changed       
-        setAllData(res.data.body); //Set new data
-  
-        })
-        .catch(err => {
-            console.log(err.message); //Error-Handling
-        })
+      if (DataAreEqual(allData, res.data.body)) return; //Check if data has changed       
+      setAllData(res.data.body); //Set new data
+
+      })
+      .catch(err => {
+          console.log(err.message); //Error-Handling
+      })
 
   }
 
@@ -94,25 +101,26 @@ export default function Faerbung() {
     }
 
 
-//RowSelectEvent
-function rowSelectEvent(curRowSelected, allRowsSelected){ 
+  //RowSelectEvent
+  function rowSelectEvent(curRowSelected, allRowsSelected){ 
 
-  var _selectedData = [];
+    var _selectedData = [];
 
-if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
-    setSelectedData(undefined);
+   if(allRowsSelected.length === 0) {  //If no rows are selected
+      setSelectedData(undefined);
+      return;
+    }
+    
+    allRowsSelected.forEach(element => {
+      _selectedData.push(allData[element.dataIndex])
+    });
+
+    setSelectedData(_selectedData);
+
     return;
   }
-  
-  allRowsSelected.forEach(element => {
-    _selectedData.push(allData[element.dataIndex])
-  });
 
-  setSelectedData(_selectedData);
-
-  return;
-}
-
+  //Update orders to 'Produziert'
   function Produziert(){
     if (selectedData == null || selectedData === undefined || selectedData.length === 0) {
       alert("Bitte Positionen auswählen!");
@@ -132,7 +140,7 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
         console.log(err.message); //Error-Handling
     })
 
-    //Update Production table from Prod_status 1 to 3 (In Färbung  zu Produziert)
+    //Update Production table from Prod_status 'In Färbung' zu 'Produziert'
      axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateinprodtoproducted", pKs_json)
     .then(res => {
       console.log(res);
@@ -143,7 +151,7 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
       cssMessage("Error.", "#9c2c2c"); 
     })  
 
-    sleep(900).then(() => { 
+    sleep(900).then(() => { //Reload data
       setSelectedData(undefined); 
       DatenLaden(); 
       cssMessage("Erfolgreich auf produziert gesetzt."); 
@@ -154,7 +162,7 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
 
   }
 
-
+  //Update Orders to 'In Druck'
   function InDruckGeben(){
 
     if (selectedData == null || selectedData === undefined || selectedData.length === 0) {
@@ -166,7 +174,7 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
     var pKs_json = JSON.parse(JSON.stringify(pKs));
     console.log(pKs_json)
 
-    //Update Production table from Prod_status 1 to 2 (In Färbung  zu In Druck)
+    //Update Production table from Prod_status 'In Färbung' to 'In Druck'
      axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updatefaerbeorders", pKs_json)
     .then(res => {
       console.log(res);
@@ -177,7 +185,7 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
       cssMessage("Error.", "#9c2c2c"); 
     })  
 
-    sleep(900).then(() => { 
+    sleep(900).then(() => { //Reload data
       setSelectedData(undefined); 
       DatenLaden(); 
     }); 
@@ -185,24 +193,27 @@ if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
   return;
   }
 
+  //Success and error messages
   function cssMessage(message, color)
-{ //Set
-  document.getElementsByClassName("footer")[0].style.textAlign = "center";
-  document.getElementsByClassName("footer")[0].innerHTML = message;
-  document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+  { //Set
+    document.getElementsByClassName("footer")[0].style.textAlign = "center";
+    document.getElementsByClassName("footer")[0].innerHTML = message;
+    document.getElementsByClassName("footer")[0].style.backgroundColor = color;
 
-  //Reset
-  sleep(2200).then(() => { 
-  document.getElementsByClassName("footer")[0].style.textAlign = "right";
-  document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©BlackForestConsulting";
-  document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
-  });
-}
+    //Reset
+    sleep(2200).then(() => { 
+    document.getElementsByClassName("footer")[0].style.textAlign = "right";
+    document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©BlackForestConsulting";
+    document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+    });
+  }
   
+  //Sleep for asynchronous calls
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  //Get primary keys from selected orders
   function filterPks(selectedData){
     var _pks = [];
    

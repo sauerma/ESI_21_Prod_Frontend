@@ -7,7 +7,7 @@ const Planung = () => {
     return (
         <div>
             <Typography paragraph>
-            Planung
+              Planung
             </Typography>
             <EnhancedTable/>
         </div>

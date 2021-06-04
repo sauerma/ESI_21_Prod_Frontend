@@ -7,16 +7,14 @@ import TabChangeMat from './Material/TabChangeMat.js';
   const Material = () => {
 
     return (
-     
-        <div >
-           <Typography paragraph>
-            Materialmanagement
-           </Typography>
 
-           <TabChangeMat/>
-  
-     </div>
-    )
+      <div >
+        <Typography paragraph>
+          Materialmanagement
+        </Typography>
+        <TabChangeMat/>
+      </div>
+  )
 }
 
 export default Material

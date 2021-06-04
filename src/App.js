@@ -1,3 +1,11 @@
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: Basis App
+/*-----------------------------------------------------------------------*/
+
 import React, {useEffect} from "react";
 import clsx from 'clsx';
 import { makeStyles, useTheme} from '@material-ui/core/styles';
@@ -22,10 +30,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import HelpIcon from '@material-ui/icons/Help';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-//import logo from './img/yourshirt_full.png'
 import logo_transp from './img/logo_transparent.png';
 import Icon from '@material-ui/core/Icon';
-//import yourshirt from './img/android-chrome-144x144.png';
 import yourshirt_transp from './img/farbkreis_transparent.png';
 import Footer from './footer'
 

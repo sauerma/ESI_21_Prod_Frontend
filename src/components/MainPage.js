@@ -4,9 +4,9 @@ import Dashboard from './MainPage/Dashboard';
 
 const MainPage = () => {
     return (
-        <div className="maindiv">          
-<Dashboard/>
-</div>
+    <div className="maindiv">          
+      <Dashboard/>
+    </div>
     )
 }
 

@@ -1,3 +1,11 @@
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: Dashboard Layout
+/*-----------------------------------------------------------------------*/
+
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,9 +19,8 @@ import Orders from './Orders';
 import Fortschritt from './Fortschritt';
 import PrivatKundenAnteil from './Privatkundenanteil';
 
-
+//Set Style
 const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -36,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    /*backgroundColor: '#282c34', */
   },
   fixedHeight: {
     height: 240,
@@ -53,32 +59,35 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
+
           <Grid container spacing={2}>
-            {/* Chart */}
+
             <Grid item xs={12} md={6} lg={9}>
               <Paper className={fixedHeightPaper}>
                 <Chart />
               </Paper>
             </Grid>
-            {/* Recent Auslastung */}
+
             <Grid item xs={12} md={6} lg={3}>
-            <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert"}}>
+              <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert"}}>
                 <Auslastung /> <h2>&nbsp; Auslastung</h2>
-            </Paper>
-            <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert" }}>
+              </Paper>
+              <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert" }}>
                 <Fortschritt /> <h2>&nbsp; Fortschritt</h2>
-            </Paper>
-            <Paper className={classes.paper} style={{  padding: 0, margin: 1, flexDirection: "revert" }}>
-                 <PrivatKundenAnteil /> <h2>&nbsp; Privatkunden</h2>
-            </Paper>
-            </Grid>            
-            {/* Recent Orders */}
+              </Paper>
+              <Paper className={classes.paper} style={{  padding: 0, margin: 1, flexDirection: "revert" }}>
+                <PrivatKundenAnteil /> <h2>&nbsp; Privatkunden</h2>
+              </Paper>
+            </Grid>  
+
             <Grid item xs={12} md={12}>
               <Paper className={classes.paper}>
-                <Orders />
+                <Orders /> 
               </Paper>
             </Grid>
+
           </Grid>
+
         </Container>
       </main>
     </div>

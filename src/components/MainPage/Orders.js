@@ -1,6 +1,10 @@
-/*----------------------------------------*/
-  //Author: ESI SoSe21 - Team Production//
-/*----------------------------------------*/
+/*-----------------------------------------------------------------------*/
+  // Autor: ESI SoSe21 - Team production members
+  // Julia Jillich, David Krieg, Evgeniya Puchkova, Max Sauer
+  // Contact: jjilich@stud.hs-offenburg.de, dkrieg@stud.hs-offenburg.de,
+  //          epuchkova@stud.hs-offenburg.de, www.maxsauer.com
+  // File: Aktive Produktionsaufträge
+/*-----------------------------------------------------------------------*/
 
 import React, { useState, useEffect} from "react";
 import MUIDataTable from "mui-datatables";
@@ -12,6 +16,7 @@ import QualityCell from '../Planung/qualityCell.js';
 
 export default function Orders() {
   
+  //Set tabale columns
   const columns = [
   {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}},  
   {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
@@ -41,6 +46,7 @@ export default function Orders() {
   {name: "IMAGE", label: "Image", options: {filter: true,sort: true, display: true}},
   {name: "END_DATE",label: "END_DATE",options: {filter: true,sort: false, display: false}}];
 
+  //Set table options
   const options = {rowsPerPage: 3, selectableRows: false , filterType: 'checkbox' };
   const [allData, setAllData] = useState([]); 
 
@@ -51,7 +57,7 @@ export default function Orders() {
         
         console.log("RESPONSE:", res); //Data from Gateway
 
-        if(IsDataBaseOffline(res)) return; //Check if db is available
+        if(IsDataBaseOffline(res)) return; //Check if database is available
 
         if(res.data.body.length === 0) { //Check if data is available
           setAllData(undefined);
@@ -88,6 +94,7 @@ export default function Orders() {
       else return false;
     }
 
+  //Set theme  
   const getMuiTheme = () => createMuiTheme({
     overrides: {
       MuiTypography: {
