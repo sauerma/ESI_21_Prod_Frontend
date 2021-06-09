@@ -119,7 +119,7 @@ function sleep(ms) {
       </tr>
       <tr >
         <td colspan="1"> <input type="checkbox" id="weiß" /> <label for="weiß">200 Stück &nbsp;</label></td>
-        <td colspan="2" style={{paddingLeft:"5px" }}> <input style={{maxWidth: "70px" }} type="number" id="colorDivValue" name="colorDivValue"/>  Liter&nbsp;</td>
+        <td colspan="2" style={{paddingLeft:"5px" }}> <input style={{maxWidth: "70px" }} type="number" id="colorDivValue" name="colorDivValue"/>  Stück&nbsp;</td>
         <td colspan="3"> <input type="checkbox" id="C" /> <label for="C">50 Liter &nbsp;</label></td>
         <td colspan="4"> <input type="checkbox" id="M" /> <label for="M">50 Liter &nbsp;</label></td>
         <td colspan="5"> <input type="checkbox" id="Y" /> <label for="Y">50 Liter &nbsp;</label></td>
