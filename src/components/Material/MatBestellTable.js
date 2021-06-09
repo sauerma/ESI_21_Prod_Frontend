@@ -18,19 +18,20 @@ function OrderMaterial(){
 
   //Get input values
   var stk_shirt= document.getElementById('weiß');
-  var stk_shirt_div = document.getElementById('shirtDivers');
   var colordiv = document.getElementById('colordiv').value;
+  var colordivValue = document.getElementById('colorDivValue').value;
+  
   var liter_c = document.getElementById('C')
   var liter_m = document.getElementById('M');
   var liter_y = document.getElementById('Y');
   var liter_k = document.getElementById('K');
 
-  console.log("You ordered: Black Shirt:", stk_shirt.checked, ", Shirt Divers: (color:", colordiv,"):", stk_shirt_div.checked, ", C:", liter_c.checked, ", M:", liter_m.checked, ", Y:", liter_y.checked, ", K:", liter_k.checked);
+  console.log("You ordered: Black Shirt:", stk_shirt.checked, ", Shirt Divers: (color:", colordiv,"):", colordivValue, ", C:", liter_c.checked, ", M:", liter_m.checked, ", Y:", liter_y.checked, ", K:", liter_k.checked);
 
   var body = []
-
+  if(colordivValue <= 0) {alert("Bitte Shirt Menge eingeben"); return;} 
   if (stk_shirt.checked) body.push({"m_id_materialstype": "T", "quantity": 200, "RES_QTY": 2000, "hexcolor": '#FFFFFF' });  //Black Shirt 
-  if (stk_shirt_div.checked) body.push({"m_id_materialstype": "T", "quantity": 20, "RES_QTY": 20, "hexcolor": colordiv });  //Divers Shirt
+  if (colordivValue !== undefined && colordivValue > 0 ) body.push({"m_id_materialstype": "T", "quantity": colordivValue, "RES_QTY": colordivValue, "hexcolor": colordiv });  //Divers Shirt
   if (liter_c.checked) body.push({"m_id_materialstype": "C", "quantity": 50, "RES_QTY": 50, "hexcolor": " " });  //C
   if (liter_m.checked) body.push({"m_id_materialstype": "M", "quantity": 50, "RES_QTY": 50, "hexcolor": " " });  //M
   if (liter_y.checked) body.push({"m_id_materialstype": "Y", "quantity": 50, "RES_QTY": 50, "hexcolor": " " });  //Y
@@ -118,7 +119,7 @@ function sleep(ms) {
       </tr>
       <tr >
         <td colspan="1"> <input type="checkbox" id="weiß" /> <label for="weiß">200 Stück &nbsp;</label></td>
-        <td colspan="2"> <input type="checkbox" id="shirtDivers" /> <label for="shirtDivers">20 Stück &nbsp;</label></td>
+        <td colspan="2" style={{paddingLeft:"5px" }}> <input style={{maxWidth: "70px" }} type="number" id="colorDivValue" name="colorDivValue"/>  Liter&nbsp;</td>
         <td colspan="3"> <input type="checkbox" id="C" /> <label for="C">50 Liter &nbsp;</label></td>
         <td colspan="4"> <input type="checkbox" id="M" /> <label for="M">50 Liter &nbsp;</label></td>
         <td colspan="5"> <input type="checkbox" id="Y" /> <label for="Y">50 Liter &nbsp;</label></td>
