@@ -27,11 +27,11 @@ function OrderMaterial(){
   var liter_k = document.getElementById('K'); //K-Wert
 
   console.log("You ordered: Black Shirt:", stk_shirt.checked, ", Shirt Divers: (color:", colordiv,"):", colordivValue, ", C:", liter_c.checked, ", M:", liter_m.checked, ", Y:", liter_y.checked, ", K:", liter_k.checked);
-
+  
+  if(colordivValue < 0) {alert("Bitte richtige Shirt Menge eingeben"); return;} 
   var body = []
-  if(colordivValue <= 0) {alert("Bitte Shirt Menge eingeben"); return;} 
   if (stk_shirt.checked) body.push({"m_id_materialstype": "T", "quantity": 200, "RES_QTY": 2000, "hexcolor": '#FFFFFF' });  //Black Shirt 
-  if (colordivValue !== undefined && colordivValue > 0 ) body.push({"m_id_materialstype": "T", "quantity": colordivValue, "RES_QTY": colordivValue, "hexcolor": colordiv });  //Divers Shirt
+  if (colordivValue !== undefined && colordivValue > 0 && colordivValue != '') body.push({"m_id_materialstype": "T", "quantity": colordivValue, "RES_QTY": colordivValue, "hexcolor": colordiv });  //Divers Shirt
   if (liter_c.checked) body.push({"m_id_materialstype": "C", "quantity": 50, "RES_QTY": 50, "hexcolor": " " });  //C
   if (liter_m.checked) body.push({"m_id_materialstype": "M", "quantity": 50, "RES_QTY": 50, "hexcolor": " " });  //M
   if (liter_y.checked) body.push({"m_id_materialstype": "Y", "quantity": 50, "RES_QTY": 50, "hexcolor": " " });  //Y
