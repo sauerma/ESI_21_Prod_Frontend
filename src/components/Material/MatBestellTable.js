@@ -17,14 +17,14 @@ export default function MatBestellTable() {
 function OrderMaterial(){
 
   //Get input values
-  var stk_shirt= document.getElementById('weiß');
-  var colordiv = document.getElementById('colordiv').value;
-  var colordivValue = document.getElementById('colorDivValue').value;
+  var stk_shirt= document.getElementById('weiß'); //Weiße shirts
+  var colordiv = document.getElementById('colordiv').value; //Diverse shirts color
+  var colordivValue = document.getElementById('colorDivValue').value; //Diverse shirts value
   
-  var liter_c = document.getElementById('C')
-  var liter_m = document.getElementById('M');
-  var liter_y = document.getElementById('Y');
-  var liter_k = document.getElementById('K');
+  var liter_c = document.getElementById('C') //C-Wert
+  var liter_m = document.getElementById('M'); //M-Wert
+  var liter_y = document.getElementById('Y'); //Y-Wert
+  var liter_k = document.getElementById('K'); //K-Wert
 
   console.log("You ordered: Black Shirt:", stk_shirt.checked, ", Shirt Divers: (color:", colordiv,"):", colordivValue, ", C:", liter_c.checked, ", M:", liter_m.checked, ", Y:", liter_y.checked, ", K:", liter_k.checked);
 
