@@ -26,7 +26,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import Event from '@material-ui/icons/Event';
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import SettingsIcon from '@material-ui/icons/Settings';
+//import SettingsIcon from '@material-ui/icons/Settings';
 import HelpIcon from '@material-ui/icons/Help';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -41,7 +41,7 @@ import Planung from './components/Planung';
 import Produktion from './components/Produktion';
 import Material from './components/Material';
 import Hilfebereich from './components/Hilfebereich';
-import Einstellungen from './components/Einstellungen';
+//import Einstellungen from './components/Einstellungen';
 
 
 const drawerWidth = 240;
@@ -286,13 +286,13 @@ function App() {
             </ListItemIcon>
             <ListItemText primary="Hilfebereich" />   
          </ListItem>
-        <ListItem button component={Link} to="/Einstellungen" key="Einstellungen" className={classes.activeTab} selected={selectedIndex === 5}
+       { /*<ListItem button component={Link} to="/Einstellungen" key="Einstellungen" className={classes.activeTab} selected={selectedIndex === 5}
           onClick={event => handleListItemClick(event, 5)}>
             <ListItemIcon>
               <SettingsIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
             <ListItemText primary="Einstellungen" />   
-         </ListItem>     
+          </ListItem>  */  }  
         </List>  
         <Divider />
    
@@ -332,9 +332,9 @@ function App() {
             <Route exact path="/Hilfebereich">
               <Hilfebereich />
             </Route>
-            <Route exact path="/Einstellungen">
+           { /*<Route exact path="/Einstellungen">
               <Einstellungen />
-            </Route>
+    </Route> */ }
           </Switch>
       </main>
       </Router>
