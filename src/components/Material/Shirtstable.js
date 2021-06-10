@@ -107,33 +107,49 @@ const tableIcons = {
     else return false;
   }
 
+  function UpdateResDB(oldValue, newValue, rowData){
+    axios.put(' https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateresmenge', [{"prodmat_id": rowData["prodmat_id"], "RES_QTY": newValue}])
+    .then(res => {
+    console.log("RESPONSE:", res); //Data from Gateway
+
+    cssMessage("Erfolgreich Restmenge geupdated.", "#4dff88"); //Footer färben
+
+    ShirtData.forEach(element => {    
+        if(element["prodmat_id"] === rowData["prodmat_id"]) element["RES_QTY"] = newValue; 
+    });
+    setShirtData(undefined);
+    setShirtData(ShirtData);
+
+    })
+
+    .catch(err => {
+        console.log(err.message); //Error-Handling
+        cssMessage("Error.", "#9c2c2c"); //footer färben
+    })
+    return;
+  }
+
   //Update Restmengen
   function UpdateResMenge(oldValue, newValue, rowData){
 
-      if(oldValue === newValue) return;
-      if(oldValue - newValue < 0) { alert("Keine negativen Restmengen möglich!"); return; }
-
-      axios.put(' https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateresmenge', [{"prodmat_id": rowData["prodmat_id"], "RES_QTY": newValue}])
-      .then(res => {
-      console.log("RESPONSE:", res); //Data from Gateway
-
-      cssMessage("Erfolgreich Restmenge geupdated.", "#4dff88"); //Footer färben
-  
-      ShirtData.forEach(element => {    
-          if(element["prodmat_id"] === rowData["prodmat_id"]) element["RES_QTY"] = newValue; 
-      });
-      setShirtData(undefined);
-      setShirtData(ShirtData);
-
-      })
-
-      .catch(err => {
-          console.log(err.message); //Error-Handling
-          cssMessage("Error.", "#9c2c2c"); //footer färben
-      })
+    if(oldValue === newValue) return;
+    if(parseInt(newValue) < 0) { alert("Keine negativen Restmengen möglich!");  return; }
+    if(oldValue - newValue < 0) { alert("Keine höheren Restmengen möglich!"); return; }
+    if(newValue == 0 ) {
+      if(window.confirm('Sie haben die Restmenge auf null gesetzt. Sind sie sicher?'))
+      {  
+        UpdateResDB(oldValue, newValue, rowData);
+      }
+      else return;  
+      } 
+    else 
+    {
+       UpdateResDB(oldValue, newValue, rowData);
+    }
 
       return;
   }
+
 
   //Success and error messages
   function cssMessage(message, color)
@@ -143,7 +159,7 @@ const tableIcons = {
     document.getElementsByClassName("footer")[0].style.backgroundColor = color;
 
     //Reset
-    sleep(2200).then(() => { 
+    sleep(4000).then(() => { 
     document.getElementsByClassName("footer")[0].style.textAlign = "right";
     document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©BlackForestConsulting";
     document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";

@@ -72,7 +72,7 @@ function cssMessage(message, color)
   document.getElementsByClassName("footer")[0].style.backgroundColor = color;
 
   //Reset
-  sleep(2200).then(() => { 
+  sleep(4000).then(() => { 
   document.getElementsByClassName("footer")[0].style.textAlign = "right";
   document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©BlackForestConsulting";
   document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";

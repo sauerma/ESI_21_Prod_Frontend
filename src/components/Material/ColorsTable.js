@@ -123,32 +123,49 @@ if(data.sort().join(',') === sortedOrders.sort().join(',')){
   else return false;
 }
 
+function UpdateResDB(oldValue, newValue, rowData){
+
+  //Update database with new Restmengen
+  axios.put(' https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateresmenge', [{"prodmat_id": rowData["prodmat_id"], "RES_QTY": newValue}])
+  .then(res => {
+  console.log("RESPONSE:", res); //Data from Gateway
+
+  cssMessage("Erfolgreich Restmenge geupdated.", "#4dff88"); //Footer färben
+ 
+  ColorData.forEach(element => {    
+      if(element["prodmat_id"] === rowData["prodmat_id"])  element["RES_QTY"] = newValue; //Update Restmengen
+  });
+
+  setColorData(undefined);
+  setColorData(ColorData); //Set data
+
+  })
+
+  .catch(err => {
+      console.log(err.message); //Error-Handling
+      cssMessage("Error.", "#9c2c2c"); //footer färben
+  })
+}
+
 //Update Restmengen
 function UpdateResMenge(oldValue, newValue, rowData){
 
     if(oldValue === newValue) return;
-    if(oldValue - newValue < 0) { alert("Keine negativen Restmengen möglich!");  return; }
-   
-    //Update database with new Restmengen
-    axios.put(' https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updateresmenge', [{"prodmat_id": rowData["prodmat_id"], "RES_QTY": newValue}])
-    .then(res => {
-    console.log("RESPONSE:", res); //Data from Gateway
-
-    cssMessage("Erfolgreich Restmenge geupdated.", "#4dff88"); //Footer färben
-   
-    ColorData.forEach(element => {    
-        if(element["prodmat_id"] === rowData["prodmat_id"])  element["RES_QTY"] = newValue; //Update Restmengen
-    });
-
-    setColorData(undefined);
-    setColorData(ColorData); //Set data
-
-    })
-
-    .catch(err => {
-        console.log(err.message); //Error-Handling
-        cssMessage("Error.", "#9c2c2c"); //footer färben
-    })
+    if(parseInt(newValue) < 0) { alert("Keine negativen Restmengen möglich!");  return; }
+    if(oldValue - newValue < 0) { alert("Keine höheren Mengen möglich!");  return; }
+    
+    if(newValue == 0 ) {
+      if(window.confirm('Sie haben die Restmenge auf null gesetzt. Sind sie sicher?'))
+      {  
+        UpdateResDB(oldValue, newValue, rowData);
+      }
+      else return;  
+      } 
+    else 
+    {
+       UpdateResDB(oldValue, newValue, rowData);
+    }
+  
 
     return;
 }
