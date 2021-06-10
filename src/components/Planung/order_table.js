@@ -25,7 +25,7 @@ export default function DataTable() {
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
    {name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
    {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true}},
-   {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  filterList: filterDataPoCode, sort: true,  display: false}}, 
+   {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: true,  display: false}}, //filterList: filterDataPoCode,  
    {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: false, sort: true, display: false}},  
    {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
    {name: "MAT_NR", label: "Material-Nr", options: {filter: false, sort: true, display: false}}, 
