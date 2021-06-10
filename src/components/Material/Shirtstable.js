@@ -136,7 +136,7 @@ const tableIcons = {
     if(parseInt(newValue) < 0) { alert("Keine negativen Restmengen möglich!");  return; }
     if(oldValue - newValue < 0) { alert("Keine höheren Restmengen möglich!"); return; }
     if(newValue == 0 ) {
-      if(window.confirm('Sie haben die Restmenge auf null gesetzt. Sind sie sicher?'))
+      if(window.confirm('Sie haben die Restmenge auf 0 gesetzt. Sind sie sicher?'))
       {  
         UpdateResDB(oldValue, newValue, rowData);
       }
