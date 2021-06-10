@@ -30,12 +30,12 @@ function OrderMaterial(){
   
   if(colordivValue < 0) {alert("Bitte richtige Shirt Menge eingeben"); return;} 
   var body = []
-  if (stk_shirt.checked) body.push({"m_id_materialstype": "T", "quantity": 200, "RES_QTY": 2000, "hexcolor": '#FFFFFF' });  //Black Shirt 
+  if (stk_shirt.checked) body.push({"m_id_materialstype": "T", "quantity": 200, "RES_QTY": 200, "hexcolor": '#FFFFFF' });  //Black Shirt 
   if (colordivValue !== undefined && colordivValue > 0 && colordivValue !== '') body.push({"m_id_materialstype": "T", "quantity": colordivValue, "RES_QTY": colordivValue, "hexcolor": colordiv });  //Divers Shirt
-  if (liter_c.checked) body.push({"m_id_materialstype": "C", "quantity": 50, "RES_QTY": 50, "hexcolor": " " });  //C
-  if (liter_m.checked) body.push({"m_id_materialstype": "M", "quantity": 50, "RES_QTY": 50, "hexcolor": " " });  //M
-  if (liter_y.checked) body.push({"m_id_materialstype": "Y", "quantity": 50, "RES_QTY": 50, "hexcolor": " " });  //Y
-  if (liter_k.checked) body.push({"m_id_materialstype": "K", "quantity": 50, "RES_QTY": 50, "hexcolor": " " });  //K
+  if (liter_c.checked) body.push({"m_id_materialstype": "C", "quantity": 1, "RES_QTY": 1, "hexcolor": " " });  //C
+  if (liter_m.checked) body.push({"m_id_materialstype": "M", "quantity": 1, "RES_QTY": 1, "hexcolor": " " });  //M
+  if (liter_y.checked) body.push({"m_id_materialstype": "Y", "quantity": 1, "RES_QTY": 1, "hexcolor": " " });  //Y
+  if (liter_k.checked) body.push({"m_id_materialstype": "K", "quantity": 1, "RES_QTY": 1, "hexcolor": " " });  //K
 
   InsertMatOrders(body);
   console.log("Body for insert:", body);
@@ -120,10 +120,10 @@ function sleep(ms) {
       <tr >
         <td colspan="1"> <input type="checkbox" id="weiß" /> <label for="weiß">200 Stück &nbsp;</label></td>
         <td colspan="2" style={{paddingLeft:"5px" }}> <input style={{maxWidth: "70px" }} type="number" id="colorDivValue" name="colorDivValue"/>  Stück&nbsp;</td>
-        <td colspan="3"> <input type="checkbox" id="C" /> <label for="C">50 Liter &nbsp;</label></td>
-        <td colspan="4"> <input type="checkbox" id="M" /> <label for="M">50 Liter &nbsp;</label></td>
-        <td colspan="5"> <input type="checkbox" id="Y" /> <label for="Y">50 Liter &nbsp;</label></td>
-        <td colspan="6"> <input type="checkbox" id="K" /> <label for="K">50 Liter &nbsp;</label></td>
+        <td colspan="3"> <input type="checkbox" id="C" /> <label for="C">1 Gebinde &nbsp;</label></td>
+        <td colspan="4"> <input type="checkbox" id="M" /> <label for="M">1 Gebinde &nbsp;</label></td>
+        <td colspan="5"> <input type="checkbox" id="Y" /> <label for="Y">1 Gebinde &nbsp;</label></td>
+        <td colspan="6"> <input type="checkbox" id="K" /> <label for="K">1 Gebinde &nbsp;</label></td>
       </tr>
   </table>
 
