@@ -151,8 +151,8 @@ function UpdateResDB(oldValue, newValue, rowData){
 function UpdateResMenge(oldValue, newValue, rowData){
 
     if(oldValue === newValue) return;
+
     if(parseInt(newValue) < 0) { alert("Keine negativen Restmengen möglich!");  return; }
-    if(oldValue - newValue < 0) { alert("Keine höheren Mengen möglich!");  return; }
     
     if(newValue == 0 ) {
       if(window.confirm('Sie haben die Restmenge auf 0 gesetzt. Sind Sie sicher?'))
@@ -166,7 +166,6 @@ function UpdateResMenge(oldValue, newValue, rowData){
        UpdateResDB(oldValue, newValue, rowData);
     }
   
-
     return;
 }
 
