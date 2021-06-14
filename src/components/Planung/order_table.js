@@ -19,7 +19,7 @@ export default function DataTable() {
 
   //Set table data
   const [filterData, setFilterData] =  useState([]); 
-  const [filterDataPoCode, setFilterDataPoCode] =  useState([]); 
+  const [/*filterDataPoCode */, setFilterDataPoCode] =  useState([]); 
 
   const columns = [ {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
@@ -50,7 +50,7 @@ export default function DataTable() {
    {name: "PROD_STATUS", label: "Status", options: {filter: false, sort: true, display: true}}, 
    {name: "END_DATE",label: "END_DATE",options: {filter: false,sort: false, display: false}}];
 
-  const options = {rowsPerPage: 5, customToolbarSelect: () => {return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
+  const options = { rowsPerPage: 5, customToolbarSelect: () => { return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }, customToolbar: () => { 
     return    <select onChange={e => AuswahlChange(e.target.value)}  name="colordivers" id="colordiv" style={{ float: "left", backgroundColor: auswahlBackgroundColor}} >
     <option  value="Alle" style={{backgroundColor:"#d8dce4"}}>Alle</option>
@@ -66,7 +66,7 @@ export default function DataTable() {
     <option  value="#00286e" style={{backgroundColor:"#00286e", color: "white"}}>HSOG-blau</option>
    </select>;
      
-  }};
+  }, onFilterDialogOpen:  () => {filterOpen();}};
   const [auswahlBackgroundColor, SetAuswahlBackgroundColor] = useState("#d8dce4");            
   const [csvdata, setCsvData] = useState([]); 
   const [Quantity, setQuantity] = useState("");
@@ -77,7 +77,9 @@ export default function DataTable() {
   const [selectedData, setSelectedData] =  useState([]); 
 
   //Event if data changed
-  useEffect(() => { DatenLaden(); });
+  useEffect(() => { DatenLaden(); 
+      
+  });
   
   //Load data
   function DatenLaden(){
@@ -132,6 +134,22 @@ export default function DataTable() {
       else return false;
     }
 
+  const filterOpen = () => {
+
+    try {
+    sleep(1500).then(() => { //Reload data
+      var a1 = document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children[0].getElementsByClassName("PrivateSwitchBase-input-63")[0].value;
+      var a2 = document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children[1].getElementsByClassName("PrivateSwitchBase-input-63")[0].value;
+
+      console.log(a1)
+      console.log(a2)
+    }); 
+
+}
+  catch (e) {console.log("error in filter update names")}
+
+};
+
  //Update status in planning to in production
   function updateProdStatus(){  
       
@@ -183,9 +201,19 @@ function inDruckStatus(){
     return;
   }
 
-  var pKs = filterPks(selectedData);
-  var pKs_json = JSON.parse(JSON.stringify(pKs));
-  console.log(pKs_json)
+      var pKs = filterPks(selectedData);
+      var pKs_json = JSON.parse(JSON.stringify(pKs));
+      console.log(pKs_json)
+
+    //Update V&V Status
+    axios.put("https://hfmbwiwpid.execute-api.eu-central-1.amazonaws.com/sales/orders/orderitems?status=3", pKs_json)
+    .then(res => {
+      console.log(res);
+
+    })
+    .catch(err => {
+      console.log(err.message); //Error-Handling
+    });
 
   //Update Production table from 'In Planung' to 'In Druck'
    axios.put("https://1ygz8xt0rc.execute-api.eu-central-1.amazonaws.com/main/updatefaerbeorders", pKs_json)
