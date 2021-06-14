@@ -137,16 +137,54 @@ export default function DataTable() {
   const filterOpen = () => {
 
     try {
-    sleep(1500).then(() => { //Reload data
-      var a1 = document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children[0].getElementsByClassName("PrivateSwitchBase-input-63")[0].value;
-      var a2 = document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children[1].getElementsByClassName("PrivateSwitchBase-input-63")[0].value;
 
-      console.log(a1)
-      console.log(a2)
-    }); 
+    sleep(400).then(() => { //Reload data
 
-}
-  catch (e) {console.log("error in filter update names")}
+      var counter = 0;
+
+     for (var i in document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children)  
+      {
+        if (document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children[counter] === undefined) return;
+
+        var child = document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children[counter];
+        if(child === undefined || child === '') return;
+
+        if(child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label MUIDataTableFilter-checkboxFormControlLabel-288 MuiTypography-body1")[0] === undefined) return;
+
+        var childLabel = child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label MUIDataTableFilter-checkboxFormControlLabel-288 MuiTypography-body1")[0].innerHTML;
+        if (childLabel === undefined || childLabel === '') return;
+
+         if (childLabel === "N")
+        {
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label MUIDataTableFilter-checkboxFormControlLabel-288 MuiTypography-body1")[0].innerHTML = "Neuer Auftrag";
+        }
+
+        else if (childLabel === "P")
+        {
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label MUIDataTableFilter-checkboxFormControlLabel-288 MuiTypography-body1")[0].innerHTML = "Vorproduktion";
+        }
+
+        else if (childLabel === "Q")
+        {
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label MUIDataTableFilter-checkboxFormControlLabel-288 MuiTypography-body1")[0].innerHTML = "Qualitätskontrolle";
+        }
+        
+        else if (childLabel === "R")
+        {
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label MUIDataTableFilter-checkboxFormControlLabel-288 MuiTypography-body1")[0].innerHTML = "Retoure";
+        } 
+
+            
+        counter += 1;
+
+      }
+ 
+    });
+
+    }
+
+
+  catch (e) {console.log("Error in filter update names")}
 
 };
 
