@@ -21,11 +21,12 @@ export default function DataTable() {
   const [filterData, setFilterData] =  useState([]); 
   const [/*filterDataPoCode */, setFilterDataPoCode] =  useState([]); 
 
-  const columns = [ {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
+  const columns = [
+    {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: true,  display: false}}, //filterList: filterDataPoCode, 
+   {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
    {name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
    {name: "OI_NR", label: "Bestellpos-Nr", options: {filter: true, sort: true, display: true}},
-   {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: true,  display: false}}, //filterList: filterDataPoCode,  
    {name: "PO_COUNTER", label: "PO_COUNTER", options: {filter: false, sort: true, display: false}},  
    {name: "QUANTITY", label: "Menge", options: {filter: true, sort: true, display: true}}, 
    {name: "MAT_NR", label: "Material-Nr", options: {filter: false, sort: true, display: false}}, 
@@ -140,9 +141,9 @@ export default function DataTable() {
 
     sleep(400).then(() => { //Reload data
 
-      var label = document.getElementsByClassName("MuiTypography-root jss285 MuiTypography-body2");
+      var label = document.getElementsByClassName("MuiTypography-root jss140 MuiTypography-body2");
       if(label === undefined || label.length === 0) return;
-      document.getElementsByClassName("MuiTypography-root jss285 MuiTypography-body2").innerHTML = "Auftragstyp";
+      document.getElementsByClassName("MuiTypography-root jss140 MuiTypography-body2").innerHTML = "Auftragstyp";
 
       var counter = 0;
 
@@ -158,7 +159,6 @@ export default function DataTable() {
 
          if (childLabel === "N")
         {
-          console.log("N")
           child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1")[0].innerHTML = "Neuer Auftrag";
         }
 
