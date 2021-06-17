@@ -140,6 +140,10 @@ export default function DataTable() {
 
     sleep(400).then(() => { //Reload data
 
+      var label = document.getElementsByClassName("MuiTypography-root jss285 MuiTypography-body2");
+      if(label === undefined || label.length === 0) return;
+      document.getElementsByClassName("MuiTypography-root jss285 MuiTypography-body2").innerHTML = "Auftragstyp";
+
       var counter = 0;
 
      for (var i in document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children)  
@@ -149,8 +153,6 @@ export default function DataTable() {
 
         if(child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1") === undefined) return;
         var childLabel = child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1")[0].innerHTML;
-        console.log("child")
-        console.log(childLabel)
 
         if (childLabel === undefined || childLabel === '') return;
 
