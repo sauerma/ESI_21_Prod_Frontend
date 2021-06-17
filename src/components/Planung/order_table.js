@@ -149,7 +149,7 @@ export default function DataTable() {
         if(child === undefined || child === '') return;
 
         if(child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1") === undefined) return;
-        var childLabel = child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1")[0].innerHTML;
+        var childLabel = child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1").innerHTML;
 
         if (childLabel === undefined || childLabel === '') return;
 
