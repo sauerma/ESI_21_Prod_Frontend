@@ -155,22 +155,23 @@ export default function DataTable() {
 
          if (childLabel === "N")
         {
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1")[0].innerHTML = "Neuer Auftrag";
+          console.log("N")
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1").innerHTML = "Neuer Auftrag";
         }
 
         else if (childLabel === "P")
         {
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1")[0].innerHTML = "Vorproduktion";
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1").innerHTML = "Vorproduktion";
         }
 
         else if (childLabel === "Q")
         {
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1")[0].innerHTML = "Qualitätskontrolle";
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1").innerHTML = "Qualitätskontrolle";
         }
         
         else if (childLabel === "R")
         {
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1")[0].innerHTML = "Retoure";
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1").innerHTML = "Retoure";
         } 
 
             
