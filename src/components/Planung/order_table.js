@@ -141,6 +141,12 @@ export default function DataTable() {
 
     sleep(400).then(() => { //Reload data
 
+      var label = document.getElementsByClassName("MuiTypography-root jss300 MuiTypography-body2");
+      if(label !== undefined && label.length > 0 ){
+
+        document.getElementsByClassName("MuiTypography-root jss300 MuiTypography-body2").innerHTML = "Auftragstyp";
+      }
+
       var counter = 0;
 
      for (var i in document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children)  
@@ -148,29 +154,29 @@ export default function DataTable() {
         var child = document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children[counter];
         if(child === undefined || child === '') return;
 
-        if(child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1") === undefined) return;
-        var childLabel = child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1")[0].innerHTML;
+        if(child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss303 MuiTypography-body1") === undefined) return;
+        var childLabel = child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss303 MuiTypography-body1")[0].innerHTML;
 
         if (childLabel === undefined || childLabel === '') return;
 
          if (childLabel === "N")
         {
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1")[0].innerHTML = "Neuer Auftrag";
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss303 MuiTypography-body1")[0].innerHTML = "Neuer Auftrag";
         }
 
         else if (childLabel === "P")
         {
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1")[0].innerHTML = "Vorproduktion";
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss303 MuiTypography-body1")[0].innerHTML = "Vorproduktion";
         }
 
         else if (childLabel === "Q")
         {
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1")[0].innerHTML = "Qualitätskontrolle";
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss303 MuiTypography-body1")[0].innerHTML = "Qualitätskontrolle";
         }
         
         else if (childLabel === "R")
         {
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1")[0].innerHTML = "Retoure";
+          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss303 MuiTypography-body1")[0].innerHTML = "Retoure";
         } 
 
             
