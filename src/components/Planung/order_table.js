@@ -143,35 +143,34 @@ export default function DataTable() {
 
     var counter = 0;
 
-     for (var i in document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children)  
+     for (var i in document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(1).children)  
       {
-        var child = document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(5).children[counter];
+        var child = document.getElementsByClassName("MuiGrid-root MuiGrid-container").item(1).children[counter];
         if(child === undefined || child === '') return;
 
-        if(child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1") === undefined) return;
-        var childLabel = child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1").innerHTML;
+        var childLabel = child.children[0].children[1].innerHTML;
 
         if (childLabel === undefined || childLabel === '') return;
 
          if (childLabel === "N")
         {
           console.log("N")
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1").innerHTML = "Neuer Auftrag";
+          child.children[0].children[1].innerHTML = "Neuer Auftrag";
         }
 
         else if (childLabel === "P")
         {
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1").innerHTML = "Vorproduktion";
+          child.children[0].children[1].innerHTML = "Vorproduktion";
         }
 
         else if (childLabel === "Q")
         {
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1").innerHTML = "Qualitätskontrolle";
+          child.children[0].children[1].innerHTML = "Qualitätskontrolle";
         }
         
         else if (childLabel === "R")
         {
-          child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss113 MuiTypography-body1").innerHTML = "Retoure";
+          child.children[0].children[1].innerHTML = "Retoure";
         } 
 
             
