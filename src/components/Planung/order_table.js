@@ -149,10 +149,14 @@ export default function DataTable() {
 
         if(child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1") === undefined) return;
         var childLabel = child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1")[0].innerHTML;
+        console.log("child")
+        console.log(childLabel)
+
         if (childLabel === undefined || childLabel === '') return;
 
          if (childLabel === "N")
         {
+          console.log("N")
           child.getElementsByClassName("MuiTypography-root MuiFormControlLabel-label jss288 MuiTypography-body1")[0].innerHTML = "Neuer Auftrag";
         }
 
