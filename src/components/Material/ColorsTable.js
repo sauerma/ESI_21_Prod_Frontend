@@ -34,6 +34,7 @@ const [ColorData , setColorData] = useState([]);
 
 const [columnsColors, /* setColumnsColors */] = useState([
     { title: 'Mat-Bestellnr.', field: 'prodmat_id', editable: 'never' },
+    { title: 'Typ', field: 'm_id_materialstype', editable: 'never' },   
     { title: 'Charge', field: 'chargen_nr', editable: 'never' },
     { title: 'Menge', field: 'quantity', editable: 'never' },
     { title: 'Restmenge', field: 'RES_QTY', editable: 'onUpdate', cellStyle: {border: "5px, #000000", fontWeight: "bold", fontStyle: "italic", backgroundColor: "#e3e3e3"} },
