@@ -38,7 +38,7 @@ export default function DataTable() {
   ];
 
   //Set table options
-  const options = {rowsPerPage: 5, customToolbarSelect: () => {return; }, selectableRows: false, filterType: 'checkbox', download: false, };          
+  const options = {rowsPerPage: 10, customToolbarSelect: () => {return; }, selectableRows: false, filterType: 'checkbox', download: false, };          
   const [allData , setAllData] = useState([]); 
 
   //Event if data changed
