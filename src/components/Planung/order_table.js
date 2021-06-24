@@ -22,7 +22,7 @@ export default function DataTable() {
   const [/*filterDataPoCode */, setFilterDataPoCode] =  useState([]); 
 
   const columns = [
-    {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: true,  display: false}}, //filterList: filterDataPoCode, 
+   {name: "PO_CODE", label: "PO_CODE", options: {filter: true,  sort: true,  display: false}}, //filterList: filterDataPoCode, 
    {name: "O_DATE", label: "Bestelldatum", options: {filter: true, sort: true, display: true}}, 
    {name: "p_nr", label: "Produktionsnr", options: {filter: true, sort: true, display: true}},
    {name: "O_NR", label: "Bestell-Nr",  options: {filter: true,  sort: true, display: true}}, 
@@ -51,7 +51,7 @@ export default function DataTable() {
    {name: "PROD_STATUS", label: "Status", options: {filter: false, sort: true, display: true}}, 
    {name: "END_DATE",label: "END_DATE",options: {filter: false,sort: false, display: false}}];
 
-  const options = { rowsPerPage: 5, customToolbarSelect: () => { return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
+  const options = { rowsPerPage: 5, customToolbarSelect: () => {  return <Button disabled variant="Quantity" style={{color: QuantityColor}} >Ausgewählte Menge: {Quantity} / 350</Button>}, filterType: 'checkbox', download: false, 
    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }, customToolbar: () => { 
     return    <select onChange={e => AuswahlChange(e.target.value)}  name="colordivers" id="colordiv" style={{ float: "left", backgroundColor: auswahlBackgroundColor}} >
     <option  value="Alle" style={{backgroundColor:"#d8dce4"}}>Alle</option>
@@ -67,7 +67,8 @@ export default function DataTable() {
     <option  value="#00286e" style={{backgroundColor:"#00286e", color: "white"}}>HSOG-blau</option>
    </select>;
      
-  }, onFilterDialogOpen:  () => {filterOpen();}};
+  }, onFilterChipClose: () => { setFilterData([]); setFilterDataPoCode([]);}, onFilterDialogOpen:  () => {filterOpen();}};
+  
   const [auswahlBackgroundColor, SetAuswahlBackgroundColor] = useState("#d8dce4");            
   const [csvdata, setCsvData] = useState([]); 
   const [Quantity, setQuantity] = useState("");
@@ -78,9 +79,10 @@ export default function DataTable() {
   const [selectedData, setSelectedData] =  useState([]); 
 
   //Event if data changed
-  useEffect(() => { DatenLaden(); 
-      
+  useEffect(() => { 
+    DatenLaden(); 
   });
+
   
   //Load data
   function DatenLaden(){
