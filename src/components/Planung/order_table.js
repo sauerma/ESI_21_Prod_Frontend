@@ -69,6 +69,9 @@ export default function DataTable() {
      
   }, onFilterChipClose: (nr) => { 
     if(nr !== 13) return;
+     var filterSelection = document.getElementById("colordiv");
+     if (filterSelection === undefined) return;
+     filterSelection.value = "Alle"; 
      setFilterData([]); setFilterDataPoCode([]);}, onFilterDialogOpen:  () => {filterOpen();}};
   
   const [auswahlBackgroundColor, SetAuswahlBackgroundColor] = useState("#d8dce4");            
