@@ -67,7 +67,9 @@ export default function DataTable() {
     <option  value="#00286e" style={{backgroundColor:"#00286e", color: "white"}}>HSOG-blau</option>
    </select>;
      
-  }, onFilterChipClose: () => { setFilterData([]); setFilterDataPoCode([]);}, onFilterDialogOpen:  () => {filterOpen();}};
+  }, onFilterChipClose: (nr) => { 
+    if(nr !== 13) return;
+     setFilterData([]); setFilterDataPoCode([]);}, onFilterDialogOpen:  () => {filterOpen();}};
   
   const [auswahlBackgroundColor, SetAuswahlBackgroundColor] = useState("#d8dce4");            
   const [csvdata, setCsvData] = useState([]); 

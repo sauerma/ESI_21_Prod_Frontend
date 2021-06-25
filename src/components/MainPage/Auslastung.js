@@ -33,7 +33,6 @@ export default function Auslastung() {
 
         var resp = JSON.parse(res.data.body[0]['auslastung']);
         if (auslastungNumber === resp) return;  //Check if data has changed
-        console.log(typeof resp);
         if (typeof resp !== 'number') return;
         setAuslastungNumber(resp);
         CalcKpiColor(resp); //Set dynamic color
